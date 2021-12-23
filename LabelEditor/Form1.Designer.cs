@@ -41,33 +41,38 @@
             this.저장하기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.다른이름으로저장ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.정보ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel1.SuspendLayout();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelWidth = new System.Windows.Forms.Label();
+            this.labelHeight = new System.Windows.Forms.Label();
+            this.panelLabel = new System.Windows.Forms.Panel();
+            this.panel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.panel2);
-            this.panel1.Location = new System.Drawing.Point(12, 27);
+            this.panel1.Location = new System.Drawing.Point(155, 88);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(581, 362);
+            this.panel1.Size = new System.Drawing.Size(1246, 707);
             this.panel1.TabIndex = 0;
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Controls.Add(this.panelLabel);
+            this.panel2.Location = new System.Drawing.Point(155, 85);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(575, 356);
+            this.panel2.Size = new System.Drawing.Size(1243, 707);
             this.panel2.TabIndex = 0;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             this.panel2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel2_MouseMove);
             // 
             // buttonMakeText
             // 
-            this.buttonMakeText.Location = new System.Drawing.Point(599, 27);
+            this.buttonMakeText.Location = new System.Drawing.Point(155, 27);
             this.buttonMakeText.Name = "buttonMakeText";
-            this.buttonMakeText.Size = new System.Drawing.Size(75, 23);
+            this.buttonMakeText.Size = new System.Drawing.Size(75, 52);
             this.buttonMakeText.TabIndex = 1;
             this.buttonMakeText.Text = "Text";
             this.buttonMakeText.UseVisualStyleBackColor = true;
@@ -75,9 +80,9 @@
             // 
             // button1DBarcode
             // 
-            this.button1DBarcode.Location = new System.Drawing.Point(599, 56);
+            this.button1DBarcode.Location = new System.Drawing.Point(236, 27);
             this.button1DBarcode.Name = "button1DBarcode";
-            this.button1DBarcode.Size = new System.Drawing.Size(75, 23);
+            this.button1DBarcode.Size = new System.Drawing.Size(75, 52);
             this.button1DBarcode.TabIndex = 2;
             this.button1DBarcode.Text = "1DBarcode";
             this.button1DBarcode.UseVisualStyleBackColor = true;
@@ -85,9 +90,9 @@
             // 
             // buttonQRCode
             // 
-            this.buttonQRCode.Location = new System.Drawing.Point(599, 85);
+            this.buttonQRCode.Location = new System.Drawing.Point(317, 27);
             this.buttonQRCode.Name = "buttonQRCode";
-            this.buttonQRCode.Size = new System.Drawing.Size(75, 23);
+            this.buttonQRCode.Size = new System.Drawing.Size(75, 52);
             this.buttonQRCode.TabIndex = 3;
             this.buttonQRCode.Text = "QRCode";
             this.buttonQRCode.UseVisualStyleBackColor = true;
@@ -97,10 +102,11 @@
             // 
             this.listBoxCtrl.FormattingEnabled = true;
             this.listBoxCtrl.ItemHeight = 12;
-            this.listBoxCtrl.Location = new System.Drawing.Point(599, 121);
+            this.listBoxCtrl.Location = new System.Drawing.Point(12, 119);
             this.listBoxCtrl.Name = "listBoxCtrl";
             this.listBoxCtrl.Size = new System.Drawing.Size(137, 268);
             this.listBoxCtrl.TabIndex = 4;
+            this.listBoxCtrl.SelectedIndexChanged += new System.EventHandler(this.listBoxCtrl_SelectedIndexChanged);
             // 
             // menuStrip1
             // 
@@ -109,7 +115,7 @@
             this.정보ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(748, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1413, 24);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -128,7 +134,7 @@
             // 
             this.새파일ToolStripMenuItem.Name = "새파일ToolStripMenuItem";
             this.새파일ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.새파일ToolStripMenuItem.Text = "새파일";
+            this.새파일ToolStripMenuItem.Text = "새 라벨";
             this.새파일ToolStripMenuItem.Click += new System.EventHandler(this.새파일ToolStripMenuItem_Click);
             // 
             // 불러오기ToolStripMenuItem
@@ -158,11 +164,54 @@
             this.정보ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.정보ToolStripMenuItem.Text = "정보";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.labelHeight);
+            this.groupBox1.Controls.Add(this.labelWidth);
+            this.groupBox1.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.groupBox1.Location = new System.Drawing.Point(12, 27);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(137, 86);
+            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Label Size(mm)";
+            // 
+            // labelWidth
+            // 
+            this.labelWidth.AutoSize = true;
+            this.labelWidth.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.labelWidth.Location = new System.Drawing.Point(6, 26);
+            this.labelWidth.Name = "labelWidth";
+            this.labelWidth.Size = new System.Drawing.Size(54, 21);
+            this.labelWidth.TabIndex = 1;
+            this.labelWidth.Text = "Width";
+            // 
+            // labelHeight
+            // 
+            this.labelHeight.AutoSize = true;
+            this.labelHeight.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.labelHeight.Location = new System.Drawing.Point(4, 54);
+            this.labelHeight.Name = "labelHeight";
+            this.labelHeight.Size = new System.Drawing.Size(60, 21);
+            this.labelHeight.TabIndex = 3;
+            this.labelHeight.Text = "Height";
+            // 
+            // panelLabel
+            // 
+            this.panelLabel.BackColor = System.Drawing.Color.White;
+            this.panelLabel.Location = new System.Drawing.Point(305, 188);
+            this.panelLabel.Name = "panelLabel";
+            this.panelLabel.Size = new System.Drawing.Size(200, 100);
+            this.panelLabel.TabIndex = 0;
+            this.panelLabel.Paint += new System.Windows.Forms.PaintEventHandler(this.panelLabel_Paint);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(748, 419);
+            this.ClientSize = new System.Drawing.Size(1413, 807);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.listBoxCtrl);
             this.Controls.Add(this.buttonQRCode);
             this.Controls.Add(this.button1DBarcode);
@@ -172,9 +221,12 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "BIXOLON Editor";
-            this.panel1.ResumeLayout(false);
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.panel2.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -195,6 +247,10 @@
         private System.Windows.Forms.ToolStripMenuItem 저장하기ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 다른이름으로저장ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 정보ToolStripMenuItem;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label labelHeight;
+        private System.Windows.Forms.Label labelWidth;
+        private System.Windows.Forms.Panel panelLabel;
     }
 }
 

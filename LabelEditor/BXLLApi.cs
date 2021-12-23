@@ -5,9 +5,9 @@ using System.Text;
 
 using System.Runtime.InteropServices;
 
-namespace SampleProgram
+namespace LabelEditor
 {
-    enum SLCS_HRI
+    public enum SLCS_HRI
     {
         HRI_NOT_PRINT = 0,
         HRI_BELOW_SIZE1 = 1,
@@ -20,7 +20,7 @@ namespace SampleProgram
         HRI_ABOVE_SIZE4 = 8,
     }
 
-    enum SLCS_PDF417_ECC_LEVEL
+    public enum SLCS_PDF417_ECC_LEVEL
     {
         PDF417_ECC_LEVEL0 = 0,
         PDF417_ECC_LEVEL1 = 1,
@@ -33,7 +33,7 @@ namespace SampleProgram
         PDF417_ECC_LEVEL8 = 8
     }
 
-    enum SLCS_CIRCLE_SIZE
+    public enum SLCS_CIRCLE_SIZE
     {
         CIRCLE_SIZE_1 = 1,	// 40 x 40 in dot unit
         CIRCLE_SIZE_2 = 2,	// 56 x 56 in dot unit
@@ -43,14 +43,14 @@ namespace SampleProgram
         CIRCLE_SIZE_6 = 6		// 168 x 168 in dot unit
     }
 
-    enum SLCS_PDF417_DATA_TYPE
+    public enum SLCS_PDF417_DATA_TYPE
     {
         PDF417_TEXT_TYPE = 0,
         PDF417_NUMERIC_TYPE = 1,
         PDF417_BINARY_TYPE = 2,
     }
 
-    enum SLCS_INTERNATIONAL_CHARSET
+    public enum SLCS_INTERNATIONAL_CHARSET
     {
         ICS_USA = 0,
         ICS_FRANCE = 1,
@@ -70,7 +70,7 @@ namespace SampleProgram
         ICS_CHINA = 15
     }
 
-    enum SLCS_CODEPAGE
+    public enum SLCS_CODEPAGE
     {
         FCP_CP437 = 0,
         FCP_CP850 = 1,  // OEM Multilingual Latin 1; Western European (DOS)
@@ -95,7 +95,7 @@ namespace SampleProgram
         FCP_CP858 = 22, //  OEM Multilingual Latin 1 + Euro symbol
     }
 
-    enum SLCS_DITHER_OPTION
+    public enum SLCS_DITHER_OPTION
     {
         DITHER_NONE = -1,
         DITHER_1 = 0,
@@ -104,7 +104,7 @@ namespace SampleProgram
         DITHER_4 = 7
     }
 
-    enum SLCS_DATAMATRIX_SIZE
+    public enum SLCS_DATAMATRIX_SIZE
     {
         DATAMATRIX_SIZE_1 = 1,
         DATAMATRIX_SIZE_2 = 2,
@@ -112,13 +112,13 @@ namespace SampleProgram
         DATAMATRIX_SIZE_4 = 4
     }
 
-    enum SLCS_QRCODE_MODEL
+    public enum SLCS_QRCODE_MODEL
     {
         QRMODEL_1 = 1,
         QRMODEL_2 = 2
     }
 
-    enum SLCS_QRCODE_SIZE
+    public enum SLCS_QRCODE_SIZE
     {
         QRSIZE_1 = 1,
         QRSIZE_2 = 2,
@@ -131,7 +131,7 @@ namespace SampleProgram
         QRSIZE_9 = 9
     }
 
-    enum SLCS_QRCODE_ECC_LEVEL
+    public enum SLCS_QRCODE_ECC_LEVEL
     {
         QRECCLEVEL_L = 1,	// 7%
         QRECCLEVEL_M = 2,	// 15%
@@ -139,7 +139,7 @@ namespace SampleProgram
         QRECCLEVEL_H = 4	// 30%
     }
 
-    enum SLCS_DEVICE_FONT
+    public enum SLCS_DEVICE_FONT
     {
         ENG_9X15 = 0,
         ENG_12X20 = 1,
@@ -161,7 +161,7 @@ namespace SampleProgram
         CHN_BIG5 = 0x6E
     }
 
-    enum SLCS_BARCODE
+    public enum SLCS_BARCODE
     {
         CODE39 = 0,
         CODE128 = 1,
@@ -175,20 +175,20 @@ namespace SampleProgram
         UCC_EAN128 = 9
     }
 
-    enum SLCS_ORIENTATION
+    public enum SLCS_ORIENTATION
     {
         TOP2BOTTOM = 0,
         BOTTOM2TOP = 1
     }
 
-    enum SLCS_MEDIA_TYPE
+    public enum SLCS_MEDIA_TYPE
     {
         GAP = 0,
         CONTINUOUS = 1,
         BLACKMARK = 2
     }
 
-    enum SLCS_PRINT_SPEED
+    public enum SLCS_PRINT_SPEED
     {
         PRINTER_SETTING_SPEED = -1,
         PRINTER_SPEED_0 = 0,
@@ -206,7 +206,7 @@ namespace SampleProgram
         PRINTER_SPEED_12 = 12,
     }
 
-    enum SLCS_ROTATION
+    public enum SLCS_ROTATION
     {
         ROTATE_0 = 0,
         ROTATE_90 = 1,
@@ -214,7 +214,7 @@ namespace SampleProgram
         ROTATE_270 = 3
     }
 
-    enum SLCS_BLOCK_OPTION
+    public enum SLCS_BLOCK_OPTION
     {
         LINE_OVER_WRITING = 0,
         LINE_EXCLUSIVE_OR = 1,
@@ -223,7 +223,7 @@ namespace SampleProgram
         BOX = 4
     }
 
-    enum SLCS_ALIGNMENT
+    public enum SLCS_ALIGNMENT
     {
         ALIGN_LEFT = 0,
         ALIGN_CENTER = 1,
@@ -231,20 +231,20 @@ namespace SampleProgram
         ALIGN_BOTH_SIDE = 3
     }
 
-    enum SLCS_FONT_ALIGNMENT
+    public enum SLCS_FONT_ALIGNMENT
     {
         LEFTALIGN = 'L',
         RIGHTALIGN = 'R',
         CENTERALIGN = 'C'
     }
 
-    enum SLCS_FONT_DIRECTION
+    public enum SLCS_FONT_DIRECTION
     {
         LEFTTORIGHT = 0,
         RIGHTTOLEFT = 1
     }
 
-    enum SLCS_VECTOR_FONT
+    public enum SLCS_VECTOR_FONT
     {
         ASCII = 'U',
         KS5601 = 'K',
@@ -253,7 +253,7 @@ namespace SampleProgram
         ShiftJIS = 'J',
     }
 
-    enum SLCS_RFID_TRANSPONDER_TYPE
+    public enum SLCS_RFID_TRANSPONDER_TYPE
     {
         //	RFID Transponder Type
         RFID_NONE = 0,
@@ -264,7 +264,7 @@ namespace SampleProgram
         RFID_EPC_CLASS1_GENERATION2 = 5
     }
 
-    enum SLCS_RFID_DATA_TYPE
+    public enum SLCS_RFID_DATA_TYPE
     {
         RFID_ASCII = 1,
         RFID_HEXADECIMAL = 2,
@@ -272,7 +272,7 @@ namespace SampleProgram
         RFID_EPC = 4
     }
 
-    enum SLCS_ERROR_CODE
+    public enum SLCS_ERROR_CODE
     {
         ERR_CODE_NO_ERROR = 0,	// Success
         ERR_CODE_NO_PAPER = 1,	// Paper Empty

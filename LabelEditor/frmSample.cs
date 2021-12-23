@@ -8,10 +8,11 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading;
 using System.Diagnostics;
+using LabelEditor;
 
-namespace LabelEditor
+namespace SampleProgram
 {
-    public partial class frmMain : Form
+    public partial class frmSample : Form
     {
         // Interface Type
         public const int ISerial    = 0;
@@ -19,8 +20,8 @@ namespace LabelEditor
         public const int IUsb       = 2;
         public const int ILan       = 3;
         public const int IBluetooth = 5;
-        public LabelConfiguration m_configuration;
-        public frmMain()
+
+        public frmSample()
         {
             InitializeComponent();
         }
@@ -40,13 +41,23 @@ namespace LabelEditor
                     lblDllVersion.Text = "Version " + strVersion.ToString();
                 else
                     lblDllVersion.Text = "Unknown";
+                
+                // Interface
+                rdoIF_Usb.Checked = true;
+                EnableIFControls(IUsb);
 
-
+                // Communication setting
+                cmbLPT_Port.SelectedIndex       = 0;
+                cmbSerial_Port.SelectedIndex    = 0;
+                cmbSerial_Baudrate.SelectedItem = "115200";
+                cmbSerial_Databits.SelectedItem = "8";
+                cmbSerial_Parity.SelectedItem   = "NONE";
+                cmbSerial_Stopbits.SelectedItem = "1";
                 // Paper Width
-                double value = 95;
+                double value = 4 * 25.4;
                 txtP_Width.Text = value.ToString("###0.###");
                 // Paper Height
-                value = 60;
+                value = 6 * 25.4;
                 txtP_Height.Text = value.ToString("###0.###");
                 // Margin
                 txtMargin_X.Text = "0";
@@ -63,9 +74,41 @@ namespace LabelEditor
             }
         }
 
+        private void EnableIFControls(int nInterface)
+        {
+            cmbLPT_Port.Enabled         = (nInterface == IParallel);
+            cmbSerial_Port.Enabled      = (nInterface == ISerial || nInterface == IBluetooth);
+            cmbSerial_Baudrate.Enabled  = (nInterface == ISerial);
+            cmbSerial_Databits.Enabled  = (nInterface == ISerial);
+            cmbSerial_Parity.Enabled    = (nInterface == ISerial);
+            cmbSerial_Stopbits.Enabled  = (nInterface == ISerial);
+            txtNet_IPAddr.Enabled       = (nInterface == ILan);
+            txtNet_PortNum.Enabled      = (nInterface == ILan);
+        }
+
         private void rdoIF_Serial_CheckedChanged(object sender, EventArgs e)
         {
-        
+            EnableIFControls(ISerial);
+        }
+
+        private void rdoIF_Bluetooth_CheckedChanged(object sender, EventArgs e)
+        {
+            EnableIFControls(IBluetooth);
+        }
+
+        private void rdoIF_Parallel_CheckedChanged(object sender, EventArgs e)
+        {
+            EnableIFControls(IParallel);
+        }
+
+        private void rdoIF_Usb_CheckedChanged(object sender, EventArgs e)
+        {
+            EnableIFControls(IUsb);
+        }
+
+        private void rdoIF_Lan_CheckedChanged(object sender, EventArgs e)
+        {
+            EnableIFControls(ILan);
         }
 
         private string GetStatusMsg(int nStatus)
@@ -97,11 +140,37 @@ namespace LabelEditor
             int nInterface  = ISerial;
             int nBaudrate   = 115200, nDatabits = 8, nParity = 0, nStopbits = 0;
             int nStatus     = (int)SLCS_ERROR_CODE.ERR_CODE_NO_ERROR;
+            
+            if (rdoIF_Serial.Checked){
+                // SERIAL (COM)
+                nInterface = ISerial;
+                strPort = cmbSerial_Port.Text;
+                nBaudrate = Convert.ToInt32(cmbSerial_Baudrate.Text);
+                nDatabits = Convert.ToInt32(cmbSerial_Databits.Text);
+                nParity = cmbSerial_Parity.SelectedIndex;
+                nStopbits = cmbSerial_Stopbits.SelectedIndex;
+            }
+            else if (rdoIF_Bluetooth.Checked){
+                // BLUETOOTH (COM)
+                nInterface = IBluetooth;
+                strPort = cmbSerial_Port.Text;
+            }
+            else if (rdoIF_Parallel.Checked){
+                // PARALLEL (LPT)
+                nInterface = IParallel;
+                strPort = cmbLPT_Port.Text;
+            }
+            else if (rdoIF_Usb.Checked){
+                // USB
+                nInterface = IUsb;
+            }
+            else if (rdoIF_Lan.Checked){
+                // NETWORK
+                nInterface = ILan;
+                strPort = txtNet_IPAddr.Text;
+                nBaudrate = Convert.ToInt32(txtNet_PortNum.Text);
+            }
 
-
-
-            // USB
-            nInterface = IUsb;
             nStatus = BXLLApi.ConnectPrinterEx(nInterface, strPort, nBaudrate, nDatabits, nParity, nStopbits);
 
             if (nStatus != (int)SLCS_ERROR_CODE.ERR_CODE_NO_ERROR){
@@ -137,13 +206,12 @@ namespace LabelEditor
             int w = 0;
             if ( int.TryParse( txtP_Width.Text, out w ))
             {
-                float inch = w / 25.4f;
-                w = (int)(inch * 72);
+                w = (int)(w / 25.4 * BXLLApi.GetPrinterDPI());
             }
             int h = 0;
             if (int.TryParse(txtP_Height.Text, out h))
             {
-                h = (int)(2.8 * h);
+                h = (int)(h / 25.4 * BXLLApi.GetPrinterDPI());
             }
             
 
@@ -151,8 +219,8 @@ namespace LabelEditor
             int dotsPer1mm = (int)Math.Round((float)resolution / 25.4f);
             if (resolution >= 600)
                 multiplier = 3;
-            LabelConfiguration config = new LabelConfiguration();
-            SendPrinterSettingCommand(config);
+
+            SendPrinterSettingCommand();
 
             // Prints string using TrueFont
             //  P1 : Horizontal position (X) [dot]
@@ -174,7 +242,7 @@ namespace LabelEditor
             for (int i = 0; i < 1; i++)
             {
                 string fontName = "맑은 고딕";
-                x = 740;
+                x = 310 * dotsPer1mm;
                 y = 1 * dotsPer1mm;
                 BXLLApi.PrintTrueFont(x, y, fontName, 14, 0, true, true, false, i.ToString(), false);
                 Debug.Print("Sample Label-1 x=" + x + ",y=" + y);
@@ -322,22 +390,23 @@ namespace LabelEditor
             BXLLApi.DisconnectPrinter();
         }
 
-        private void SendPrinterSettingCommand( LabelConfiguration configuration)
+        private void SendPrinterSettingCommand()
         {
             // 203 DPI : 1mm is about 7.99 dots
             // 300 DPI : 1mm is about 11.81 dots
             // 600 DPI : 1mm is about 23.62 dots
             int dotsPer1mm = (int)Math.Round((float)BXLLApi.GetPrinterDPI() / 25.4f);
-            int nPaper_Width = configuration.PAPER_SIZE.Width;
-            int nPaper_Height = configuration.PAPER_SIZE.Height;
-            int nMarginX = configuration.Margin.X;
-            int nMarginY = configuration.Margin.Y;
+            int nPaper_Width = Convert.ToInt32(double.Parse(txtP_Width.Text) * dotsPer1mm);
+            int nPaper_Height = Convert.ToInt32(double.Parse(txtP_Height.Text) * dotsPer1mm);
+            int nMarginX = Convert.ToInt32(double.Parse(txtMargin_X.Text) * dotsPer1mm);
+            int nMarginY = Convert.ToInt32(double.Parse(txtMargin_Y.Text) * dotsPer1mm);
             int nSpeed = (int)SLCS_PRINT_SPEED.PRINTER_SETTING_SPEED;
             int nDensity = Convert.ToInt32(cmbDensity.Text);
-            int nOrientation = (int)configuration.ORIENTATION;
+            int nOrientation = rdoTop2Bottom.Checked ? (int)SLCS_ORIENTATION.TOP2BOTTOM : (int)SLCS_ORIENTATION.BOTTOM2TOP;
 
-            int nSensorType = (int)configuration.SEMSOR_TYPE;
-            
+            int nSensorType = (int)SLCS_MEDIA_TYPE.GAP;
+            if (rdoBmark.Checked) nSensorType = (int)SLCS_MEDIA_TYPE.BLACKMARK;
+            else if (rdoContinuous.Checked) nSensorType = (int)SLCS_MEDIA_TYPE.CONTINUOUS;
 
             //	Clear Buffer of Printer
             BXLLApi.ClearBuffer();
@@ -371,49 +440,43 @@ namespace LabelEditor
                 BXLLApi.PrintDirect("STd", true);
             else // Thermal transfer
                 BXLLApi.PrintDirect("STt", true);
+        }        
+
+        private void btnPrinterStatus_Click(object sender, EventArgs e)
+        {
+            if (!ConnectPrinter()) 
+                return;
+
+            int nStatus = BXLLApi.CheckStatus(); // ^cu command
+            MessageBox.Show(GetStatusMsg(nStatus));
+
+            BXLLApi.DisconnectPrinter();
         }
 
-        private void buttonDesign_Click(object sender, EventArgs e)
+        private void btnDirectIO_Click(object sender, EventArgs e)
         {
-            m_configuration = new LabelConfiguration();
-            int w, h;
-            if (!int.TryParse(txtP_Width.Text, out w))
-            {
-                MessageBox.Show("라벨 사이즈(MM) Width 값을 확인해주세요.", "알림");
+            if (!ConnectPrinter()) 
                 return;
-            }
-            else if (!int.TryParse(txtP_Height.Text, out h))
+
+            int lResult = 0;
+            string strResult = "";
+
+            // Get printer name (^PI0 command)
+            string strCommand = "^PI0\r\n"; // 0x5e, 49, 30, 0x0d, 0x0a
+            byte[] byCommand = Encoding.Default.GetBytes(strCommand);
+
+            if (BXLLApi.WriteBuff(byCommand, byCommand.Length, ref lResult))
             {
-                MessageBox.Show("라벨 사이즈(MM) Height 값을 확인해주세요.", "알림");
-                return;
+                System.Threading.Thread.Sleep(100);
+                byte[] byReadPrtName = new byte[32];
+                if (BXLLApi.ReadBuff(byReadPrtName, byReadPrtName.Length, ref lResult) == true)
+                {
+                    strResult = ByteToString(byReadPrtName);
+                    MessageBox.Show(strResult);
+                }
             }
-            m_configuration.MM_SIZE = new Size(w, h);
-            int.TryParse(txtP_Width.Text, out w);
-            int.TryParse(txtP_Height.Text, out h);
-            m_configuration.Margin = new Point(w, h);
-            m_configuration.ORIENTATION = rdoTop2Bottom.Checked ? SLCS_ORIENTATION.TOP2BOTTOM : SLCS_ORIENTATION.BOTTOM2TOP;
 
-            SLCS_MEDIA_TYPE nSensorType = SLCS_MEDIA_TYPE.GAP;
-            if (rdoBmark.Checked) nSensorType = SLCS_MEDIA_TYPE.BLACKMARK;
-            else if (rdoContinuous.Checked) nSensorType = SLCS_MEDIA_TYPE.CONTINUOUS;
-            m_configuration.SEMSOR_TYPE = nSensorType;
-            m_configuration.PRINT_SPEED = SLCS_PRINT_SPEED.PRINTER_SETTING_SPEED;
-            int nDensity = Convert.ToInt32(cmbDensity.Text);
-            m_configuration.DENSITY = nDensity;
-
-            Visible = false;
-            var frm = new Form1();
-            frm.Initalize(m_configuration);
-            frm.Show();
-        }
-
-        private void buttonLoad_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog dlg = new OpenFileDialog();
-            if ( dlg.ShowDialog() == DialogResult.OK )
-            {
-
-            }
+            BXLLApi.DisconnectPrinter();
         }
     }
 }

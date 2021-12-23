@@ -5,7 +5,7 @@ using System.Text;
 
 using System.Runtime.InteropServices;
 
-namespace SampleProgram
+namespace LabelEditor
 {
     class BXLLApi_x86
     {

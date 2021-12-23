@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,10 +23,31 @@ namespace LabelEditor
         // Create two StatusBarPanel objects to display in the StatusBar.
         StatusBarPanel m_statusBarPanel1 = new StatusBarPanel();
         StatusBarPanel m_statusBarPanel2 = new StatusBarPanel();
+        private LabelConfiguration m_config;
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn                            //파라미터
+        (
+            int nLeftRect,      // x-coordinate of upper-left corner
+            int nTopRect,       // y-coordinate of upper-left corner
+            int nRightRect,     // x-coordinate of lower-right corner
+            int nBottomRect,    // y-coordinate of lower-right corner   
+            int nWidthEllipse,  // height of ellipse
+            int nHeightEllipse  // width of ellipse  
+        );
         public Form1()
         {
             InitializeComponent();
             CreateMyStatusBar();
+        }
+        public void Initalize( LabelConfiguration config )
+        {
+            m_config = config;
+            labelWidth.Text = "Width : "+config.MM_SIZE.Width.ToString();
+            labelHeight.Text = "Height : "+config.MM_SIZE.Height.ToString();
+            panelLabel.Width = config.PAPER_SIZE.Width;
+            panelLabel.Height = config.PAPER_SIZE.Height;
+            panelLabel.Region = Region.FromHrgn(CreateRoundRectRgn(2, 2, panelLabel.Width, panelLabel.Height, 20, 20));
+            panelLabel.Location = new Point(100,100);
         }
         private void CreateMyStatusBar()
         {
@@ -74,7 +96,34 @@ namespace LabelEditor
 
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
+           
+            
+        }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBoxCtrl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxWidth_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void textBoxHeight_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panelLabel_Paint(object sender, PaintEventArgs e)
+        {
+            var g = e.Graphics;
+            g.DrawString("Hello World", new Font("맑은 고딕", 12), Brushes.Black, new Point());
         }
     }
 }
