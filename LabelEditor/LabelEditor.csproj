@@ -49,6 +49,10 @@
     <Compile Include="BXLLApi.cs" />
     <Compile Include="BXLLApi_x64.cs" />
     <Compile Include="BXLLApi_x86.cs" />
+    <Compile Include="Canvas.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ContentData.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

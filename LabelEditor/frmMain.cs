@@ -400,7 +400,7 @@ namespace LabelEditor
             m_configuration.PRINT_SPEED = SLCS_PRINT_SPEED.PRINTER_SETTING_SPEED;
             int nDensity = Convert.ToInt32(cmbDensity.Text);
             m_configuration.DENSITY = nDensity;
-
+            m_configuration.BORDER = radioButtonEllipse.Checked ? ContentData.LabelBorder.ELLIPSE : ContentData.LabelBorder.RECTANGLE;
             Visible = false;
             var frm = new Form1();
             frm.Initalize(m_configuration);

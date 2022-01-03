@@ -28,5 +28,6 @@ namespace LabelEditor
         public SLCS_MEDIA_TYPE SEMSOR_TYPE { get; set; }
         public SLCS_PRINT_SPEED PRINT_SPEED { get; set; }
         public int DENSITY { get; set; }
+        public ContentData.LabelBorder BORDER { get; set; }
     }
 }
