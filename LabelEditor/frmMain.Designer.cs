@@ -54,18 +54,15 @@
             this.rdoRewind = new System.Windows.Forms.RadioButton();
             this.rdoCut = new System.Windows.Forms.RadioButton();
             this.rdoTearOff = new System.Windows.Forms.RadioButton();
-            this.lblDllVersion = new System.Windows.Forms.Label();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.rdoBottom2Top = new System.Windows.Forms.RadioButton();
             this.rdoTop2Bottom = new System.Windows.Forms.RadioButton();
             this.btnPrintSample = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBoxFileName = new System.Windows.Forms.TextBox();
             this.buttonDesign = new System.Windows.Forms.Button();
             this.buttonLoad = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButtonRectangle = new System.Windows.Forms.RadioButton();
             this.radioButtonEllipse = new System.Windows.Forms.RadioButton();
+            this.radioButtonRectangle = new System.Windows.Forms.RadioButton();
             this.groupBox7.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox9.SuspendLayout();
@@ -82,7 +79,7 @@
             this.groupBox7.Controls.Add(this.txtP_Width);
             this.groupBox7.Controls.Add(this.label1);
             this.groupBox7.Controls.Add(this.label10);
-            this.groupBox7.Location = new System.Drawing.Point(12, 39);
+            this.groupBox7.Location = new System.Drawing.Point(12, 20);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(170, 90);
             this.groupBox7.TabIndex = 15;
@@ -129,7 +126,7 @@
             this.groupBox8.Controls.Add(this.txtMargin_X);
             this.groupBox8.Controls.Add(this.label11);
             this.groupBox8.Controls.Add(this.label12);
-            this.groupBox8.Location = new System.Drawing.Point(188, 39);
+            this.groupBox8.Location = new System.Drawing.Point(188, 20);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(170, 90);
             this.groupBox8.TabIndex = 16;
@@ -176,7 +173,7 @@
             this.groupBox9.Controls.Add(this.cmbSpeed);
             this.groupBox9.Controls.Add(this.label14);
             this.groupBox9.Controls.Add(this.label15);
-            this.groupBox9.Location = new System.Drawing.Point(10, 407);
+            this.groupBox9.Location = new System.Drawing.Point(10, 388);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(356, 79);
             this.groupBox9.TabIndex = 19;
@@ -247,7 +244,7 @@
             // 
             this.groupBox6.Controls.Add(this.rdoTt);
             this.groupBox6.Controls.Add(this.rdoDt);
-            this.groupBox6.Location = new System.Drawing.Point(188, 224);
+            this.groupBox6.Location = new System.Drawing.Point(188, 205);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(170, 96);
             this.groupBox6.TabIndex = 21;
@@ -281,7 +278,7 @@
             this.groupBox10.Controls.Add(this.rdoContinuous);
             this.groupBox10.Controls.Add(this.rdoBmark);
             this.groupBox10.Controls.Add(this.rdoGap);
-            this.groupBox10.Location = new System.Drawing.Point(12, 311);
+            this.groupBox10.Location = new System.Drawing.Point(12, 292);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(170, 96);
             this.groupBox10.TabIndex = 22;
@@ -325,7 +322,7 @@
             this.groupBox11.Controls.Add(this.rdoRewind);
             this.groupBox11.Controls.Add(this.rdoCut);
             this.groupBox11.Controls.Add(this.rdoTearOff);
-            this.groupBox11.Location = new System.Drawing.Point(193, 319);
+            this.groupBox11.Location = new System.Drawing.Point(193, 300);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Size = new System.Drawing.Size(170, 84);
             this.groupBox11.TabIndex = 23;
@@ -364,18 +361,11 @@
             this.rdoTearOff.Text = "Tear-Off";
             this.rdoTearOff.UseVisualStyleBackColor = true;
             // 
-            // lblDllVersion
-            // 
-            this.lblDllVersion.Location = new System.Drawing.Point(112, 15);
-            this.lblDllVersion.Name = "lblDllVersion";
-            this.lblDllVersion.Size = new System.Drawing.Size(139, 13);
-            this.lblDllVersion.TabIndex = 25;
-            // 
             // groupBox12
             // 
             this.groupBox12.Controls.Add(this.rdoBottom2Top);
             this.groupBox12.Controls.Add(this.rdoTop2Bottom);
-            this.groupBox12.Location = new System.Drawing.Point(12, 224);
+            this.groupBox12.Location = new System.Drawing.Point(12, 205);
             this.groupBox12.Name = "groupBox12";
             this.groupBox12.Size = new System.Drawing.Size(170, 84);
             this.groupBox12.TabIndex = 26;
@@ -406,7 +396,7 @@
             // 
             // btnPrintSample
             // 
-            this.btnPrintSample.Location = new System.Drawing.Point(276, 492);
+            this.btnPrintSample.Location = new System.Drawing.Point(276, 473);
             this.btnPrintSample.Name = "btnPrintSample";
             this.btnPrintSample.Size = new System.Drawing.Size(93, 41);
             this.btnPrintSample.TabIndex = 29;
@@ -414,25 +404,9 @@
             this.btnPrintSample.UseVisualStyleBackColor = true;
             this.btnPrintSample.Click += new System.EventHandler(this.btnPrintSample_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 14);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(64, 13);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "FileName:";
-            // 
-            // textBoxFileName
-            // 
-            this.textBoxFileName.Location = new System.Drawing.Point(83, 9);
-            this.textBoxFileName.Name = "textBoxFileName";
-            this.textBoxFileName.Size = new System.Drawing.Size(117, 21);
-            this.textBoxFileName.TabIndex = 12;
-            // 
             // buttonDesign
             // 
-            this.buttonDesign.Location = new System.Drawing.Point(13, 492);
+            this.buttonDesign.Location = new System.Drawing.Point(13, 473);
             this.buttonDesign.Name = "buttonDesign";
             this.buttonDesign.Size = new System.Drawing.Size(91, 41);
             this.buttonDesign.TabIndex = 30;
@@ -442,7 +416,7 @@
             // 
             // buttonLoad
             // 
-            this.buttonLoad.Location = new System.Drawing.Point(148, 492);
+            this.buttonLoad.Location = new System.Drawing.Point(148, 473);
             this.buttonLoad.Name = "buttonLoad";
             this.buttonLoad.Size = new System.Drawing.Size(91, 41);
             this.buttonLoad.TabIndex = 31;
@@ -454,12 +428,22 @@
             // 
             this.groupBox1.Controls.Add(this.radioButtonEllipse);
             this.groupBox1.Controls.Add(this.radioButtonRectangle);
-            this.groupBox1.Location = new System.Drawing.Point(12, 132);
+            this.groupBox1.Location = new System.Drawing.Point(12, 113);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(170, 90);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Paper border";
+            // 
+            // radioButtonEllipse
+            // 
+            this.radioButtonEllipse.AutoSize = true;
+            this.radioButtonEllipse.Location = new System.Drawing.Point(14, 56);
+            this.radioButtonEllipse.Name = "radioButtonEllipse";
+            this.radioButtonEllipse.Size = new System.Drawing.Size(61, 17);
+            this.radioButtonEllipse.TabIndex = 2;
+            this.radioButtonEllipse.Text = "Ellipse";
+            this.radioButtonEllipse.UseVisualStyleBackColor = true;
             // 
             // radioButtonRectangle
             // 
@@ -473,16 +457,6 @@
             this.radioButtonRectangle.Text = "Rectangle";
             this.radioButtonRectangle.UseVisualStyleBackColor = true;
             // 
-            // radioButtonEllipse
-            // 
-            this.radioButtonEllipse.AutoSize = true;
-            this.radioButtonEllipse.Location = new System.Drawing.Point(14, 56);
-            this.radioButtonEllipse.Name = "radioButtonEllipse";
-            this.radioButtonEllipse.Size = new System.Drawing.Size(61, 17);
-            this.radioButtonEllipse.TabIndex = 2;
-            this.radioButtonEllipse.Text = "Ellipse";
-            this.radioButtonEllipse.UseVisualStyleBackColor = true;
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
@@ -491,11 +465,8 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buttonLoad);
             this.Controls.Add(this.buttonDesign);
-            this.Controls.Add(this.textBoxFileName);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnPrintSample);
             this.Controls.Add(this.groupBox12);
-            this.Controls.Add(this.lblDllVersion);
             this.Controls.Add(this.groupBox11);
             this.Controls.Add(this.groupBox10);
             this.Controls.Add(this.groupBox6);
@@ -504,7 +475,6 @@
             this.Controls.Add(this.groupBox7);
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "frmMain";
-            this.Text = "Sample program (C#)";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
@@ -523,7 +493,6 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -551,7 +520,6 @@
         private System.Windows.Forms.RadioButton rdoBmark;
         private System.Windows.Forms.RadioButton rdoGap;
         private System.Windows.Forms.GroupBox groupBox11;
-        private System.Windows.Forms.Label lblDllVersion;
         private System.Windows.Forms.GroupBox groupBox12;
         private System.Windows.Forms.RadioButton rdoBottom2Top;
         private System.Windows.Forms.RadioButton rdoTop2Bottom;
@@ -559,8 +527,6 @@
         private System.Windows.Forms.RadioButton rdoCut;
         private System.Windows.Forms.RadioButton rdoTearOff;
         private System.Windows.Forms.RadioButton rdoRewind;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBoxFileName;
         private System.Windows.Forms.Button buttonDesign;
         private System.Windows.Forms.Button buttonLoad;
         private System.Windows.Forms.GroupBox groupBox1;

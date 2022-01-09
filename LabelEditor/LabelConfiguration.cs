@@ -13,13 +13,20 @@ namespace LabelEditor
         {
 
         }
-        private int dotsPer1mm = (int)Math.Round((float)BXLLApi.GetPrinterDPI() / 25.4f);
+        public static int dotsPer1mm = (int)Math.Round((float)BXLLApi.GetPrinterDPI() / 25.4f);
         public Size MM_SIZE { get; set; }
         public Size PAPER_SIZE
         {
             get
             {
                 return new Size(MM_SIZE.Width * dotsPer1mm, MM_SIZE.Height * dotsPer1mm);
+            }
+        }
+        public Size INCH_SIZE
+        {
+            get
+            {
+                return new Size((int)(MM_SIZE.Width / 25.4f), (int)(MM_SIZE.Height / 25.4f));
             }
         }
         public string FileName { get; set; }

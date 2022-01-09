@@ -74,6 +74,42 @@
     <Compile Include="LabelConfiguration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyQRForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PropertyQRForm.Designer.cs">
+      <DependentUpon>PropertyQRForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyBarcodeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PropertyBarcodeForm.Designer.cs">
+      <DependentUpon>PropertyBarcodeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyTextForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PropertyTextForm.Designer.cs">
+      <DependentUpon>PropertyTextForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BarcodeLabel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BarcodeLabel.designer.cs">
+      <DependentUpon>BarcodeLabel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QRCode.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="QRCode.designer.cs">
+      <DependentUpon>QRCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RotatedLabel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RotatedLabel.designer.cs">
+      <DependentUpon>RotatedLabel.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -92,6 +128,24 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="PropertyQRForm.resx">
+      <DependentUpon>PropertyQRForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PropertyBarcodeForm.resx">
+      <DependentUpon>PropertyBarcodeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PropertyTextForm.resx">
+      <DependentUpon>PropertyTextForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BarcodeLabel.resx">
+      <DependentUpon>BarcodeLabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QRCode.resx">
+      <DependentUpon>QRCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RotatedLabel.resx">
+      <DependentUpon>RotatedLabel.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -106,6 +160,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="barcode.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="BIXOLON.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -113,6 +170,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="BXLLAPI_x64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="qr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

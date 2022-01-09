@@ -37,9 +37,9 @@ namespace LabelEditor
                 StringBuilder strVersion = new StringBuilder(256);
 
                 if (BXLLApi.GetDllVersion(strVersion))
-                    lblDllVersion.Text = "Version " + strVersion.ToString();
+                    Text = "LabelDesigner Version " + strVersion.ToString();
                 else
-                    lblDllVersion.Text = "Unknown";
+                    Text = "LabelDesigner Unknown";
 
 
                 // Paper Width
@@ -146,13 +146,40 @@ namespace LabelEditor
                 h = (int)(2.8 * h);
             }
             
+            
 
             int resolution = BXLLApi.GetPrinterDPI();
             int dotsPer1mm = (int)Math.Round((float)resolution / 25.4f);
             if (resolution >= 600)
                 multiplier = 3;
             LabelConfiguration config = new LabelConfiguration();
-            SendPrinterSettingCommand(config);
+            m_configuration = new LabelConfiguration();
+      
+            if (!int.TryParse(txtP_Width.Text, out w))
+            {
+                MessageBox.Show("라벨 사이즈(MM) Width 값을 확인해주세요.", "알림");
+                return;
+            }
+            else if (!int.TryParse(txtP_Height.Text, out h))
+            {
+                MessageBox.Show("라벨 사이즈(MM) Height 값을 확인해주세요.", "알림");
+                return;
+            }
+            m_configuration.MM_SIZE = new Size(w, h);
+            int.TryParse(txtMargin_X.Text, out w);
+            int.TryParse(txtMargin_Y.Text, out h);
+            m_configuration.Margin = new Point(w, h);
+            m_configuration.ORIENTATION = rdoTop2Bottom.Checked ? SLCS_ORIENTATION.TOP2BOTTOM : SLCS_ORIENTATION.BOTTOM2TOP;
+
+            SLCS_MEDIA_TYPE nSensorType = SLCS_MEDIA_TYPE.GAP;
+            if (rdoBmark.Checked) nSensorType = SLCS_MEDIA_TYPE.BLACKMARK;
+            else if (rdoContinuous.Checked) nSensorType = SLCS_MEDIA_TYPE.CONTINUOUS;
+            m_configuration.SEMSOR_TYPE = nSensorType;
+            m_configuration.PRINT_SPEED = SLCS_PRINT_SPEED.PRINTER_SETTING_SPEED;
+            int nDensity = Convert.ToInt32(cmbDensity.Text);
+            m_configuration.DENSITY = nDensity;
+            m_configuration.BORDER = radioButtonEllipse.Checked ? ContentData.LabelBorder.ELLIPSE : ContentData.LabelBorder.RECTANGLE;
+            SendPrinterSettingCommand(m_configuration);
 
             // Prints string using TrueFont
             //  P1 : Horizontal position (X) [dot]
@@ -174,7 +201,7 @@ namespace LabelEditor
             for (int i = 0; i < 1; i++)
             {
                 string fontName = "맑은 고딕";
-                x = 740;
+                x = 7;
                 y = 1 * dotsPer1mm;
                 BXLLApi.PrintTrueFont(x, y, fontName, 14, 0, true, true, false, i.ToString(), false);
                 Debug.Print("Sample Label-1 x=" + x + ",y=" + y);
