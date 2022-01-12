@@ -62,7 +62,7 @@ namespace LabelEditor
             m_labelSetForm = frm;
             StringBuilder strVersion = new StringBuilder(256);
             if (BXLLApi.GetDllVersion(strVersion))
-                Text = "LabelDesigner Version " + strVersion.ToString();
+                Text = "LabelDesigner AppVersion v1.0.0 DLL Version " + strVersion.ToString();
             else
                 Text = "LabelDesigner Unknown";
         }
@@ -478,10 +478,9 @@ namespace LabelEditor
                 else if ( tag == 2 )
                 {
                     var pb = ctrl as BarcodeLabel;
-                    int multiplier = 1;
                     var txt = "1234567890";
                     
-                    BXLLApi.Print1DBarcode(pb.Location.X, pb.Location.Y, pb.BARCODE_TYPE, 2 * multiplier, 1 * multiplier, 48 * multiplier, (int)pb.ROTATON, (int)SLCS_HRI.HRI_NOT_PRINT, txt);
+                    BXLLApi.Print1DBarcode(pb.Location.X, pb.Location.Y, pb.BARCODE_TYPE, pb.NARROW_BAR_WIDTH, pb.WIDE_BAR_WIDTH, pb.BARCODE_HEIGHT, (int)pb.ROTATON, (int)SLCS_HRI.HRI_NOT_PRINT, txt);
                 }
                 
             }
@@ -666,15 +665,11 @@ namespace LabelEditor
             };
 
             form.ShowDialog();
-            
-
-
-
         }
 
         private void buttonLoad_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("준비중입니다.");
         }
     }
 }

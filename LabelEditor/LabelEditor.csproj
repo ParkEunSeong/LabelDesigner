@@ -79,6 +79,7 @@
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="LabelConfiguration.cs" />
+    <Compile Include="NetClient.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyQRForm.cs">
@@ -124,6 +125,7 @@
     <Compile Include="SetFileNameForm.Designer.cs">
       <DependentUpon>SetFileNameForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="TRACE.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

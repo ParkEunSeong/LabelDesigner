@@ -29,13 +29,57 @@ namespace LabelPrintingServer
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.listBoxLog = new System.Windows.Forms.ListBox();
+            this.listBoxClient = new System.Windows.Forms.ListBox();
+            this.labelServer = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // listBoxLog
+            // 
+            this.listBoxLog.FormattingEnabled = true;
+            this.listBoxLog.ItemHeight = 12;
+            this.listBoxLog.Location = new System.Drawing.Point(12, 143);
+            this.listBoxLog.Name = "listBoxLog";
+            this.listBoxLog.Size = new System.Drawing.Size(494, 100);
+            this.listBoxLog.TabIndex = 0;
+            // 
+            // listBoxClient
+            // 
+            this.listBoxClient.FormattingEnabled = true;
+            this.listBoxClient.ItemHeight = 12;
+            this.listBoxClient.Location = new System.Drawing.Point(12, 12);
+            this.listBoxClient.Name = "listBoxClient";
+            this.listBoxClient.Size = new System.Drawing.Size(120, 124);
+            this.listBoxClient.TabIndex = 1;
+            // 
+            // labelServer
+            // 
+            this.labelServer.AutoSize = true;
+            this.labelServer.Location = new System.Drawing.Point(314, 52);
+            this.labelServer.Name = "labelServer";
+            this.labelServer.Size = new System.Drawing.Size(0, 12);
+            this.labelServer.TabIndex = 2;
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(518, 254);
+            this.Controls.Add(this.labelServer);
+            this.Controls.Add(this.listBoxClient);
+            this.Controls.Add(this.listBoxLog);
+            this.Name = "Form1";
             this.Text = "Form1";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.ListBox listBoxLog;
+        private System.Windows.Forms.ListBox listBoxClient;
+        private System.Windows.Forms.Label labelServer;
     }
 }
 
