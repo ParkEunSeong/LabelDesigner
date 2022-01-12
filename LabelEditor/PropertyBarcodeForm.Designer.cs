@@ -42,22 +42,22 @@ namespace LabelEditor
             this.radioButton128 = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxRotation = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxNarrowBarWidth = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBoxWideBarWidth = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBoxBarcodeHeight = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBox3);
+            this.groupBox2.Controls.Add(this.textBoxBarcodeHeight);
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.textBoxWideBarWidth);
             this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.textBoxNarrowBarWidth);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.comboBoxRotation);
@@ -180,12 +180,12 @@ namespace LabelEditor
             this.comboBoxRotation.Size = new System.Drawing.Size(121, 29);
             this.comboBoxRotation.TabIndex = 21;
             // 
-            // textBox1
+            // textBoxNarrowBarWidth
             // 
-            this.textBox1.Location = new System.Drawing.Point(133, 149);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(80, 29);
-            this.textBox1.TabIndex = 24;
+            this.textBoxNarrowBarWidth.Location = new System.Drawing.Point(133, 149);
+            this.textBoxNarrowBarWidth.Name = "textBoxNarrowBarWidth";
+            this.textBoxNarrowBarWidth.Size = new System.Drawing.Size(80, 29);
+            this.textBoxNarrowBarWidth.TabIndex = 24;
             // 
             // label5
             // 
@@ -197,12 +197,12 @@ namespace LabelEditor
             this.label5.TabIndex = 23;
             this.label5.Text = "NarrowBarWidth";
             // 
-            // textBox2
+            // textBoxWideBarWidth
             // 
-            this.textBox2.Location = new System.Drawing.Point(132, 180);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(80, 29);
-            this.textBox2.TabIndex = 26;
+            this.textBoxWideBarWidth.Location = new System.Drawing.Point(132, 180);
+            this.textBoxWideBarWidth.Name = "textBoxWideBarWidth";
+            this.textBoxWideBarWidth.Size = new System.Drawing.Size(80, 29);
+            this.textBoxWideBarWidth.TabIndex = 26;
             // 
             // label6
             // 
@@ -214,12 +214,12 @@ namespace LabelEditor
             this.label6.TabIndex = 25;
             this.label6.Text = "WideBarWidth";
             // 
-            // textBox3
+            // textBoxBarcodeHeight
             // 
-            this.textBox3.Location = new System.Drawing.Point(131, 212);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(80, 29);
-            this.textBox3.TabIndex = 28;
+            this.textBoxBarcodeHeight.Location = new System.Drawing.Point(131, 212);
+            this.textBoxBarcodeHeight.Name = "textBoxBarcodeHeight";
+            this.textBoxBarcodeHeight.Size = new System.Drawing.Size(80, 29);
+            this.textBoxBarcodeHeight.TabIndex = 28;
             // 
             // label7
             // 
@@ -260,11 +260,11 @@ namespace LabelEditor
         private System.Windows.Forms.RadioButton radioButton39;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBoxRotation;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxNarrowBarWidth;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBoxBarcodeHeight;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBoxWideBarWidth;
         private System.Windows.Forms.Label label6;
     }
 }

@@ -9,6 +9,17 @@ namespace LabelEditor
 {
     public class LabelConfiguration
     {
+        public enum OPERATION_MODE
+        {
+            TEAR_OFF,
+            CUT,
+            REWINDER
+        }
+        public enum MEDIA_TPYE
+        {
+            DirectThermal,
+            ThermalTransfer
+        }
         public LabelConfiguration()
         {
 
@@ -32,9 +43,12 @@ namespace LabelEditor
         public string FileName { get; set; }
         public Point Margin { get; set; }
         public SLCS_ORIENTATION ORIENTATION { get; set; }
-        public SLCS_MEDIA_TYPE SEMSOR_TYPE { get; set; }
+        public SLCS_SENSOR_TYPE SEMSOR_TYPE { get; set; }
         public SLCS_PRINT_SPEED PRINT_SPEED { get; set; }
         public int DENSITY { get; set; }
+        public OPERATION_MODE OPERATION { get; set; }
         public ContentData.LabelBorder BORDER { get; set; }
+        public MEDIA_TPYE MEDIA { get; set; }
+
     }
 }

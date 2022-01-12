@@ -404,9 +404,9 @@ namespace SampleProgram
             int nDensity = Convert.ToInt32(cmbDensity.Text);
             int nOrientation = rdoTop2Bottom.Checked ? (int)SLCS_ORIENTATION.TOP2BOTTOM : (int)SLCS_ORIENTATION.BOTTOM2TOP;
 
-            int nSensorType = (int)SLCS_MEDIA_TYPE.GAP;
-            if (rdoBmark.Checked) nSensorType = (int)SLCS_MEDIA_TYPE.BLACKMARK;
-            else if (rdoContinuous.Checked) nSensorType = (int)SLCS_MEDIA_TYPE.CONTINUOUS;
+            int nSensorType = (int)SLCS_SENSOR_TYPE.GAP;
+            if (rdoBmark.Checked) nSensorType = (int)SLCS_SENSOR_TYPE.BLACKMARK;
+            else if (rdoContinuous.Checked) nSensorType = (int)SLCS_SENSOR_TYPE.CONTINUOUS;
 
             //	Clear Buffer of Printer
             BXLLApi.ClearBuffer();

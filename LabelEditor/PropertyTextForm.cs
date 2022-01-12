@@ -68,16 +68,8 @@ namespace LabelEditor
             m_label.Text = m_label.Name;
             m_label.Location = new Point(x, y);
             m_label.Font = m_font;
-            m_label.Angle = GetIdxToAngle(comboBoxRotation.SelectedIndex);
+            m_label.Angle = PropUtil.GetIdxToAngle(comboBoxRotation.SelectedIndex);
             Close();
-        }
-        public int GetIdxToAngle( int idx )
-        {
-            if (idx == 0) return 0;
-            else if (idx == 1) return 90;
-            else if (idx == 2) return 180;
-            else if (idx == 3) return 270;
-            return 0;
         }
         private void textBoxFontSize_Click(object sender, EventArgs e)
         {

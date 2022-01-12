@@ -13,6 +13,7 @@ namespace LabelEditor
 {
     public partial class PropertyQRForm : Form
     {
+        private QRCode m_qrCode;
         public PropertyQRForm()
         {
             InitializeComponent();
@@ -31,7 +32,8 @@ namespace LabelEditor
         }
         public void SetQR( QRCode box)
         {
-            textBoxName.Name = box.Name;
+            m_qrCode = box;
+            textBoxName.Text = box.Name;
             comboBoxECCLevel.SelectedIndex = box.ECC_LEVEL;
             comboBoxQRSize.SelectedIndex = box.QR_SIZE;
             comboBoxRotation.SelectedIndex = box.QR_ROTATION;
@@ -42,6 +44,13 @@ namespace LabelEditor
         }
         private void buttonSave_Click(object sender, EventArgs e)
         {
+            m_qrCode.ECC_LEVEL = comboBoxECCLevel.SelectedIndex;
+            m_qrCode.QR_SIZE = comboBoxQRSize.SelectedIndex;
+            m_qrCode.QR_ROTATION = comboBoxRotation.SelectedIndex;
+            int x, y;
+            int.TryParse(textBoxX.Text, out x);
+            int.TryParse(textBoxY.Text, out y);
+            m_qrCode.Location = new Point(x, y);
             Close();
         }
     }

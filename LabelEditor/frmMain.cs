@@ -20,6 +20,7 @@ namespace LabelEditor
         public const int ILan       = 3;
         public const int IBluetooth = 5;
         public LabelConfiguration m_configuration;
+        private Form1 m_designForm;
         public frmMain()
         {
             InitializeComponent();
@@ -171,9 +172,9 @@ namespace LabelEditor
             m_configuration.Margin = new Point(w, h);
             m_configuration.ORIENTATION = rdoTop2Bottom.Checked ? SLCS_ORIENTATION.TOP2BOTTOM : SLCS_ORIENTATION.BOTTOM2TOP;
 
-            SLCS_MEDIA_TYPE nSensorType = SLCS_MEDIA_TYPE.GAP;
-            if (rdoBmark.Checked) nSensorType = SLCS_MEDIA_TYPE.BLACKMARK;
-            else if (rdoContinuous.Checked) nSensorType = SLCS_MEDIA_TYPE.CONTINUOUS;
+            SLCS_SENSOR_TYPE nSensorType = SLCS_SENSOR_TYPE.GAP;
+            if (rdoBmark.Checked) nSensorType = SLCS_SENSOR_TYPE.BLACKMARK;
+            else if (rdoContinuous.Checked) nSensorType = SLCS_SENSOR_TYPE.CONTINUOUS;
             m_configuration.SEMSOR_TYPE = nSensorType;
             m_configuration.PRINT_SPEED = SLCS_PRINT_SPEED.PRINTER_SETTING_SPEED;
             int nDensity = Convert.ToInt32(cmbDensity.Text);
@@ -419,19 +420,33 @@ namespace LabelEditor
             int.TryParse(txtP_Height.Text, out h);
             m_configuration.Margin = new Point(w, h);
             m_configuration.ORIENTATION = rdoTop2Bottom.Checked ? SLCS_ORIENTATION.TOP2BOTTOM : SLCS_ORIENTATION.BOTTOM2TOP;
-
-            SLCS_MEDIA_TYPE nSensorType = SLCS_MEDIA_TYPE.GAP;
-            if (rdoBmark.Checked) nSensorType = SLCS_MEDIA_TYPE.BLACKMARK;
-            else if (rdoContinuous.Checked) nSensorType = SLCS_MEDIA_TYPE.CONTINUOUS;
+            m_configuration.MEDIA = rdoDt.Checked ? LabelConfiguration.MEDIA_TPYE.DirectThermal : LabelConfiguration.MEDIA_TPYE.ThermalTransfer;
+            SLCS_SENSOR_TYPE nSensorType = SLCS_SENSOR_TYPE.GAP;
+            if (rdoBmark.Checked) nSensorType = SLCS_SENSOR_TYPE.BLACKMARK;
+            else if (rdoContinuous.Checked) nSensorType = SLCS_SENSOR_TYPE.CONTINUOUS;
             m_configuration.SEMSOR_TYPE = nSensorType;
             m_configuration.PRINT_SPEED = SLCS_PRINT_SPEED.PRINTER_SETTING_SPEED;
             int nDensity = Convert.ToInt32(cmbDensity.Text);
             m_configuration.DENSITY = nDensity;
             m_configuration.BORDER = radioButtonEllipse.Checked ? ContentData.LabelBorder.ELLIPSE : ContentData.LabelBorder.RECTANGLE;
+            if (rdoTearOff.Checked)
+                m_configuration.OPERATION = LabelConfiguration.OPERATION_MODE.TEAR_OFF;
+            else if (rdoRewind.Checked)
+                m_configuration.OPERATION = LabelConfiguration.OPERATION_MODE.REWINDER;
+            else
+                m_configuration.OPERATION = LabelConfiguration.OPERATION_MODE.CUT;
             Visible = false;
-            var frm = new Form1();
-            frm.Initalize(m_configuration);
-            frm.Show();
+            if (m_designForm == null)
+            {
+                m_designForm = new Form1();
+                m_designForm.SetLabelFrom(this);
+                m_designForm.Initalize(m_configuration);
+                m_designForm.Show();
+            }
+            else
+            {
+                m_designForm.Refresh(m_configuration);
+            }
         }
 
         private void buttonLoad_Click(object sender, EventArgs e)
@@ -440,6 +455,15 @@ namespace LabelEditor
             if ( dlg.ShowDialog() == DialogResult.OK )
             {
 
+            }
+        }
+
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if ( m_designForm != null )
+            {
+                Visible = false;
+                e.Cancel = true;
             }
         }
     }

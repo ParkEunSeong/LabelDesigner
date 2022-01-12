@@ -30,7 +30,6 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.canvas1 = new LabelEditor.Canvas();
             this.buttonMakeText = new System.Windows.Forms.Button();
             this.button1DBarcode = new System.Windows.Forms.Button();
             this.buttonQRCode = new System.Windows.Forms.Button();
@@ -53,6 +52,9 @@
             this.buttonPrint = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonLoad = new System.Windows.Forms.Button();
+            this.buttonLabelSetting = new System.Windows.Forms.Button();
+            this.canvas1 = new LabelEditor.Canvas();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -75,17 +77,9 @@
             this.panel2.TabIndex = 0;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
-            // canvas1
-            // 
-            this.canvas1.BackColor = System.Drawing.SystemColors.Control;
-            this.canvas1.Location = new System.Drawing.Point(297, 161);
-            this.canvas1.Name = "canvas1";
-            this.canvas1.Size = new System.Drawing.Size(200, 100);
-            this.canvas1.TabIndex = 0;
-            // 
             // buttonMakeText
             // 
-            this.buttonMakeText.Location = new System.Drawing.Point(444, 27);
+            this.buttonMakeText.Location = new System.Drawing.Point(524, 27);
             this.buttonMakeText.Name = "buttonMakeText";
             this.buttonMakeText.Size = new System.Drawing.Size(75, 52);
             this.buttonMakeText.TabIndex = 1;
@@ -96,7 +90,7 @@
             // 
             // button1DBarcode
             // 
-            this.button1DBarcode.Location = new System.Drawing.Point(597, 27);
+            this.button1DBarcode.Location = new System.Drawing.Point(677, 27);
             this.button1DBarcode.Name = "button1DBarcode";
             this.button1DBarcode.Size = new System.Drawing.Size(75, 52);
             this.button1DBarcode.TabIndex = 2;
@@ -107,7 +101,7 @@
             // 
             // buttonQRCode
             // 
-            this.buttonQRCode.Location = new System.Drawing.Point(521, 27);
+            this.buttonQRCode.Location = new System.Drawing.Point(601, 27);
             this.buttonQRCode.Name = "buttonQRCode";
             this.buttonQRCode.Size = new System.Drawing.Size(75, 52);
             this.buttonQRCode.TabIndex = 3;
@@ -120,9 +114,9 @@
             // 
             this.listBoxCtrl.FormattingEnabled = true;
             this.listBoxCtrl.ItemHeight = 12;
-            this.listBoxCtrl.Location = new System.Drawing.Point(12, 146);
+            this.listBoxCtrl.Location = new System.Drawing.Point(22, 185);
             this.listBoxCtrl.Name = "listBoxCtrl";
-            this.listBoxCtrl.Size = new System.Drawing.Size(194, 268);
+            this.listBoxCtrl.Size = new System.Drawing.Size(157, 268);
             this.listBoxCtrl.TabIndex = 4;
             this.listBoxCtrl.SelectedIndexChanged += new System.EventHandler(this.listBoxCtrl_SelectedIndexChanged);
             // 
@@ -260,7 +254,7 @@
             // 
             // buttonPrint
             // 
-            this.buttonPrint.Location = new System.Drawing.Point(212, 27);
+            this.buttonPrint.Location = new System.Drawing.Point(291, 27);
             this.buttonPrint.Name = "buttonPrint";
             this.buttonPrint.Size = new System.Drawing.Size(75, 52);
             this.buttonPrint.TabIndex = 8;
@@ -270,27 +264,59 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(289, 27);
+            this.buttonSave.Location = new System.Drawing.Point(369, 27);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 52);
             this.buttonSave.TabIndex = 9;
             this.buttonSave.Text = "저장하기";
             this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // buttonLoad
             // 
-            this.buttonLoad.Location = new System.Drawing.Point(366, 27);
+            this.buttonLoad.Location = new System.Drawing.Point(446, 27);
             this.buttonLoad.Name = "buttonLoad";
             this.buttonLoad.Size = new System.Drawing.Size(75, 52);
             this.buttonLoad.TabIndex = 10;
             this.buttonLoad.Text = "불러오기";
             this.buttonLoad.UseVisualStyleBackColor = true;
+            this.buttonLoad.Click += new System.EventHandler(this.buttonLoad_Click);
+            // 
+            // buttonLabelSetting
+            // 
+            this.buttonLabelSetting.Location = new System.Drawing.Point(212, 27);
+            this.buttonLabelSetting.Name = "buttonLabelSetting";
+            this.buttonLabelSetting.Size = new System.Drawing.Size(75, 52);
+            this.buttonLabelSetting.TabIndex = 11;
+            this.buttonLabelSetting.Text = "라벨설정창";
+            this.buttonLabelSetting.UseVisualStyleBackColor = true;
+            this.buttonLabelSetting.Click += new System.EventHandler(this.buttonLabelSetting_Click);
+            // 
+            // canvas1
+            // 
+            this.canvas1.BackColor = System.Drawing.SystemColors.Control;
+            this.canvas1.Location = new System.Drawing.Point(297, 161);
+            this.canvas1.Name = "canvas1";
+            this.canvas1.Size = new System.Drawing.Size(200, 100);
+            this.canvas1.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label2.Location = new System.Drawing.Point(17, 159);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(76, 21);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Field List";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1298, 831);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.buttonLabelSetting);
             this.Controls.Add(this.buttonLoad);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonPrint);
@@ -302,6 +328,7 @@
             this.Controls.Add(this.buttonMakeText);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "BIXOLON Editor";
@@ -343,6 +370,8 @@
         private System.Windows.Forms.Label labelinch;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonLoad;
+        private System.Windows.Forms.Button buttonLabelSetting;
+        private System.Windows.Forms.Label label2;
     }
 }
 

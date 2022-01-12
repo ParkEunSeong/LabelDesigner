@@ -26,6 +26,7 @@ namespace DigitalProduction.Forms
 		public int NARROW_BAR_WIDTH = 0;
 		public int BARCODE_HEIGHT = 0;
 		public int WIDE_BAR_WIDTH = 0;
+		public int ROTATON = 0;
 		#endregion
 
 		#region Construction

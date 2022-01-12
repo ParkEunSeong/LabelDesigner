@@ -181,7 +181,7 @@ namespace LabelEditor
         BOTTOM2TOP = 1
     }
 
-    public enum SLCS_MEDIA_TYPE
+    public enum SLCS_SENSOR_TYPE
     {
         GAP = 0,
         CONTINUOUS = 1,

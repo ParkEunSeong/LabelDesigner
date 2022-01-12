@@ -72,21 +72,22 @@ namespace LabelEditor
             
             m_label.Location = new Point(x, y);
             m_label.Font = m_font;
-            m_label.Angle = GetIdxToAngle(comboBoxRotation.SelectedIndex);
+            m_label.Angle = PropUtil.GetIdxToAngle(comboBoxRotation.SelectedIndex);
             if (radioButton39.Checked)
                 m_label.BARCODE_TYPE = 0;
             else
                 m_label.BARCODE_TYPE = 1;
+            int value = 0;
+            int.TryParse(textBoxBarcodeHeight.Text, out value);
+            m_label.BARCODE_HEIGHT = value;
+            int.TryParse(textBoxNarrowBarWidth.Text, out value);
+            m_label.NARROW_BAR_WIDTH = value;
+            int.TryParse(textBoxWideBarWidth.Text, out value);
+            m_label.WIDE_BAR_WIDTH = value;
+
             Close();
         }
-        public int GetIdxToAngle( int idx )
-        {
-            if (idx == 0) return 0;
-            else if (idx == 1) return 90;
-            else if (idx == 2) return 180;
-            else if (idx == 3) return 270;
-            return 0;
-        }
+       
         private void textBoxFontSize_Click(object sender, EventArgs e)
         {
         }
