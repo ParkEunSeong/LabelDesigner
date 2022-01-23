@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DigitalProduction.Forms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,7 @@ namespace LabelEditor
             else if (angle == 270) return 3;
             return 0;
         }
+
         
     }
 }

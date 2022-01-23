@@ -31,6 +31,7 @@ namespace LabelEditor
             textBoxX.Text = label.Location.X.ToString();
             textBoxY.Text = label.Location.Y.ToString();
             textBoxFontSize.Text = label.Font.Size.ToString();
+
             textBoxFontName.Text = label.Font.Name;
             checkBoxBold.Checked = label.Font.Bold;
             m_font = label.Font;
@@ -69,6 +70,8 @@ namespace LabelEditor
             m_label.Location = new Point(x, y);
             m_label.Font = m_font;
             m_label.Angle = PropUtil.GetIdxToAngle(comboBoxRotation.SelectedIndex);
+            m_label.Width = (int)(m_label.Text.Length * m_label.Font.Size);
+            m_label.Height = (int)m_label.Font.Size * 2 ;
             Close();
         }
         private void textBoxFontSize_Click(object sender, EventArgs e)

@@ -1,4 +1,5 @@
 ﻿using DigitalProduction.Forms;
+using iTextSharp.text.pdf;
 using LabelEditor.data;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -8,6 +9,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -33,6 +36,8 @@ namespace LabelEditor
         private bool m_isDrag;
         private Point m_startPoint;
         private Control m_selectedCtrl;
+        private NetClient m_netCient;
+        public bool m_bQuit;
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn                            //파라미터
         (
@@ -47,24 +52,108 @@ namespace LabelEditor
         private List<RotatedLabel> m_labelList = new List<RotatedLabel>();
         private List<BarcodeLabel> m_barcodeList = new List<BarcodeLabel>();
         private List<QRCode> m_qrList = new List<QRCode>();
+        private List<string> m_printerList = new List<string>();
+        private Paper m_paper;
+        private delegate void FromServerData(string json);
+        private int CentimeterToPixel(int Centimeter)
+        {
+            double pixel = -1;
+            using (Graphics g = this.CreateGraphics())
+            {
+                pixel = Centimeter * g.DpiY / 2.54d;
+            }
+            return (int)pixel;
+        }
 
+        private int PixelToCentimeter(int pixel)
+        {
+            return (int)(pixel * 2.54 / 287);
+        }
+        public void OnFromServerData(string json)
+        {
+            if (InvokeRequired)
+            {
+                var func = new FromServerData(OnFromServerData);
+                Invoke(func, new object[] { json });
+            }
+            else
+            {
+                try
+                {
+
+                    var j = JObject.Parse(json);
+                    foreach (var it in j.Properties())
+                    {
+                        foreach (var jt in m_labelList)
+                        {
+                            if (jt.Name == it.Name)
+                            {
+                                jt.Text = it.Value.ToString();
+                            }
+                        }
+                        foreach (var jt in m_qrList)
+                        {
+                            if (jt.Name == it.Name)
+                            {
+                                jt.Text = it.Value.ToString();
+                            }
+                        }
+                        foreach (var jt in m_barcodeList)
+                        {
+                            if (jt.Name == it.Name)
+                            {
+                                jt.Text = it.Value.ToString();
+                            }
+                        }
+
+                    }
+                    buttonSave_Click(null, null);
+
+                }
+                catch (Exception ex)
+                {
+                    TRACE.Log(ex.ToString());
+                }
+            }
+        }
         public Form1()
         {
             InitializeComponent();
             CreateMyStatusBar();
+            FormClosed += Form1_FormClosed;
             canvas1.MouseDown += PanelLabel_MouseDown;
             canvas1.MouseMove += PanelLabel_MouseMove;
             canvas1.MouseMove += panel2_MouseMove;
             canvas1.MouseUp += Canvas1_MouseUp;
+            foreach ( string it in PrinterSettings.InstalledPrinters)
+            {
+                m_printerList.Add(it);
+            }
+            var a = PixelToCentimeter(2480);
+
+            m_netCient = new NetClient("127.0.0.1", 9999);
+            m_netCient.onComeData = delegate (string json)
+            {
+                OnFromServerData(json);
+
+            };
+            timer1.Start();
         }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            m_bQuit = true;
+            if (m_labelSetForm != null )
+                m_labelSetForm.Close();
+            timer1.Stop();
+            if ( m_netCient != null )
+                m_netCient.Close();
+        }
+
         public void SetLabelFrom( frmMain frm )
         {
             m_labelSetForm = frm;
-            StringBuilder strVersion = new StringBuilder(256);
-            if (BXLLApi.GetDllVersion(strVersion))
-                Text = "LabelDesigner AppVersion v1.0.0 DLL Version " + strVersion.ToString();
-            else
-                Text = "LabelDesigner Unknown";
+                Text = "LabelDesigner AppVersion v1.0.0";
         }
 
         private void Canvas1_MouseUp(object sender, MouseEventArgs e)
@@ -98,23 +187,39 @@ namespace LabelEditor
             }
         }
 
-        public void Initalize( LabelConfiguration config )
+        public void Initalize( Paper paper )
         {
-            m_config = config;
-            labelMMSize.Text = $"{config.MM_SIZE.Width}X{config.MM_SIZE.Height}";
-            labelPixel.Text = $"{config.PAPER_SIZE.Width}X{config.PAPER_SIZE.Height}";
-            labelinch.Text = $"{config.INCH_SIZE.Width}X{config.INCH_SIZE.Height}";
-            canvas1.Width = config.PAPER_SIZE.Width;
-            canvas1.Height = config.PAPER_SIZE.Height;
+           
+            labelMMSize.Text = $"{paper.mm_width}X{paper.mm_height}";
+            labelPixel.Text = $"{paper.PAPER_SIZE.Width}X{paper.PAPER_SIZE.Height}";
+            labelinch.Text = $"{paper.INCH_SIZE.Width}X{paper.INCH_SIZE.Height}";
+            canvas1.Width = paper.PAPER_SIZE.Width;
+            canvas1.Height = paper.PAPER_SIZE.Height;
             
-            if ( config.BORDER == ContentData.LabelBorder.ELLIPSE )
-                canvas1.Region = Region.FromHrgn(CreateRoundRectRgn(20, 20, canvas1.Width, canvas1.Height, 20, 20));
-            canvas1.Location = new Point(100,100);
+          
+            canvas1.Location = new Point(10,10);
+            for ( int i = 0; i < paper.texts.Count; i++ )
+            {
+                var label = new RotatedLabel();
+                label.AutoSize = true;
+                label.Name = paper.texts[i].key;
+                label.Font = new Font(paper.texts[i].font_name, paper.texts[i].font_size, paper.texts[i].bold ? FontStyle.Bold : FontStyle.Regular);
+                label.Text = label.Text;
+
+            }
+            for (int i = 0; i < paper.qrs.Count; i++ )
+            {
+
+            }
+            for ( int i = 0; i < paper.barcodes.Count; i++ )
+            { 
+            }
+                
 
         }
-        public void Refresh(LabelConfiguration config)
+        public void Refresh(Paper paper)
         {
-            Initalize(config);
+            Initalize( paper);
             panel2.Invalidate();
         }
 
@@ -148,9 +253,12 @@ namespace LabelEditor
                 label.Location = new Point(100, 100);
                 label.Font = new Font("맑은 고딕", 14, FontStyle.Regular);
                 label.Text = label.Name;
+                label.AutoSize = true;
+                label.Height = (int)(label.Font.Size*2);
                 label.MouseDown += Label_MouseDown;
                 label.MouseMove += Label_MouseMove;
                 label.MouseUp += Label_MouseUp;
+               
                 label.Tag = 0;
                 canvas1.Controls.Add(label);
                 m_labelList.Add(label);
@@ -163,6 +271,7 @@ namespace LabelEditor
                 pb.Image = Image.FromFile("qr.png");
                 pb.Width = 50;
                 pb.Height = 50;
+                pb.Text = pb.Name;
                 pb.Location = new Point(100, 100);
                 pb.MouseDown += Label_MouseDown;
                 pb.MouseMove += Label_MouseMove;
@@ -179,9 +288,11 @@ namespace LabelEditor
                  pb.Name = "barcode" + canvas1.Controls.Count;
                 pb.Font = new Font("Code 128", 14);
                 pb.Location = new Point(100, 100);
+                pb.Width = 100;
+                pb.Height = 50;
                 pb.MouseDown += Label_MouseDown;
                 pb.MouseMove += Label_MouseMove;
-            
+                pb.Text = "123456789";
                 pb.MouseUp += Label_MouseUp;
                 pb.Tag = 2;
                 canvas1.Controls.Add(pb);
@@ -309,7 +420,8 @@ namespace LabelEditor
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            RefreshPrinterList();
+            
         }
 
         private void listBoxCtrl_SelectedIndexChanged(object sender, EventArgs e)
@@ -340,11 +452,7 @@ namespace LabelEditor
 
         private void textBoxFont_Click(object sender, EventArgs e)
         {
-            if (fontDialog1.ShowDialog() == DialogResult.OK)
-            {
-                m_selectedCtrl.Font = fontDialog1.Font;
-                SetSelectedControl(m_selectedCtrl);
-            }
+
         }
 
         private void textBoxX_TextChanged(object sender, EventArgs e)
@@ -379,144 +487,95 @@ namespace LabelEditor
             return errMsg;
         }
 
-        private bool ConnectPrinter()
-        {
-            string strPort = "";
-            int nInterface = ISerial;
-            int nBaudrate = 115200, nDatabits = 8, nParity = 0, nStopbits = 0;
-            int nStatus = (int)SLCS_ERROR_CODE.ERR_CODE_NO_ERROR;
 
-
-
-            // USB
-            nInterface = IUsb;
-            nStatus = BXLLApi.ConnectPrinterEx(nInterface, strPort, nBaudrate, nDatabits, nParity, nStopbits);
-
-            if (nStatus != (int)SLCS_ERROR_CODE.ERR_CODE_NO_ERROR)
-            {
-                BXLLApi.DisconnectPrinter();
-                MessageBox.Show(GetStatusMsg(nStatus));
-                return false;
-            }
-            return true;
-        }
-        private void SendPrinterSettingCommand(LabelConfiguration configuration)
-        {
-            // 203 DPI : 1mm is about 7.99 dots
-            // 300 DPI : 1mm is about 11.81 dots
-            // 600 DPI : 1mm is about 23.62 dots
-            int dotsPer1mm = (int)Math.Round((float)BXLLApi.GetPrinterDPI() / 25.4f);
-            int nPaper_Width = configuration.PAPER_SIZE.Width;
-            int nPaper_Height = configuration.PAPER_SIZE.Height;
-            int nMarginX = configuration.Margin.X;
-            int nMarginY = configuration.Margin.Y;
-            int nSpeed = (int)SLCS_PRINT_SPEED.PRINTER_SETTING_SPEED;
-            int nDensity = configuration.DENSITY;
-            int nOrientation = (int)configuration.ORIENTATION;
-
-            int nSensorType = (int)configuration.SEMSOR_TYPE;
-
-
-            //	Clear Buffer of Printer
-            BXLLApi.ClearBuffer();
-
-            // Rewinder is only available for XT series printers (XT5-40, XT5-43, XT5-46)
-            if (configuration.OPERATION == LabelConfiguration.OPERATION_MODE.REWINDER )
-            {
-                BXLLApi.PrintDirect("RWDy", true);
-            }
-
-            //	Set Label and Printer
-            //BXLLApi.SetConfigOfPrinter(BXLLApi.SPEED_50, 17, BXLLApi.TOP, false, 0, true);
-            var cut = configuration.OPERATION == LabelConfiguration.OPERATION_MODE.CUT;
-            BXLLApi.SetConfigOfPrinter(nSpeed, nDensity, nOrientation, cut, 1, true);
-
-            // Select international character set and code table.To
-            BXLLApi.SetCharacterset((int)SLCS_INTERNATIONAL_CHARSET.ICS_USA, (int)SLCS_CODEPAGE.FCP_CP1252);
-
-            /* 
-                1 Inch : 25.4mm
-                1 mm   :  7.99 Dots (XT5-40, SLP-TX400, SLP-DX420, SLP-DX220, SLP-DL410, SLP-T400, SLP-D420, SLP-D220, SRP-770/770II/770III)
-                1 mm   :  7.99 Dots (SPP-L310, SPP-L410, SPP-L3000, SPP-L4000) 
-                1 mm   :  7.99 Dots (XD3-40d, XD3-40t, XD5-40d, XD5-40t, XD5-40LCT)
-                1 mm   : 11.81 Dots (XT5-43, SLP-TX403, SLP-DX423, SLP-DX223, SLP-DL413, SLP-T403, SLP-D423, SLP-D223)
-                1 mm   : 11.81 Dots (XD5-43d, XD5-43t, XD5-43LCT)
-                1 mm   : 23.62 Dots (XT5-46)
-            */
-
-            BXLLApi.SetPaper(nMarginX, nMarginY, nPaper_Width, nPaper_Height, nSensorType, 0, 2 * dotsPer1mm);
-
-            // Direct thermal
-            if (m_config.MEDIA == LabelConfiguration.MEDIA_TPYE.DirectThermal )
-                BXLLApi.PrintDirect("STd", true);
-            else // Thermal transfer
-                BXLLApi.PrintDirect("STt", true);
-        }
         private void buttonPrint_Click(object sender, EventArgs e)
         {
-           
-            if (!ConnectPrinter())
-                return;
-            SendPrinterSettingCommand(m_config);
-            for ( int i = 0; i < canvas1.Controls.Count; i++ )
+            PrintDocument doc = new PrintDocument();
+            
+            doc.PrinterSettings = new PrinterSettings();
+            doc.DefaultPageSettings.PaperSize = new PaperSize("Custom", m_config.PAPER_SIZE.Width, m_config.PAPER_SIZE.Height);
+            doc.DefaultPageSettings.Landscape = m_config.PAGE_SETTINGS.Landscape;
+            if (listBoxPrinter.SelectedItem == null)
             {
-                var ctrl = canvas1.Controls[i];
-                var tag = int.Parse(ctrl.Tag.ToString());
-                if ( tag == 0 )
+                if (listBoxPrinter.Items.Count > 0 && listBoxPrinter.SelectedItem == null)
+                    listBoxPrinter.SelectedIndex = 0;
+                else
                 {
-                    var label = ctrl as RotatedLabel;
-                    
-                    BXLLApi.PrintTrueFont(label.Location.X, label.Location.Y, "맑은 고딕", (int)label.Font.Size < 14 ? 14 : (int)label.Font.Size, PropUtil.GetAngleToIdx(label.Angle), false, label.Font.Bold, false, label.Text, false);
+                    MessageBox.Show("출력가능한 프린터가 설정되지 않았습니다.", "알림");
+                    return;
                 }
-                else if ( tag == 1 )
-                {
-                    var pb = ctrl as QRCode;
-                    string QRCode_data = "QRCode sample test 123";
-                    BXLLApi.PrintQRCode(pb.Location.X, pb.Location.Y, (int)pb.QR_MODEL, (int)pb.ECC_LEVEL, (int)pb.QR_SIZE, (int)pb.QR_ROTATION, pb.Name);
-
-                }
-                else if ( tag == 2 )
-                {
-                    var pb = ctrl as BarcodeLabel;
-                    var txt = "1234567890";
-                    
-                    BXLLApi.Print1DBarcode(pb.Location.X, pb.Location.Y, pb.BARCODE_TYPE, pb.NARROW_BAR_WIDTH, pb.WIDE_BAR_WIDTH, pb.BARCODE_HEIGHT, (int)pb.ROTATON, (int)SLCS_HRI.HRI_NOT_PRINT, txt);
-                }
-                
             }
-            //	Print Command
-            BXLLApi.Prints(1, 1);
+            
+            doc.PrinterSettings.PrinterName = listBoxPrinter.SelectedItem.ToString();
+            if (doc.PrinterSettings.PrinterName.Contains("PDF"))
+            {
+                doc.PrinterSettings.PrintFileName = @"C:\trace\test.pdf";
+            }
+            //doc.OriginAtMargins
+            doc.PrintPage += Doc_PrintPage;
+            doc.Print();
+        }
 
-            // Disconnect printer
-            BXLLApi.DisconnectPrinter();
+        private void Doc_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            foreach (var it in m_labelList)
+            {
+
+                PointF drawPoint = new PointF(it.Location.X, it.Location.Y); // 좌측 상단 시작점. // 2중 using 문 사용.
+
+                using (Font font = new Font("맑은 고딕", it.Font.Size))
+                {
+                    using (SolidBrush drawBrush = new SolidBrush(Color.Black))
+                    {
+                        g.DrawString(it.Text, font, drawBrush, drawPoint);
+                    }
+                }
+            }
+            foreach( var it in m_qrList )
+            {
+                ZXing.BarcodeWriter barcodeWriter = new ZXing.BarcodeWriter();
+                barcodeWriter.Format = ZXing.BarcodeFormat.QR_CODE;
+
+                barcodeWriter.Options.Width = it.Width;
+                barcodeWriter.Options.Height = it.Height;
+
+                string strQRCode = it.Text; 
+
+                Image img = barcodeWriter.Write(strQRCode);
+                g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
+                img.Dispose();
+            }
+            foreach( var it in m_barcodeList )
+            {
+                if (it.BARCODE_TYPE == 0)
+                {
+                    Barcode39 barcode39 = new Barcode39();
+                    barcode39.Code = it.Text;
+                    barcode39.BarHeight = it.Height;
+                    var img = barcode39.CreateDrawingImage(Color.Black, Color.White);
+                    g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
+                    img.Dispose();
+                }
+                else
+                {
+                    Barcode128 barcode128 = new Barcode128();
+                    barcode128.Code = it.Text;
+                    barcode128.BarHeight = it.Height;
+                    var img = barcode128.CreateDrawingImage(Color.Black, Color.White);
+                    g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
+                    img.Dispose();
+                
+                }
+
+            }
+
         }
 
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
 
-            Pen blackPen = new Pen(Color.Black, 1);
-            var startPoint = new Point(100, 100);
-            //Math.Truncate(e.X / 2.8f)}
-            int w = m_config.PAPER_SIZE.Width;
-            int h = m_config.PAPER_SIZE.Height;
-            int row = (int)(w / 28f);
-            int col = (int)(h / 28f);
-           
-            for ( int i = 0; i <= row; i++ )
-            {
-                int x = 100 + (i * 28);
-                DrawText(e.Graphics, x-5, 75, i.ToString());
-                e.Graphics.DrawLine(blackPen, new Point(x, 100), new Point(x, 90));
-             
-            }
-            for (int i = 1; i <= col; i++)
-            {
-                int y = 100 + (i * 28);
-                DrawText(e.Graphics, 75, y-5, i.ToString());
-                e.Graphics.DrawLine(blackPen, new Point(100, y), new Point(90, y));
-
-            }
-
+  
         }
 
         private void DrawText( Graphics g, int x, int y, string text)
@@ -563,38 +622,7 @@ namespace LabelEditor
 
         private void comboBoxRotation_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //int idx = comboBoxRotation.SelectedIndex;
-            //if (idx <= 1)
-            //{
-            //  if ( m_selectedCtrl is RotatedLabel )
-            //    {
-            //        ((RotatedLabel)m_selectedCtrl).Angle = 0;
-            //    }
-            //}
-            //else if (idx == 2)
-            //{
-            //    if (m_selectedCtrl is RotatedLabel)
-            //    {
-            //        ((RotatedLabel)m_selectedCtrl).Angle = 90;
-            //    }
-            //}
-            //else if (idx == 3)
-            //{
-            //    if (m_selectedCtrl is RotatedLabel)
-            //    {
-            //        ((RotatedLabel)m_selectedCtrl).Angle = 180;
-            //    }
-
-            //}
-            //else if (idx == 4)
-            //{
-            //    if (m_selectedCtrl is RotatedLabel)
-            //    {
-            //        ((RotatedLabel)m_selectedCtrl).Angle = 270;
-            //    }
-            //}
-             
-            //((RotatedLabel)m_selectedCtrl).Invalidate();
+   
         }
 
         private void buttonLabelSetting_Click(object sender, EventArgs e)
@@ -605,20 +633,13 @@ namespace LabelEditor
         private void buttonSave_Click(object sender, EventArgs e)
         {
             Paper paper = new Paper();
-            paper.density = m_config.DENSITY;
-            paper.margin_x = m_config.Margin.X;
-            paper.margin_y = m_config.Margin.Y;
-            paper.media_type = (int)m_config.MEDIA;
+
             paper.mm_width = m_config.MM_SIZE.Width;
             paper.mm_height = m_config.MM_SIZE.Height;
-            paper.operation_mode = (int)m_config.OPERATION;
-            paper.orientation = (int)m_config.ORIENTATION;
-            paper.sensor_type = (int)m_config.SEMSOR_TYPE;
-            paper.speed = (int)m_config.PRINT_SPEED;
 
             paper.texts = new List<Text>();
             paper.qrs = new List<QR>();
-            paper.barcodes = new List<Barcode>();
+            paper.barcodes = new List<data.Barcode>();
             var json = new JObject();
             foreach (var it in m_labelList )
             {
@@ -633,32 +654,31 @@ namespace LabelEditor
             }
             foreach( var it in m_barcodeList )
             {
-                var barcode = new Barcode();
+                var barcode = new data.Barcode();
                 barcode.key = it.Name;
                 barcode.x = it.Location.X;
                 barcode.y = it.Location.Y;
-                barcode.barcode_height = it.BARCODE_HEIGHT;
-                barcode.narrow_bar_width = it.NARROW_BAR_WIDTH;
-                barcode.wide_bar_width = it.WIDE_BAR_WIDTH;
+                barcode.width = it.Width;
+                barcode.height = it.Height;
+                barcode.barcode39 = it.BARCODE_TYPE;
                 paper.barcodes.Add(barcode);
             }
             foreach(var it in m_qrList )
             {
                 var qr = new QR();
                 qr.key = it.Name;
-                qr.qr_model = it.QR_MODEL;
-                qr.qr_size = it.QR_SIZE;
-                qr.rotation = it.QR_ROTATION;
-                qr.ecc_level = it.ECC_LEVEL;
+                qr.width = it.Width;
+                qr.height = it.Height;
                 qr.x = it.Location.X;
                 qr.y = it.Location.Y;
                 paper.qrs.Add(qr);
             }
             var jsonObject = JsonConvert.SerializeObject(paper);
+
             var form = new SetFileNameForm();
             form.OnApply = delegate (string fileName)
             {
-                using (var sw = new StreamWriter(fileName + ".json"))
+                using (var sw = new StreamWriter(@"data\"+fileName + ".json"))
                 {
                     sw.Write(jsonObject);
                 }
@@ -669,7 +689,37 @@ namespace LabelEditor
 
         private void buttonLoad_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("준비중입니다.");
+     
+            
+        }
+      
+
+        private void buttonRefreshPrinter_Click(object sender, EventArgs e)
+        {
+
+            RefreshPrinterList();
+        }
+        private void RefreshPrinterList()
+        {
+            listBoxPrinter.Items.Clear();
+            foreach (string it in PrinterSettings.InstalledPrinters)
+            {
+                if (!it.Contains("XPS") && !it.Contains("Fax") && !it.Contains("PDF"))
+                    listBoxPrinter.Items.Add(it);
+            }
+        }
+
+        private void panel2_Scroll(object sender, ScrollEventArgs e)
+        {
+            panel2.Invalidate();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timer1.Stop();
+            if ( m_netCient != null )
+                m_netCient.TryCnnnect();
+            timer1.Start();
         }
     }
 }

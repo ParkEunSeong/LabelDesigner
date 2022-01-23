@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.canvas1 = new LabelEditor.Canvas();
             this.buttonMakeText = new System.Windows.Forms.Button();
             this.button1DBarcode = new System.Windows.Forms.Button();
             this.buttonQRCode = new System.Windows.Forms.Button();
@@ -53,8 +55,11 @@
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonLoad = new System.Windows.Forms.Button();
             this.buttonLabelSetting = new System.Windows.Forms.Button();
-            this.canvas1 = new LabelEditor.Canvas();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.listBoxPrinter = new System.Windows.Forms.ListBox();
+            this.buttonRefreshPrinter = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -69,13 +74,23 @@
             // 
             // panel2
             // 
+            this.panel2.AutoScroll = true;
             this.panel2.BackColor = System.Drawing.SystemColors.ControlDark;
             this.panel2.Controls.Add(this.canvas1);
             this.panel2.Location = new System.Drawing.Point(212, 88);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1069, 680);
             this.panel2.TabIndex = 0;
+            this.panel2.Scroll += new System.Windows.Forms.ScrollEventHandler(this.panel2_Scroll);
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            // 
+            // canvas1
+            // 
+            this.canvas1.BackColor = System.Drawing.SystemColors.Control;
+            this.canvas1.Location = new System.Drawing.Point(10, 10);
+            this.canvas1.Name = "canvas1";
+            this.canvas1.Size = new System.Drawing.Size(200, 100);
+            this.canvas1.TabIndex = 0;
             // 
             // buttonMakeText
             // 
@@ -114,7 +129,7 @@
             // 
             this.listBoxCtrl.FormattingEnabled = true;
             this.listBoxCtrl.ItemHeight = 12;
-            this.listBoxCtrl.Location = new System.Drawing.Point(22, 185);
+            this.listBoxCtrl.Location = new System.Drawing.Point(22, 289);
             this.listBoxCtrl.Name = "listBoxCtrl";
             this.listBoxCtrl.Size = new System.Drawing.Size(157, 268);
             this.listBoxCtrl.TabIndex = 4;
@@ -292,29 +307,60 @@
             this.buttonLabelSetting.UseVisualStyleBackColor = true;
             this.buttonLabelSetting.Click += new System.EventHandler(this.buttonLabelSetting_Click);
             // 
-            // canvas1
-            // 
-            this.canvas1.BackColor = System.Drawing.SystemColors.Control;
-            this.canvas1.Location = new System.Drawing.Point(297, 161);
-            this.canvas1.Name = "canvas1";
-            this.canvas1.Size = new System.Drawing.Size(200, 100);
-            this.canvas1.TabIndex = 0;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label2.Location = new System.Drawing.Point(17, 159);
+            this.label2.Location = new System.Drawing.Point(17, 263);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(76, 21);
             this.label2.TabIndex = 12;
             this.label2.Text = "Field List";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label3.Location = new System.Drawing.Point(17, 142);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(90, 21);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "Printer List";
+            // 
+            // listBoxPrinter
+            // 
+            this.listBoxPrinter.FormattingEnabled = true;
+            this.listBoxPrinter.ItemHeight = 12;
+            this.listBoxPrinter.Location = new System.Drawing.Point(22, 168);
+            this.listBoxPrinter.Name = "listBoxPrinter";
+            this.listBoxPrinter.Size = new System.Drawing.Size(157, 88);
+            this.listBoxPrinter.TabIndex = 13;
+            // 
+            // buttonRefreshPrinter
+            // 
+            this.buttonRefreshPrinter.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.buttonRefreshPrinter.Location = new System.Drawing.Point(108, 142);
+            this.buttonRefreshPrinter.Name = "buttonRefreshPrinter";
+            this.buttonRefreshPrinter.Size = new System.Drawing.Size(75, 23);
+            this.buttonRefreshPrinter.TabIndex = 15;
+            this.buttonRefreshPrinter.Text = "Refresh";
+            this.buttonRefreshPrinter.UseVisualStyleBackColor = true;
+            this.buttonRefreshPrinter.Click += new System.EventHandler(this.buttonRefreshPrinter_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 3000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1298, 831);
+            this.Controls.Add(this.buttonRefreshPrinter);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.listBoxPrinter);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.buttonLabelSetting);
             this.Controls.Add(this.buttonLoad);
@@ -372,6 +418,10 @@
         private System.Windows.Forms.Button buttonLoad;
         private System.Windows.Forms.Button buttonLabelSetting;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ListBox listBoxPrinter;
+        private System.Windows.Forms.Button buttonRefreshPrinter;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

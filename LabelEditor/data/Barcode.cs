@@ -11,8 +11,8 @@ namespace LabelEditor.data
         public string key { get; set; }
         public int x { get; set; }
         public int y { get; set; }
-        public int narrow_bar_width { get; set; }
-        public int barcode_height { get; set; }
-        public int wide_bar_width { get; set; }
+        public int width { get; set; }
+        public int height { get; set; }
+        public int barcode39 { get; set; }
     }
 }

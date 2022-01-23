@@ -30,6 +30,10 @@ namespace LabelEditor
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBoxWidth = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.radioButton128 = new System.Windows.Forms.RadioButton();
+            this.radioButton39 = new System.Windows.Forms.RadioButton();
             this.buttonSave = new System.Windows.Forms.Button();
             this.textBoxY = new System.Windows.Forms.TextBox();
             this.textBoxX = new System.Windows.Forms.TextBox();
@@ -38,29 +42,17 @@ namespace LabelEditor
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
-            this.radioButton39 = new System.Windows.Forms.RadioButton();
-            this.radioButton128 = new System.Windows.Forms.RadioButton();
+            this.textBoxHeight = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBoxRotation = new System.Windows.Forms.ComboBox();
-            this.textBoxNarrowBarWidth = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBoxWideBarWidth = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBoxBarcodeHeight = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBoxBarcodeHeight);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.textBoxWideBarWidth);
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.textBoxNarrowBarWidth);
-            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.textBoxHeight);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.comboBoxRotation);
+            this.groupBox2.Controls.Add(this.textBoxWidth);
+            this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.radioButton128);
             this.groupBox2.Controls.Add(this.radioButton39);
             this.groupBox2.Controls.Add(this.buttonSave);
@@ -73,14 +65,53 @@ namespace LabelEditor
             this.groupBox2.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.groupBox2.Location = new System.Drawing.Point(12, -6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(219, 285);
+            this.groupBox2.Size = new System.Drawing.Size(219, 252);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
+            // 
+            // textBoxWidth
+            // 
+            this.textBoxWidth.Location = new System.Drawing.Point(108, 123);
+            this.textBoxWidth.Name = "textBoxWidth";
+            this.textBoxWidth.Size = new System.Drawing.Size(80, 29);
+            this.textBoxWidth.TabIndex = 24;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label5.Location = new System.Drawing.Point(24, 128);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(54, 21);
+            this.label5.TabIndex = 23;
+            this.label5.Text = "Width";
+            // 
+            // radioButton128
+            // 
+            this.radioButton128.AutoSize = true;
+            this.radioButton128.Location = new System.Drawing.Point(111, 90);
+            this.radioButton128.Name = "radioButton128";
+            this.radioButton128.Size = new System.Drawing.Size(94, 25);
+            this.radioButton128.TabIndex = 19;
+            this.radioButton128.TabStop = true;
+            this.radioButton128.Text = "Code128";
+            this.radioButton128.UseVisualStyleBackColor = true;
+            // 
+            // radioButton39
+            // 
+            this.radioButton39.AutoSize = true;
+            this.radioButton39.Location = new System.Drawing.Point(10, 90);
+            this.radioButton39.Name = "radioButton39";
+            this.radioButton39.Size = new System.Drawing.Size(85, 25);
+            this.radioButton39.TabIndex = 18;
+            this.radioButton39.TabStop = true;
+            this.radioButton39.Text = "Code39";
+            this.radioButton39.UseVisualStyleBackColor = true;
             // 
             // buttonSave
             // 
             this.buttonSave.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.buttonSave.Location = new System.Drawing.Point(74, 241);
+            this.buttonSave.Location = new System.Drawing.Point(59, 208);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 38);
             this.buttonSave.TabIndex = 9;
@@ -139,103 +170,28 @@ namespace LabelEditor
             this.label4.TabIndex = 1;
             this.label4.Text = "Name";
             // 
-            // radioButton39
+            // textBoxHeight
             // 
-            this.radioButton39.AutoSize = true;
-            this.radioButton39.Location = new System.Drawing.Point(10, 90);
-            this.radioButton39.Name = "radioButton39";
-            this.radioButton39.Size = new System.Drawing.Size(85, 25);
-            this.radioButton39.TabIndex = 18;
-            this.radioButton39.TabStop = true;
-            this.radioButton39.Text = "Code39";
-            this.radioButton39.UseVisualStyleBackColor = true;
-            // 
-            // radioButton128
-            // 
-            this.radioButton128.AutoSize = true;
-            this.radioButton128.Location = new System.Drawing.Point(111, 90);
-            this.radioButton128.Name = "radioButton128";
-            this.radioButton128.Size = new System.Drawing.Size(94, 25);
-            this.radioButton128.TabIndex = 19;
-            this.radioButton128.TabStop = true;
-            this.radioButton128.Text = "Code128";
-            this.radioButton128.UseVisualStyleBackColor = true;
+            this.textBoxHeight.Location = new System.Drawing.Point(108, 158);
+            this.textBoxHeight.Name = "textBoxHeight";
+            this.textBoxHeight.Size = new System.Drawing.Size(80, 29);
+            this.textBoxHeight.TabIndex = 26;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.Location = new System.Drawing.Point(10, 118);
+            this.label1.Location = new System.Drawing.Point(24, 163);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 21);
-            this.label1.TabIndex = 22;
-            this.label1.Text = "Rotation";
-            // 
-            // comboBoxRotation
-            // 
-            this.comboBoxRotation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxRotation.FormattingEnabled = true;
-            this.comboBoxRotation.Location = new System.Drawing.Point(97, 115);
-            this.comboBoxRotation.Name = "comboBoxRotation";
-            this.comboBoxRotation.Size = new System.Drawing.Size(121, 29);
-            this.comboBoxRotation.TabIndex = 21;
-            // 
-            // textBoxNarrowBarWidth
-            // 
-            this.textBoxNarrowBarWidth.Location = new System.Drawing.Point(133, 149);
-            this.textBoxNarrowBarWidth.Name = "textBoxNarrowBarWidth";
-            this.textBoxNarrowBarWidth.Size = new System.Drawing.Size(80, 29);
-            this.textBoxNarrowBarWidth.TabIndex = 24;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label5.Location = new System.Drawing.Point(-4, 153);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(131, 21);
-            this.label5.TabIndex = 23;
-            this.label5.Text = "NarrowBarWidth";
-            // 
-            // textBoxWideBarWidth
-            // 
-            this.textBoxWideBarWidth.Location = new System.Drawing.Point(132, 180);
-            this.textBoxWideBarWidth.Name = "textBoxWideBarWidth";
-            this.textBoxWideBarWidth.Size = new System.Drawing.Size(80, 29);
-            this.textBoxWideBarWidth.TabIndex = 26;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label6.Location = new System.Drawing.Point(-5, 184);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(115, 21);
-            this.label6.TabIndex = 25;
-            this.label6.Text = "WideBarWidth";
-            // 
-            // textBoxBarcodeHeight
-            // 
-            this.textBoxBarcodeHeight.Location = new System.Drawing.Point(131, 212);
-            this.textBoxBarcodeHeight.Name = "textBoxBarcodeHeight";
-            this.textBoxBarcodeHeight.Size = new System.Drawing.Size(80, 29);
-            this.textBoxBarcodeHeight.TabIndex = 28;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label7.Location = new System.Drawing.Point(-6, 216);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(120, 21);
-            this.label7.TabIndex = 27;
-            this.label7.Text = "BarcodeHeight";
+            this.label1.Size = new System.Drawing.Size(60, 21);
+            this.label1.TabIndex = 25;
+            this.label1.Text = "Height";
             // 
             // PropertyBarcodeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(244, 291);
+            this.ClientSize = new System.Drawing.Size(244, 258);
             this.Controls.Add(this.groupBox2);
             this.Name = "PropertyBarcodeForm";
             this.Text = "Text Property";
@@ -258,13 +214,9 @@ namespace LabelEditor
         private System.Windows.Forms.FontDialog fontDialog1;
         private System.Windows.Forms.RadioButton radioButton128;
         private System.Windows.Forms.RadioButton radioButton39;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBoxRotation;
-        private System.Windows.Forms.TextBox textBoxNarrowBarWidth;
+        private System.Windows.Forms.TextBox textBoxWidth;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBoxBarcodeHeight;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBoxWideBarWidth;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBoxHeight;
+        private System.Windows.Forms.Label label1;
     }
 }
