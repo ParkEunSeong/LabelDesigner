@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.canvas1 = new LabelEditor.Canvas();
             this.buttonMakeText = new System.Windows.Forms.Button();
             this.button1DBarcode = new System.Windows.Forms.Button();
             this.buttonQRCode = new System.Windows.Forms.Button();
@@ -60,6 +59,8 @@
             this.listBoxPrinter = new System.Windows.Forms.ListBox();
             this.buttonRefreshPrinter = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.canvas1 = new LabelEditor.Canvas();
+            this.buttonClear = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -84,17 +85,9 @@
             this.panel2.Scroll += new System.Windows.Forms.ScrollEventHandler(this.panel2_Scroll);
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
-            // canvas1
-            // 
-            this.canvas1.BackColor = System.Drawing.SystemColors.Control;
-            this.canvas1.Location = new System.Drawing.Point(10, 10);
-            this.canvas1.Name = "canvas1";
-            this.canvas1.Size = new System.Drawing.Size(200, 100);
-            this.canvas1.TabIndex = 0;
-            // 
             // buttonMakeText
             // 
-            this.buttonMakeText.Location = new System.Drawing.Point(524, 27);
+            this.buttonMakeText.Location = new System.Drawing.Point(605, 26);
             this.buttonMakeText.Name = "buttonMakeText";
             this.buttonMakeText.Size = new System.Drawing.Size(75, 52);
             this.buttonMakeText.TabIndex = 1;
@@ -105,7 +98,7 @@
             // 
             // button1DBarcode
             // 
-            this.button1DBarcode.Location = new System.Drawing.Point(677, 27);
+            this.button1DBarcode.Location = new System.Drawing.Point(758, 26);
             this.button1DBarcode.Name = "button1DBarcode";
             this.button1DBarcode.Size = new System.Drawing.Size(75, 52);
             this.button1DBarcode.TabIndex = 2;
@@ -116,7 +109,7 @@
             // 
             // buttonQRCode
             // 
-            this.buttonQRCode.Location = new System.Drawing.Point(601, 27);
+            this.buttonQRCode.Location = new System.Drawing.Point(682, 26);
             this.buttonQRCode.Name = "buttonQRCode";
             this.buttonQRCode.Size = new System.Drawing.Size(75, 52);
             this.buttonQRCode.TabIndex = 3;
@@ -134,6 +127,7 @@
             this.listBoxCtrl.Size = new System.Drawing.Size(157, 268);
             this.listBoxCtrl.TabIndex = 4;
             this.listBoxCtrl.SelectedIndexChanged += new System.EventHandler(this.listBoxCtrl_SelectedIndexChanged);
+            this.listBoxCtrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listBoxCtrl_MouseDown);
             // 
             // menuStrip1
             // 
@@ -353,11 +347,31 @@
             this.timer1.Interval = 3000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // canvas1
+            // 
+            this.canvas1.BackColor = System.Drawing.SystemColors.Control;
+            this.canvas1.Location = new System.Drawing.Point(10, 10);
+            this.canvas1.Name = "canvas1";
+            this.canvas1.Size = new System.Drawing.Size(200, 100);
+            this.canvas1.TabIndex = 0;
+            // 
+            // buttonClear
+            // 
+            this.buttonClear.Location = new System.Drawing.Point(527, 27);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(75, 52);
+            this.buttonClear.TabIndex = 16;
+            this.buttonClear.Tag = "0";
+            this.buttonClear.Text = "Clear";
+            this.buttonClear.UseVisualStyleBackColor = true;
+            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1298, 831);
+            this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.buttonRefreshPrinter);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.listBoxPrinter);
@@ -422,6 +436,7 @@
         private System.Windows.Forms.ListBox listBoxPrinter;
         private System.Windows.Forms.Button buttonRefreshPrinter;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button buttonClear;
     }
 }
 

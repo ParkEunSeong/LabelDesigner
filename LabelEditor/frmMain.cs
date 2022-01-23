@@ -45,7 +45,7 @@ namespace LabelEditor
             {
                 StringBuilder strVersion = new StringBuilder(256);
 
-                Text = "LabelDesigner AppVersion v1.0.0";
+                Text = "LabelDesigner v1.0.0";
 
             }
             catch (System.Exception ex){
@@ -58,29 +58,7 @@ namespace LabelEditor
         
         }
 
-        private string GetStatusMsg(int nStatus)
-        {
-            string errMsg = "";
-            switch ((SLCS_ERROR_CODE)nStatus)
-            {
-                case SLCS_ERROR_CODE.ERR_CODE_NO_ERROR:         errMsg = "No Error"; break;
-                case SLCS_ERROR_CODE.ERR_CODE_NO_PAPER:         errMsg = "Paper Empty"; break;
-                case SLCS_ERROR_CODE.ERR_CODE_COVER_OPEN:       errMsg = "Cover Open"; break;
-                case SLCS_ERROR_CODE.ERR_CODE_CUTTER_JAM:       errMsg = "Cutter jammed"; break;
-                case SLCS_ERROR_CODE.ERR_CODE_TPH_OVER_HEAT:    errMsg = "TPH overheat"; break;
-                case SLCS_ERROR_CODE.ERR_CODE_AUTO_SENSING:     errMsg = "Gap detection Error (Auto-sensing failure)"; break;
-                case SLCS_ERROR_CODE.ERR_CODE_NO_RIBBON:        errMsg = "Ribbon End"; break;
-                case SLCS_ERROR_CODE.ERR_CODE_BOARD_OVER_HEAT:  errMsg = "Board overheat"; break;
-                case SLCS_ERROR_CODE.ERR_CODE_MOTOR_OVER_HEAT:  errMsg = "Motor overheat"; break;
-                case SLCS_ERROR_CODE.ERR_CODE_WAIT_LABEL_TAKEN: errMsg = "Waiting for the label to be taken"; break;
-                case SLCS_ERROR_CODE.ERR_CODE_CONNECT:          errMsg = "Port open error"; break;
-                case SLCS_ERROR_CODE.ERR_CODE_GETNAME:          errMsg = "Unknown (or Not supported) printer name"; break;
-                case SLCS_ERROR_CODE.ERR_CODE_OFFLINE:          errMsg = "Offline (The printer is in an error status)"; break;
-                default:                                        errMsg = "Unknown error";   break;
-            }
-            return errMsg;
-        }
-
+     
     
 
         // byte[] -> String 
@@ -117,8 +95,8 @@ namespace LabelEditor
                 MessageBox.Show("라벨 사이즈(MM) Height 값을 확인해주세요.", "알림");
                 return;
             }
-            m_paper.mm_width = w;
-            m_paper.mm_height = h;
+            m_paper.MM_SIZE = new Size(w, h);
+            
             m_paper.orientation = radioButtonHorizontal.Checked == true ? 0 : 1;
             Visible = false;
             OpenDesignForm();

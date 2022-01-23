@@ -90,6 +90,7 @@ namespace LabelPrintingServer
             values.Add(textBoxValue8.Text);
 
             JObject j = new JObject();
+            j.Add("form_id", textBoxFormID.Text);
             for ( int i = 0; i < 9; i++ )
             {
                 if (!string.IsNullOrEmpty(keys[i]))

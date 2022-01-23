@@ -13,6 +13,9 @@ namespace LabelEditor.data
         public int y { get; set; }
         public int width { get; set; }
         public int height { get; set; }
+        /// <summary>
+        /// 0 : 39, 1 : 128
+        /// </summary>
         public int barcode39 { get; set; }
     }
 }

@@ -14,13 +14,13 @@ namespace LabelEditor
     public partial class PropertyBarcodeForm : Form
     {
         private int angle = 0;
-        private BarcodeLabel m_label;
+        private Barcode m_label;
         private Font m_font;
         public PropertyBarcodeForm()
         {
             InitializeComponent();
         }
-        public void SetLabel( BarcodeLabel label )
+        public void SetLabel(Barcode label )
         {
             m_label = label;
             textBoxName.Text = label.Name;
@@ -28,11 +28,8 @@ namespace LabelEditor
             textBoxY.Text = label.Location.Y.ToString();
             textBoxWidth.Text = label.Width.ToString();
             textBoxHeight.Text = label.Height.ToString();
-            radioButton39.Checked = label.BARCODE_TYPE == 0;
-            radioButton128.Checked = label.BARCODE_TYPE == 1;
-            m_label.BARCODE_TYPE = label.BARCODE_TYPE;
-            radioButton128.Checked = label.BARCODE_TYPE == 1;
-            radioButton39.Checked = label.BARCODE_TYPE == 0;
+            radioButton128.Checked = label.code39 == 0;
+            radioButton39.Checked = label.code39 == 1;
             m_font = label.Font;
        
         }
@@ -54,9 +51,9 @@ namespace LabelEditor
             m_label.Name = textBoxName.Text;
 
             if (radioButton39.Checked)
-                m_label.BARCODE_TYPE = 0;
+                m_label.code39 = 1;
             else
-                m_label.BARCODE_TYPE = 1;
+                m_label.code39 = 0;
             int value = 0;
             int.TryParse(textBoxWidth.Text, out value);
             m_label.Width = value;

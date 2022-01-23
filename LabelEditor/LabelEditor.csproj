@@ -61,6 +61,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Barcode.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="BXLLApi.cs" />
     <Compile Include="BXLLApi_x64.cs" />
     <Compile Include="BXLLApi_x86.cs" />
@@ -112,12 +115,6 @@
     <Compile Include="PropertyTextForm.Designer.cs">
       <DependentUpon>PropertyTextForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="BarcodeLabel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="BarcodeLabel.designer.cs">
-      <DependentUpon>BarcodeLabel.cs</DependentUpon>
-    </Compile>
     <Compile Include="PropUtil.cs" />
     <Compile Include="QRCode.cs">
       <SubType>Component</SubType>
@@ -165,9 +162,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PropertyTextForm.resx">
       <DependentUpon>PropertyTextForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BarcodeLabel.resx">
-      <DependentUpon>BarcodeLabel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="QRCode.resx">
       <DependentUpon>QRCode.cs</DependentUpon>

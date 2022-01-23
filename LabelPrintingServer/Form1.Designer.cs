@@ -34,8 +34,6 @@ namespace LabelPrintingServer
             this.labelServer = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxKey0 = new System.Windows.Forms.TextBox();
-            this.textBoxValue0 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.textBoxValue1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxKey1 = new System.Windows.Forms.TextBox();
@@ -69,6 +67,10 @@ namespace LabelPrintingServer
             this.textBoxKey8 = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.buttonSend = new System.Windows.Forms.Button();
+            this.textBoxValue0 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxFormID = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // listBoxLog
@@ -92,7 +94,7 @@ namespace LabelPrintingServer
             // labelServer
             // 
             this.labelServer.AutoSize = true;
-            this.labelServer.Location = new System.Drawing.Point(314, 52);
+            this.labelServer.Location = new System.Drawing.Point(314, 75);
             this.labelServer.Name = "labelServer";
             this.labelServer.Size = new System.Drawing.Size(0, 12);
             this.labelServer.TabIndex = 2;
@@ -100,7 +102,7 @@ namespace LabelPrintingServer
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(148, 17);
+            this.label1.Location = new System.Drawing.Point(148, 40);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(27, 12);
             this.label1.TabIndex = 3;
@@ -108,30 +110,14 @@ namespace LabelPrintingServer
             // 
             // textBoxKey0
             // 
-            this.textBoxKey0.Location = new System.Drawing.Point(181, 13);
+            this.textBoxKey0.Location = new System.Drawing.Point(181, 36);
             this.textBoxKey0.Name = "textBoxKey0";
             this.textBoxKey0.Size = new System.Drawing.Size(100, 21);
             this.textBoxKey0.TabIndex = 4;
             // 
-            // textBoxValue0
-            // 
-            this.textBoxValue0.Location = new System.Drawing.Point(330, 12);
-            this.textBoxValue0.Name = "textBoxValue0";
-            this.textBoxValue0.Size = new System.Drawing.Size(100, 21);
-            this.textBoxValue0.TabIndex = 6;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(287, 19);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 12);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Value";
-            // 
             // textBoxValue1
             // 
-            this.textBoxValue1.Location = new System.Drawing.Point(330, 39);
+            this.textBoxValue1.Location = new System.Drawing.Point(330, 62);
             this.textBoxValue1.Name = "textBoxValue1";
             this.textBoxValue1.Size = new System.Drawing.Size(100, 21);
             this.textBoxValue1.TabIndex = 10;
@@ -139,7 +125,7 @@ namespace LabelPrintingServer
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(287, 46);
+            this.label3.Location = new System.Drawing.Point(287, 69);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(37, 12);
             this.label3.TabIndex = 9;
@@ -147,7 +133,7 @@ namespace LabelPrintingServer
             // 
             // textBoxKey1
             // 
-            this.textBoxKey1.Location = new System.Drawing.Point(181, 40);
+            this.textBoxKey1.Location = new System.Drawing.Point(181, 63);
             this.textBoxKey1.Name = "textBoxKey1";
             this.textBoxKey1.Size = new System.Drawing.Size(100, 21);
             this.textBoxKey1.TabIndex = 8;
@@ -155,7 +141,7 @@ namespace LabelPrintingServer
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(148, 44);
+            this.label4.Location = new System.Drawing.Point(148, 67);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(27, 12);
             this.label4.TabIndex = 7;
@@ -163,7 +149,7 @@ namespace LabelPrintingServer
             // 
             // textBoxValue2
             // 
-            this.textBoxValue2.Location = new System.Drawing.Point(330, 66);
+            this.textBoxValue2.Location = new System.Drawing.Point(330, 89);
             this.textBoxValue2.Name = "textBoxValue2";
             this.textBoxValue2.Size = new System.Drawing.Size(100, 21);
             this.textBoxValue2.TabIndex = 14;
@@ -171,7 +157,7 @@ namespace LabelPrintingServer
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(287, 73);
+            this.label5.Location = new System.Drawing.Point(287, 96);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(37, 12);
             this.label5.TabIndex = 13;
@@ -179,7 +165,7 @@ namespace LabelPrintingServer
             // 
             // textBoxKey2
             // 
-            this.textBoxKey2.Location = new System.Drawing.Point(181, 67);
+            this.textBoxKey2.Location = new System.Drawing.Point(181, 90);
             this.textBoxKey2.Name = "textBoxKey2";
             this.textBoxKey2.Size = new System.Drawing.Size(100, 21);
             this.textBoxKey2.TabIndex = 12;
@@ -187,7 +173,7 @@ namespace LabelPrintingServer
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(148, 71);
+            this.label6.Location = new System.Drawing.Point(148, 94);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(27, 12);
             this.label6.TabIndex = 11;
@@ -195,7 +181,7 @@ namespace LabelPrintingServer
             // 
             // textBoxValue3
             // 
-            this.textBoxValue3.Location = new System.Drawing.Point(330, 93);
+            this.textBoxValue3.Location = new System.Drawing.Point(330, 116);
             this.textBoxValue3.Name = "textBoxValue3";
             this.textBoxValue3.Size = new System.Drawing.Size(100, 21);
             this.textBoxValue3.TabIndex = 18;
@@ -203,7 +189,7 @@ namespace LabelPrintingServer
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(287, 100);
+            this.label7.Location = new System.Drawing.Point(287, 123);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(37, 12);
             this.label7.TabIndex = 17;
@@ -211,7 +197,7 @@ namespace LabelPrintingServer
             // 
             // textBoxKey3
             // 
-            this.textBoxKey3.Location = new System.Drawing.Point(181, 94);
+            this.textBoxKey3.Location = new System.Drawing.Point(181, 117);
             this.textBoxKey3.Name = "textBoxKey3";
             this.textBoxKey3.Size = new System.Drawing.Size(100, 21);
             this.textBoxKey3.TabIndex = 16;
@@ -219,7 +205,7 @@ namespace LabelPrintingServer
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(148, 98);
+            this.label8.Location = new System.Drawing.Point(148, 121);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(27, 12);
             this.label8.TabIndex = 15;
@@ -227,7 +213,7 @@ namespace LabelPrintingServer
             // 
             // textBoxValue4
             // 
-            this.textBoxValue4.Location = new System.Drawing.Point(330, 120);
+            this.textBoxValue4.Location = new System.Drawing.Point(330, 143);
             this.textBoxValue4.Name = "textBoxValue4";
             this.textBoxValue4.Size = new System.Drawing.Size(100, 21);
             this.textBoxValue4.TabIndex = 22;
@@ -235,7 +221,7 @@ namespace LabelPrintingServer
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(287, 127);
+            this.label9.Location = new System.Drawing.Point(287, 150);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(37, 12);
             this.label9.TabIndex = 21;
@@ -243,7 +229,7 @@ namespace LabelPrintingServer
             // 
             // textBoxKey4
             // 
-            this.textBoxKey4.Location = new System.Drawing.Point(181, 121);
+            this.textBoxKey4.Location = new System.Drawing.Point(181, 144);
             this.textBoxKey4.Name = "textBoxKey4";
             this.textBoxKey4.Size = new System.Drawing.Size(100, 21);
             this.textBoxKey4.TabIndex = 20;
@@ -251,7 +237,7 @@ namespace LabelPrintingServer
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(148, 125);
+            this.label10.Location = new System.Drawing.Point(148, 148);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(27, 12);
             this.label10.TabIndex = 19;
@@ -259,7 +245,7 @@ namespace LabelPrintingServer
             // 
             // textBoxValue5
             // 
-            this.textBoxValue5.Location = new System.Drawing.Point(330, 147);
+            this.textBoxValue5.Location = new System.Drawing.Point(330, 170);
             this.textBoxValue5.Name = "textBoxValue5";
             this.textBoxValue5.Size = new System.Drawing.Size(100, 21);
             this.textBoxValue5.TabIndex = 26;
@@ -267,7 +253,7 @@ namespace LabelPrintingServer
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(287, 154);
+            this.label11.Location = new System.Drawing.Point(287, 177);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(37, 12);
             this.label11.TabIndex = 25;
@@ -275,7 +261,7 @@ namespace LabelPrintingServer
             // 
             // textBoxKey5
             // 
-            this.textBoxKey5.Location = new System.Drawing.Point(181, 148);
+            this.textBoxKey5.Location = new System.Drawing.Point(181, 171);
             this.textBoxKey5.Name = "textBoxKey5";
             this.textBoxKey5.Size = new System.Drawing.Size(100, 21);
             this.textBoxKey5.TabIndex = 24;
@@ -283,7 +269,7 @@ namespace LabelPrintingServer
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(148, 152);
+            this.label12.Location = new System.Drawing.Point(148, 175);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(27, 12);
             this.label12.TabIndex = 23;
@@ -291,7 +277,7 @@ namespace LabelPrintingServer
             // 
             // textBoxValue6
             // 
-            this.textBoxValue6.Location = new System.Drawing.Point(330, 174);
+            this.textBoxValue6.Location = new System.Drawing.Point(330, 197);
             this.textBoxValue6.Name = "textBoxValue6";
             this.textBoxValue6.Size = new System.Drawing.Size(100, 21);
             this.textBoxValue6.TabIndex = 30;
@@ -299,7 +285,7 @@ namespace LabelPrintingServer
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(287, 181);
+            this.label13.Location = new System.Drawing.Point(287, 204);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(37, 12);
             this.label13.TabIndex = 29;
@@ -307,7 +293,7 @@ namespace LabelPrintingServer
             // 
             // textBoxKey6
             // 
-            this.textBoxKey6.Location = new System.Drawing.Point(181, 175);
+            this.textBoxKey6.Location = new System.Drawing.Point(181, 198);
             this.textBoxKey6.Name = "textBoxKey6";
             this.textBoxKey6.Size = new System.Drawing.Size(100, 21);
             this.textBoxKey6.TabIndex = 28;
@@ -315,7 +301,7 @@ namespace LabelPrintingServer
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(148, 179);
+            this.label14.Location = new System.Drawing.Point(148, 202);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(27, 12);
             this.label14.TabIndex = 27;
@@ -323,7 +309,7 @@ namespace LabelPrintingServer
             // 
             // textBoxValue7
             // 
-            this.textBoxValue7.Location = new System.Drawing.Point(330, 201);
+            this.textBoxValue7.Location = new System.Drawing.Point(330, 224);
             this.textBoxValue7.Name = "textBoxValue7";
             this.textBoxValue7.Size = new System.Drawing.Size(100, 21);
             this.textBoxValue7.TabIndex = 34;
@@ -331,7 +317,7 @@ namespace LabelPrintingServer
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(287, 208);
+            this.label15.Location = new System.Drawing.Point(287, 231);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(37, 12);
             this.label15.TabIndex = 33;
@@ -339,7 +325,7 @@ namespace LabelPrintingServer
             // 
             // textBoxKey7
             // 
-            this.textBoxKey7.Location = new System.Drawing.Point(181, 202);
+            this.textBoxKey7.Location = new System.Drawing.Point(181, 225);
             this.textBoxKey7.Name = "textBoxKey7";
             this.textBoxKey7.Size = new System.Drawing.Size(100, 21);
             this.textBoxKey7.TabIndex = 32;
@@ -347,7 +333,7 @@ namespace LabelPrintingServer
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(148, 206);
+            this.label16.Location = new System.Drawing.Point(148, 229);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(27, 12);
             this.label16.TabIndex = 31;
@@ -355,7 +341,7 @@ namespace LabelPrintingServer
             // 
             // textBoxValue8
             // 
-            this.textBoxValue8.Location = new System.Drawing.Point(330, 228);
+            this.textBoxValue8.Location = new System.Drawing.Point(330, 251);
             this.textBoxValue8.Name = "textBoxValue8";
             this.textBoxValue8.Size = new System.Drawing.Size(100, 21);
             this.textBoxValue8.TabIndex = 38;
@@ -363,7 +349,7 @@ namespace LabelPrintingServer
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(287, 235);
+            this.label17.Location = new System.Drawing.Point(287, 258);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(37, 12);
             this.label17.TabIndex = 37;
@@ -371,7 +357,7 @@ namespace LabelPrintingServer
             // 
             // textBoxKey8
             // 
-            this.textBoxKey8.Location = new System.Drawing.Point(181, 229);
+            this.textBoxKey8.Location = new System.Drawing.Point(181, 252);
             this.textBoxKey8.Name = "textBoxKey8";
             this.textBoxKey8.Size = new System.Drawing.Size(100, 21);
             this.textBoxKey8.TabIndex = 36;
@@ -379,7 +365,7 @@ namespace LabelPrintingServer
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(148, 233);
+            this.label18.Location = new System.Drawing.Point(148, 256);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(27, 12);
             this.label18.TabIndex = 35;
@@ -387,7 +373,7 @@ namespace LabelPrintingServer
             // 
             // buttonSend
             // 
-            this.buttonSend.Location = new System.Drawing.Point(436, 228);
+            this.buttonSend.Location = new System.Drawing.Point(436, 250);
             this.buttonSend.Name = "buttonSend";
             this.buttonSend.Size = new System.Drawing.Size(75, 23);
             this.buttonSend.TabIndex = 39;
@@ -395,11 +381,45 @@ namespace LabelPrintingServer
             this.buttonSend.UseVisualStyleBackColor = true;
             this.buttonSend.Click += new System.EventHandler(this.buttonSend_Click);
             // 
+            // textBoxValue0
+            // 
+            this.textBoxValue0.Location = new System.Drawing.Point(330, 35);
+            this.textBoxValue0.Name = "textBoxValue0";
+            this.textBoxValue0.Size = new System.Drawing.Size(100, 21);
+            this.textBoxValue0.TabIndex = 6;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(287, 42);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(37, 12);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Value";
+            // 
+            // textBoxFormID
+            // 
+            this.textBoxFormID.Location = new System.Drawing.Point(202, 7);
+            this.textBoxFormID.Name = "textBoxFormID";
+            this.textBoxFormID.Size = new System.Drawing.Size(100, 21);
+            this.textBoxFormID.TabIndex = 41;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(148, 13);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(49, 12);
+            this.label19.TabIndex = 40;
+            this.label19.Text = "Form ID";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(518, 388);
+            this.Controls.Add(this.textBoxFormID);
+            this.Controls.Add(this.label19);
             this.Controls.Add(this.buttonSend);
             this.Controls.Add(this.textBoxValue8);
             this.Controls.Add(this.label17);
@@ -452,10 +472,7 @@ namespace LabelPrintingServer
         private System.Windows.Forms.ListBox listBoxLog;
         private System.Windows.Forms.ListBox listBoxClient;
         private System.Windows.Forms.Label labelServer;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxKey0;
-        private System.Windows.Forms.TextBox textBoxValue0;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxValue1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxKey1;
@@ -489,6 +506,11 @@ namespace LabelPrintingServer
         private System.Windows.Forms.TextBox textBoxKey8;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Button buttonSend;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBoxValue0;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBoxFormID;
+        private System.Windows.Forms.Label label19;
     }
 }
 
