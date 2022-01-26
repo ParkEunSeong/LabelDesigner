@@ -59,9 +59,7 @@
             this.listBoxPrinter = new System.Windows.Forms.ListBox();
             this.buttonRefreshPrinter = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.canvas1 = new LabelEditor.Canvas();
             this.buttonClear = new System.Windows.Forms.Button();
-            this.panel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -77,7 +75,6 @@
             // 
             this.panel2.AutoScroll = true;
             this.panel2.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.panel2.Controls.Add(this.canvas1);
             this.panel2.Location = new System.Drawing.Point(212, 88);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1069, 680);
@@ -87,7 +84,7 @@
             // 
             // buttonMakeText
             // 
-            this.buttonMakeText.Location = new System.Drawing.Point(605, 26);
+            this.buttonMakeText.Location = new System.Drawing.Point(605, 27);
             this.buttonMakeText.Name = "buttonMakeText";
             this.buttonMakeText.Size = new System.Drawing.Size(75, 52);
             this.buttonMakeText.TabIndex = 1;
@@ -98,7 +95,7 @@
             // 
             // button1DBarcode
             // 
-            this.button1DBarcode.Location = new System.Drawing.Point(758, 26);
+            this.button1DBarcode.Location = new System.Drawing.Point(758, 27);
             this.button1DBarcode.Name = "button1DBarcode";
             this.button1DBarcode.Size = new System.Drawing.Size(75, 52);
             this.button1DBarcode.TabIndex = 2;
@@ -109,7 +106,7 @@
             // 
             // buttonQRCode
             // 
-            this.buttonQRCode.Location = new System.Drawing.Point(682, 26);
+            this.buttonQRCode.Location = new System.Drawing.Point(682, 27);
             this.buttonQRCode.Name = "buttonQRCode";
             this.buttonQRCode.Size = new System.Drawing.Size(75, 52);
             this.buttonQRCode.TabIndex = 3;
@@ -329,6 +326,7 @@
             this.listBoxPrinter.Name = "listBoxPrinter";
             this.listBoxPrinter.Size = new System.Drawing.Size(157, 88);
             this.listBoxPrinter.TabIndex = 13;
+            this.listBoxPrinter.DoubleClick += new System.EventHandler(this.listBoxPrinter_DoubleClick);
             // 
             // buttonRefreshPrinter
             // 
@@ -346,14 +344,6 @@
             this.timer1.Enabled = true;
             this.timer1.Interval = 3000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // canvas1
-            // 
-            this.canvas1.BackColor = System.Drawing.SystemColors.Control;
-            this.canvas1.Location = new System.Drawing.Point(10, 10);
-            this.canvas1.Name = "canvas1";
-            this.canvas1.Size = new System.Drawing.Size(200, 100);
-            this.canvas1.TabIndex = 0;
             // 
             // buttonClear
             // 
@@ -393,7 +383,6 @@
             this.Name = "Form1";
             this.Text = "BIXOLON Editor";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.panel2.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);

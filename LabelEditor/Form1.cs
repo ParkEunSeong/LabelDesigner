@@ -55,7 +55,8 @@ namespace LabelEditor
         private List<string> m_printerList = new List<string>();
         private Paper m_paper;
         private delegate void FromServerData(string json);
-        
+        private SelectControl m_select = new SelectControl();
+        private Focus m_focus;
         private int CentimeterToPixel(int Centimeter)
         {
             double pixel = -1;
@@ -136,14 +137,12 @@ namespace LabelEditor
         }
         public Form1()
         {
+
             InitializeComponent();
+    
             CreateMyStatusBar();
             FormClosed += Form1_FormClosed;
-            canvas1.MouseDown += PanelLabel_MouseDown;
-            canvas1.MouseMove += PanelLabel_MouseMove;
-            canvas1.MouseMove += panel2_MouseMove;
-            canvas1.MouseUp += Canvas1_MouseUp;
-            canvas1.PreviewKeyDown += Canvas1_PreviewKeyDown;
+         
             foreach ( string it in PrinterSettings.InstalledPrinters)
             {
                 m_printerList.Add(it);
@@ -158,6 +157,8 @@ namespace LabelEditor
             };
             timer1.Start();
         }
+
+    
 
         private void Canvas1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
@@ -207,42 +208,40 @@ namespace LabelEditor
             m_selectedCtrl = null;
         }
 
-        private void PanelLabel_MouseMove(object sender, MouseEventArgs e)
+        private void CreateFocus( Point location, Size size )
         {
-           
-            if (e.Button == MouseButtons.Left)
+            if (m_focus == null)
             {
-                var pt = e.Location;
-
-                if (IntersectRect(e.Location))
-                {
-                
-                }
+                m_focus = new Focus();
+                canvas1.Controls.Add(m_focus);
+                m_focus.Image = Image.FromFile("qr.png");
+                m_focus.SizeMode = PictureBoxSizeMode.StretchImage;
+                m_focus.Tag = -1;
             }
+            m_focus.Visible = true;
+            m_focus.Width = size.Width;
+            m_focus.Height = size.Height;
+            m_focus.Location =location;
         }
-
-        private void PanelLabel_MouseDown(object sender, MouseEventArgs e)
-        {
-       
-            if (e.Button == MouseButtons.Left)
-            {
-                if (IntersectRect(e.Location))
-                {
-                
-                }
-            }
-        }
-
         public void Initalize( Paper paper )
         {
             m_paper = paper;  
             labelMMSize.Text = $"{paper.MM_SIZE.Width}X{paper.MM_SIZE.Height}";
             labelPixel.Text = $"{paper.PAPER_SIZE.Width}X{paper.PAPER_SIZE.Height}";
             labelinch.Text = $"{paper.INCH_SIZE.Width}X{paper.INCH_SIZE.Height}";
+            if ( canvas1 == null )
+            {
+                canvas1 = new Canvas();
+                canvas1.Location = new Point(10, 10);
+                canvas1.BackColor = Color.White;
+                panel2.Controls.Add(canvas1);
+            }
             canvas1.Width = paper.PAPER_SIZE.Width;
             canvas1.Height = paper.PAPER_SIZE.Height;
-            
-          
+            canvas1.MouseMove += panel2_MouseMove;
+            canvas1.MouseUp += Canvas1_MouseUp;
+            canvas1.PreviewKeyDown += Canvas1_PreviewKeyDown;
+
             canvas1.Location = new Point(10,10);
             m_labelList.Clear();
             m_qrList.Clear();
@@ -250,6 +249,7 @@ namespace LabelEditor
             listBoxCtrl.Items.Clear();
             GC.Collect();
             canvas1.Controls.Clear();
+        
             for ( int i = 0; i < paper.texts.Count; i++ )
             {
                 var label = new RotatedLabel();
@@ -265,6 +265,8 @@ namespace LabelEditor
                 canvas1.Controls.Add(label);
                 listBoxCtrl.Items.Add(label.Name + "-Text");
                 m_labelList.Add(label );
+                CreateFocus(label.Location, label.Size);
+
             }
             for (int i = 0; i < paper.qrs.Count; i++ )
             {
@@ -318,6 +320,8 @@ namespace LabelEditor
                 
 
         }
+
+
         public void Refresh(Paper paper)
         {
             Initalize( paper);
@@ -372,6 +376,7 @@ namespace LabelEditor
                 canvas1.Controls.Add(label);
                 m_labelList.Add(label);
                 listBoxCtrl.Items.Add(label.Name + "-Text");
+
             }
             else if (tag.ToString() == "1")
             {
@@ -390,6 +395,7 @@ namespace LabelEditor
                 canvas1.Controls.Add(pb);
                 m_qrList.Add(pb);
                 listBoxCtrl.Items.Add(pb.Name + "-QRCode");
+                m_select.SetControl(pb);
             }
             else
             {
@@ -411,8 +417,9 @@ namespace LabelEditor
                 canvas1.Controls.Add(pb);
                 m_barcodeList.Add(pb);
                 listBoxCtrl.Items.Add(pb.Name + "-Barcode");
+                m_select.SetControl(pb);
             }
-            
+        
         }
         private void Label_MouseUp(object sender, MouseEventArgs e)
         {
@@ -438,7 +445,8 @@ namespace LabelEditor
                 }
                 else if (ctrl.Top > (canvas1.Height + ctrl.Height ))
                     ctrl.Height = canvas1.Height;
-
+                ctrl.Invalidate();
+                m_select.OnDraw();
                 SetSelectedControl(m_selectedCtrl);
             }
        
@@ -652,7 +660,7 @@ namespace LabelEditor
          //   drawFormat.FormatFlags = StringFormatFlags.;
 
             // Draw string to screen.
-          g.DrawString(text, drawFont, drawBrush, x, y, drawFormat);
+        ///  g.DrawString(text, drawFont, drawBrush, x, y, drawFormat);
         }
 
         private void checkBoxBold_CheckedChanged(object sender, EventArgs e)
@@ -878,6 +886,11 @@ namespace LabelEditor
         {
             canvas1.Controls.Clear();
             RefreshListBox();
+        }
+
+        private void listBoxPrinter_DoubleClick(object sender, EventArgs e)
+        {
+
         }
     }
 }
