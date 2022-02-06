@@ -116,12 +116,6 @@
       <DependentUpon>PropertyTextForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PropUtil.cs" />
-    <Compile Include="Focus.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Focus.designer.cs">
-      <DependentUpon>Focus.cs</DependentUpon>
-    </Compile>
     <Compile Include="QRCode.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -170,9 +164,6 @@
     <EmbeddedResource Include="PropertyTextForm.resx">
       <DependentUpon>PropertyTextForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Focus.resx">
-      <DependentUpon>Focus.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="QRCode.resx">
       <DependentUpon>QRCode.cs</DependentUpon>
     </EmbeddedResource>
@@ -183,9 +174,6 @@
       <DependentUpon>SetFileNameForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="font\code128.ttf" />
-    <Content Include="focus.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="font\code39.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

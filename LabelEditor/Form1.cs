@@ -37,6 +37,7 @@ namespace LabelEditor
         private Point m_startPoint;
         private Control m_selectedCtrl;
         private NetClient m_netCient;
+        private bool m_printButton;
         public bool m_bQuit;
         [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
         private static extern IntPtr CreateRoundRectRgn                            //파라미터
@@ -55,8 +56,6 @@ namespace LabelEditor
         private List<string> m_printerList = new List<string>();
         private Paper m_paper;
         private delegate void FromServerData(string json);
-        private SelectControl m_select = new SelectControl();
-        private Focus m_focus;
         private int CentimeterToPixel(int Centimeter)
         {
             double pixel = -1;
@@ -125,15 +124,18 @@ namespace LabelEditor
                         }
 
                     }
-                    buttonPrint_Click(null, null);
-
-
                 }
                 catch (Exception ex)
                 {
                     TRACE.Log(ex.ToString());
                 }
+                Print();
             }
+        }
+        public void Print()
+        {
+            m_printButton = false;
+            buttonPrint_Click(null, null);
         }
         public Form1()
         {
@@ -208,21 +210,7 @@ namespace LabelEditor
             m_selectedCtrl = null;
         }
 
-        private void CreateFocus( Point location, Size size )
-        {
-            if (m_focus == null)
-            {
-                m_focus = new Focus();
-                canvas1.Controls.Add(m_focus);
-                m_focus.Image = Image.FromFile("qr.png");
-                m_focus.SizeMode = PictureBoxSizeMode.StretchImage;
-                m_focus.Tag = -1;
-            }
-            m_focus.Visible = true;
-            m_focus.Width = size.Width;
-            m_focus.Height = size.Height;
-            m_focus.Location =location;
-        }
+     
         public void Initalize( Paper paper )
         {
             m_paper = paper;  
@@ -262,10 +250,10 @@ namespace LabelEditor
                 label.MouseUp += Label_MouseUp;
                 label.Text = label.Name;
                 label.Tag = 0;
+                label.Selected();
                 canvas1.Controls.Add(label);
                 listBoxCtrl.Items.Add(label.Name + "-Text");
                 m_labelList.Add(label );
-                CreateFocus(label.Location, label.Size);
 
             }
             for (int i = 0; i < paper.qrs.Count; i++ )
@@ -376,6 +364,7 @@ namespace LabelEditor
                 canvas1.Controls.Add(label);
                 m_labelList.Add(label);
                 listBoxCtrl.Items.Add(label.Name + "-Text");
+                label.Selected();
 
             }
             else if (tag.ToString() == "1")
@@ -395,7 +384,8 @@ namespace LabelEditor
                 canvas1.Controls.Add(pb);
                 m_qrList.Add(pb);
                 listBoxCtrl.Items.Add(pb.Name + "-QRCode");
-                m_select.SetControl(pb);
+                pb.Selected();
+
             }
             else
             {
@@ -417,13 +407,26 @@ namespace LabelEditor
                 canvas1.Controls.Add(pb);
                 m_barcodeList.Add(pb);
                 listBoxCtrl.Items.Add(pb.Name + "-Barcode");
-                m_select.SetControl(pb);
+                pb.Selected();
             }
         
         }
         private void Label_MouseUp(object sender, MouseEventArgs e)
         {
             m_isDrag = false;
+            var ctrl = (sender as Control);
+            if (ctrl is RotatedLabel)
+            {
+                ((RotatedLabel)ctrl).UnSelected();
+            }
+            else if (ctrl is QRCode)
+            {
+                ((QRCode)ctrl).UnSelected();
+            }
+            else if ( ctrl is Barcode )
+            {
+                ((Barcode)ctrl).UnSelected();
+            }
         }
 
         private void Label_MouseMove(object sender, MouseEventArgs e)
@@ -445,9 +448,6 @@ namespace LabelEditor
                 }
                 else if (ctrl.Top > (canvas1.Height + ctrl.Height ))
                     ctrl.Height = canvas1.Height;
-                ctrl.Invalidate();
-                m_select.OnDraw();
-                SetSelectedControl(m_selectedCtrl);
             }
        
         }
@@ -459,6 +459,18 @@ namespace LabelEditor
             {
                 m_isDrag = true;
                 m_startPoint = e.Location;
+                if (ctrl is RotatedLabel)
+                {
+                    ((RotatedLabel)ctrl).Selected();
+                }
+                else if (ctrl is QRCode)
+                {
+                    ((QRCode)ctrl).Selected();
+                }
+                else if (ctrl is Barcode)
+                {
+                    ((Barcode)ctrl).Selected();
+                }
             }
             else
             {
@@ -551,7 +563,7 @@ namespace LabelEditor
         private void buttonPrint_Click(object sender, EventArgs e)
         {
             PrintDocument doc = new PrintDocument();
-            
+        
             doc.PrinterSettings = new PrinterSettings();
             doc.DefaultPageSettings.PaperSize = new PaperSize("Custom", m_paper.PAPER_SIZE.Width, m_paper.PAPER_SIZE.Height);
             doc.DefaultPageSettings.Landscape = m_paper.orientation == 1 ? false : true;
@@ -578,12 +590,17 @@ namespace LabelEditor
             doc.PrinterSettings.ToPage = 0;
              doc.PrintPage += Doc_PrintPage;
             doc.EndPrint += Doc_EndPrint;
+            if ( sender != null )
+                m_printButton = true;
             doc.Print();
         }
 
         private void Doc_EndPrint(object sender, PrintEventArgs e)
         {
-            Initalize(m_paper);
+            if (m_printButton)
+            {
+                Initalize(m_paper);
+            }
         }
 
         private void Doc_PrintPage(object sender, PrintPageEventArgs e)
@@ -680,23 +697,27 @@ namespace LabelEditor
                 SetSelectedControl(m_selectedCtrl);
             }
         }
-
+        
         public void RefreshListBox()
         {
             listBoxCtrl.Items.Clear();
             foreach( Control it in canvas1.Controls )
             {
-                if (it.Tag.ToString() == "0")
+                if (it.Tag != null)
                 {
-                    listBoxCtrl.Items.Add(it.Name + "-Text");
-                }
-                else if (it.Tag.ToString() == "1")
-                {
-                    listBoxCtrl.Items.Add(it.Name + "-QRCode");
-                }
-                else
-                {
-                    listBoxCtrl.Items.Add(it.Name + "-Barcode");
+                    if (it.Tag.ToString() == "0")
+
+                    {
+                        listBoxCtrl.Items.Add(it.Name + "-Text");
+                    }
+                    else if (it.Tag.ToString() == "1")
+                    {
+                        listBoxCtrl.Items.Add(it.Name + "-QRCode");
+                    }
+                    else
+                    {
+                        listBoxCtrl.Items.Add(it.Name + "-Barcode");
+                    }
                 }
             }
         }

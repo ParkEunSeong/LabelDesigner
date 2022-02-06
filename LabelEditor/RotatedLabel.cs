@@ -22,27 +22,49 @@ namespace DigitalProduction.Forms
 
 		private int						_quadrant		= 1;
 
-		#endregion
+        #endregion
 
-		#region Construction
+        #region Construction
 
-		/// <summary>
-		/// Default constructor.
-		/// </summary>
-		public RotatedLabel()
+        private bool m_selected;
+
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public RotatedLabel()
 		{
-            this.Text = "rotatedLabel";
-			InitializeComponent();
-		}
+            InitializeComponent();
+            DoubleBuffered = true;
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            Paint += delegate (object sender, PaintEventArgs e)
+            {
+                if (m_selected)
+                    e.Graphics.DrawRectangle(new Pen(Brushes.Red, 3), new Rectangle(0, 0, Width - 1, Height - 1));
+                
+            };
 
-		#endregion
+        }
 
-		#region Properties
 
-		/// <summary>
-		/// Text angle.
-		/// </summary>
-		[Category("Appearance")]
+        public void Selected()
+        {
+            m_selected = true;
+            Invalidate();
+        }
+        public void UnSelected()
+        {
+            m_selected = false;
+            Invalidate();
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Text angle.
+        /// </summary>
+        [Category("Appearance")]
 		public int Angle
 		{
 			get
