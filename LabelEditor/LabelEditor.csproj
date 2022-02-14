@@ -136,6 +136,12 @@
       <DependentUpon>SetFileNameForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ScreenInformations.cs" />
+    <Compile Include="TestDataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestDataForm.Designer.cs">
+      <DependentUpon>TestDataForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="TRACE.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -172,6 +178,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SetFileNameForm.resx">
       <DependentUpon>SetFileNameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestDataForm.resx">
+      <DependentUpon>TestDataForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="font\code128.ttf" />
     <Content Include="font\code39.ttf">
