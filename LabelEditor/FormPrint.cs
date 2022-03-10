@@ -20,7 +20,7 @@ using System.Windows.Forms;
 
 namespace LabelEditor
 {
-    public partial class Form1 : Form
+    public partial class FormPrint : Form
     {
         //1 mm =  2.83465 pt(point)
         //1 inch = 72 pt(point)
@@ -137,11 +137,11 @@ namespace LabelEditor
             m_printButton = false;
             buttonPrint_Click(null, null);
         }
-        public Form1()
+        public FormPrint()
         {
 
             InitializeComponent();
-    
+            Visible = false;
             CreateMyStatusBar();
             FormClosed += Form1_FormClosed;
          
@@ -202,7 +202,7 @@ namespace LabelEditor
         public void SetLabelFrom( frmMain frm )
         {
             m_labelSetForm = frm;
-                Text = "LabelDesigner v1.0.0";
+            Text = "LabelDesigner v1.0.0";
         }
 
         private void Canvas1_MouseUp(object sender, MouseEventArgs e)

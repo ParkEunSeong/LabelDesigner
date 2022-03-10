@@ -33,6 +33,10 @@ namespace LabelEditor
             if (!Directory.Exists("data"))
                 Directory.CreateDirectory("data");
         }
+        public void SetData( string data )
+        {
+
+        }
 
         private void frmMain_Load(object sender, EventArgs e)
         {
