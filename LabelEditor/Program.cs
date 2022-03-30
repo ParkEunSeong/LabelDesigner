@@ -24,7 +24,8 @@ namespace LabelEditor
             Config.Load();
             TRACE.Log("프로그램 실행");
             TRACE.Log(Environment.CurrentDirectory);
-            if ( args != null && args.Length > 0 )
+            var text = "";
+            if (args != null && args.Length > 0)
             {
                 TRACE.Log(args[0]);
                 var form = new FormPrint();
@@ -36,16 +37,16 @@ namespace LabelEditor
                 var form = new frmMain();
                 Application.Run(form);
             }
-          
+
             //if ( Config.FORM_TYPE == "1" )
             //{
             //    var form = new TestDataForm();
             //    Application.Run(form);
-                
+
             //}
             //else if ( Config.FORM_TYPE == "2")
             //{
-                
+
             //    var form = new FormPrint();
             //    form.OnFromServerData(args[0]);
             //    Application.Run(form);
@@ -55,7 +56,7 @@ namespace LabelEditor
             //    var form = new frmMain();
             //    Application.Run(form);
             //}
-            
+
         }
     }
 }
