@@ -91,7 +91,6 @@
             this.buttonMakeText.Tag = "0";
             this.buttonMakeText.Text = "Text";
             this.buttonMakeText.UseVisualStyleBackColor = true;
-            this.buttonMakeText.Click += new System.EventHandler(this.OnButtonClickedMakeControl);
             // 
             // button1DBarcode
             // 
@@ -102,7 +101,7 @@
             this.button1DBarcode.Tag = "2";
             this.button1DBarcode.Text = "1DBarcode";
             this.button1DBarcode.UseVisualStyleBackColor = true;
-            this.button1DBarcode.Click += new System.EventHandler(this.OnButtonClickedMakeControl);
+
             // 
             // buttonQRCode
             // 
@@ -113,7 +112,7 @@
             this.buttonQRCode.Tag = "1";
             this.buttonQRCode.Text = "QRCode";
             this.buttonQRCode.UseVisualStyleBackColor = true;
-            this.buttonQRCode.Click += new System.EventHandler(this.OnButtonClickedMakeControl);
+
             // 
             // listBoxCtrl
             // 
@@ -123,8 +122,7 @@
             this.listBoxCtrl.Name = "listBoxCtrl";
             this.listBoxCtrl.Size = new System.Drawing.Size(157, 268);
             this.listBoxCtrl.TabIndex = 4;
-            this.listBoxCtrl.SelectedIndexChanged += new System.EventHandler(this.listBoxCtrl_SelectedIndexChanged);
-            this.listBoxCtrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listBoxCtrl_MouseDown);
+
             // 
             // menuStrip1
             // 

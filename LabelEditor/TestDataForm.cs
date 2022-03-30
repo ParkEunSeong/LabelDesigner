@@ -39,16 +39,9 @@ namespace LabelEditor
             j.Add("ifflDeptYn", textBox_0_iffIDeptYn.Text);
             j.Add("ifflYn", textBox_0_ifflYn.Text);
             j.Add("urgnDvsn", textBox_0_urgnDvsn.Text);
-
-            j.Add("LABL_BRCL_WR_TYPE", textBox_0_LABL_BRCL_WR_TYPE.Text);
-            j.Add("LABL_BRCL_IFFL_CHIL", textBox_0_LABL_BRCL_IFFL_CHIL.Text);
-            j.Add("LABL_BRCL_IFFL_OLMN", textBox_0_LABL_BRCL_IFFL_OLMN.Text);
-            j.Add("LABL_BRCL_IFFL_DEPT", textBox_0_LABL_BRCL_IFFL_DEPT.Text);
-            j.Add("LABL_BRCL_IFFL_INDX", textBox_0_LABL_BRCL_IFFL_INDX.Text);
-            j.Add("LABL_BRCL_URGN_DEPT", textBox_0_LABL_BRCL_URGN_DEPT.Text);
-
             j.Add("mdfrType", textBox_0_mdfrType.Text);
             j.Add("prntNm", textBox_0_prntNm.Text);
+
             var json = j.ToString();
             using (var sw = new StreamWriter("brcl.json"))
             {
@@ -61,21 +54,25 @@ namespace LabelEditor
                 jObject = JObject.Parse(sr.ReadToEnd());
             }
             var hsptId = jObject["hsptId"].ToString();
+
+            var text = File.ReadAllText("brcl.json");
+            var res = (new HTTPConnection.Builder())
+              .SetURL(textBox_0_url.Text)
+              .SetMethod(HTTPConnection.Method.POST)
+              .Build().PostJson(text);
         }
 
         private void button_2_Send_Click(object sender, EventArgs e)
         {
             JObject j = new JObject();
-            j.Add("hsptId", textBox_1_hsptId.Text);
-            j.Add("patId", textBox_1_patId.Text);
-            j.Add("patNm", textBox_1_patNm.Text);
-            j.Add("patDtbr", textBox_1_patDtbr.Text);
-            j.Add("patGndr", textBox_1_patGndr.Text);
-            j.Add("patAge", textBox_1_patAge.Text);
-            j.Add("LABL_CARD_TYPE", textBox_2_LABL_CARD_TYPE.Text);
+            j.Add("hsptId", textBox_2_hsptId.Text);
+            j.Add("patId", textBox_2_patId.Text);
+            j.Add("patNm", textBox_2_patNm.Text);
+            j.Add("patDtbr", textBox_2_patDtbr.Text);
+            j.Add("patAge", textBox_2_patAge.Text);
 
-            j.Add("mdfrType", textBox_1_mdfrType.Text);
-            j.Add("prntNm", textBox_1_prntNm.Text);
+            j.Add("mdfrType", textBox_2_mdfrType.Text);
+            j.Add("prntNm", textBox_2_prntNm.Text);
             var json = j.ToString();
             using (var sw = new StreamWriter("card.json"))
             {
@@ -86,6 +83,12 @@ namespace LabelEditor
             {
                 jObject = JObject.Parse(sr.ReadToEnd());
             }
+
+            var text = File.ReadAllText("card.json");
+            var res = (new HTTPConnection.Builder())
+  .SetURL(textBox_2_url.Text)
+              .SetMethod(HTTPConnection.Method.POST)
+              .Build().PostJson(text);
         }
 
         private void button_1_Send_Click(object sender, EventArgs e)
@@ -116,9 +119,6 @@ namespace LabelEditor
             j.Add("spcmUserNm", textBox_1_spcmUserNm.Text);
             j.Add("prntDtm", textBox_1_prntDtm.Text);
 
-            j.Add("LABL_SPCM_WR_TYPE", textBox_1_LABL_SPCM_WR_TYPE.Text);
-            j.Add("LABL_SPCM_SLIP_NM", textBox_1_LABL_SPCM_SLIP_NM.Text);
-
 
             j.Add("mdfrType", textBox_1_mdfrType.Text);
             j.Add("prntNm", textBox_1_prntNm.Text);
@@ -132,6 +132,51 @@ namespace LabelEditor
             {
                 jObject = JObject.Parse(sr.ReadToEnd());
             }
+            var text = File.ReadAllText("spcm.json");
+            var res = (new HTTPConnection.Builder())
+               .SetURL(textBox_1_url.Text)
+              .SetMethod(HTTPConnection.Method.POST)
+              .Build().PostJson(text);
+        }
+
+        private void textBox_3_frqn_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            JObject j = new JObject();
+            j.Add("hsptId", textBox_3_hsptId.Text);
+            j.Add("patId", textBox_3_patId.Text);
+            j.Add("patNm", textBox_3_patNm.Text);
+            j.Add("bndNo", textBox_3_bndNo.Text);
+            j.Add("accmDt", textBox_3_accmDt.Text);
+            j.Add("itemNm", textBox_3_itemNm.Text);
+            j.Add("qty", textBox_3_qty.Text);
+            j.Add("frqn", textBox_3_frqn.Text);
+            j.Add("nody", textBox_3_nody.Text);
+            j.Add("injcMthd", textBox_3_injcMthd.Text);
+            j.Add("ref", textBox_3_ref.Text);
+
+            j.Add("mdfrType", textBox_3_mdfrType.Text);
+            j.Add("prntNm", textBox_3_prntNm.Text);
+            var json = j.ToString();
+            using (var sw = new StreamWriter("card.json"))
+            {
+                sw.Write(json);
+            }
+            JObject jObject;
+            using (var sr = new StreamReader("card.json"))
+            {
+                jObject = JObject.Parse(sr.ReadToEnd());
+            }
+
+            var text = File.ReadAllText("card.json");
+            var res = (new HTTPConnection.Builder())
+  .SetURL(textBox_2_url.Text)
+              .SetMethod(HTTPConnection.Method.POST)
+              .Build().PostJson(text);
         }
     }
 }

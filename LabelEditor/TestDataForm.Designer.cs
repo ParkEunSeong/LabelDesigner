@@ -30,27 +30,16 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.label64 = new System.Windows.Forms.Label();
-            this.textBox_0_LABL_BRCL_URGN_DEPT = new System.Windows.Forms.TextBox();
+            this.textBox_0_url = new System.Windows.Forms.TextBox();
+            this.textBox_0_room = new System.Windows.Forms.TextBox();
+            this.label66 = new System.Windows.Forms.Label();
+            this.textBox_0_patGndr = new System.Windows.Forms.TextBox();
+            this.label65 = new System.Windows.Forms.Label();
             this.textBox_0_wrDspl = new System.Windows.Forms.TextBox();
             this.label63 = new System.Windows.Forms.Label();
             this.textBox_0_wrType = new System.Windows.Forms.TextBox();
             this.label62 = new System.Windows.Forms.Label();
-            this.label50 = new System.Windows.Forms.Label();
-            this.textBox_0_LABL_BRCL_IFFL_INDX = new System.Windows.Forms.TextBox();
-            this.label48 = new System.Windows.Forms.Label();
-            this.textBox_0_LABL_BRCL_IFFL_DEPT = new System.Windows.Forms.TextBox();
-            this.label49 = new System.Windows.Forms.Label();
-            this.textBox_0_LABL_BRCL_IFFL_OLMN = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.textBox_0_Port = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.textBox_0_IP = new System.Windows.Forms.TextBox();
             this.button_0_Send = new System.Windows.Forms.Button();
-            this.label20 = new System.Windows.Forms.Label();
-            this.textBox_0_LABL_BRCL_IFFL_CHIL = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.textBox_0_LABL_BRCL_WR_TYPE = new System.Windows.Forms.TextBox();
             this.textBox_0_mdfrType = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
@@ -80,6 +69,8 @@
             this.textBox_0_hsptId = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.textBox_1_patGndr = new System.Windows.Forms.TextBox();
+            this.label67 = new System.Windows.Forms.Label();
             this.textBox_1_spcmNo = new System.Windows.Forms.TextBox();
             this.label61 = new System.Windows.Forms.Label();
             this.textBox_1_prntDtm = new System.Windows.Forms.TextBox();
@@ -104,15 +95,7 @@
             this.label41 = new System.Windows.Forms.Label();
             this.textBox_1_wrType = new System.Windows.Forms.TextBox();
             this.label42 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
-            this.textBox_1_Port = new System.Windows.Forms.TextBox();
-            this.label34 = new System.Windows.Forms.Label();
-            this.textBox_1_IP = new System.Windows.Forms.TextBox();
-            this.button_1_Send = new System.Windows.Forms.Button();
-            this.label35 = new System.Windows.Forms.Label();
-            this.textBox_1_LABL_SPCM_SLIP_NM = new System.Windows.Forms.TextBox();
-            this.label36 = new System.Windows.Forms.Label();
-            this.textBox_1_LABL_SPCM_WR_TYPE = new System.Windows.Forms.TextBox();
+            this.textBox_1_url = new System.Windows.Forms.TextBox();
             this.textBox_1_mdfrType = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -141,7 +124,13 @@
             this.label31 = new System.Windows.Forms.Label();
             this.textBox_1_hsptId = new System.Windows.Forms.TextBox();
             this.label32 = new System.Windows.Forms.Label();
+            this.button_1_Send = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.textBox_2_mdfrType = new System.Windows.Forms.TextBox();
+            this.label58 = new System.Windows.Forms.Label();
+            this.label64 = new System.Windows.Forms.Label();
+            this.textBox_2_prntNm = new System.Windows.Forms.TextBox();
+            this.textBox_2_url = new System.Windows.Forms.TextBox();
             this.textBox_2_patAge = new System.Windows.Forms.TextBox();
             this.label53 = new System.Windows.Forms.Label();
             this.textBox_2_patDtbr = new System.Windows.Forms.TextBox();
@@ -152,27 +141,49 @@
             this.label56 = new System.Windows.Forms.Label();
             this.textBox_2_hsptId = new System.Windows.Forms.TextBox();
             this.label57 = new System.Windows.Forms.Label();
-            this.label59 = new System.Windows.Forms.Label();
-            this.textBox_2_Port = new System.Windows.Forms.TextBox();
-            this.label60 = new System.Windows.Forms.Label();
-            this.textBox_2_IP = new System.Windows.Forms.TextBox();
             this.button_2_Send = new System.Windows.Forms.Button();
-            this.label58 = new System.Windows.Forms.Label();
-            this.textBox_2_LABL_CARD_TYPE = new System.Windows.Forms.TextBox();
             this.textBox_2_ward = new System.Windows.Forms.TextBox();
             this.label51 = new System.Windows.Forms.Label();
             this.textBox_2_deptCd = new System.Windows.Forms.TextBox();
             this.label52 = new System.Windows.Forms.Label();
-            this.textBox_0_patGndr = new System.Windows.Forms.TextBox();
-            this.label65 = new System.Windows.Forms.Label();
-            this.textBox_0_room = new System.Windows.Forms.TextBox();
-            this.label66 = new System.Windows.Forms.Label();
-            this.textBox_1_patGndr = new System.Windows.Forms.TextBox();
-            this.label67 = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.textBox_3_mdfrType = new System.Windows.Forms.TextBox();
+            this.label68 = new System.Windows.Forms.Label();
+            this.label69 = new System.Windows.Forms.Label();
+            this.textBox_3_prntNm = new System.Windows.Forms.TextBox();
+            this.textBox_3_url = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBox_3_ref = new System.Windows.Forms.TextBox();
+            this.label59 = new System.Windows.Forms.Label();
+            this.textBox_3_injcMthd = new System.Windows.Forms.TextBox();
+            this.label60 = new System.Windows.Forms.Label();
+            this.textBox_3_nody = new System.Windows.Forms.TextBox();
+            this.label49 = new System.Windows.Forms.Label();
+            this.textBox_3_frqn = new System.Windows.Forms.TextBox();
+            this.label50 = new System.Windows.Forms.Label();
+            this.textBox_3_qty = new System.Windows.Forms.TextBox();
+            this.label48 = new System.Windows.Forms.Label();
+            this.textBox_3_itemNm = new System.Windows.Forms.TextBox();
+            this.label36 = new System.Windows.Forms.Label();
+            this.textBox_3_bndNo = new System.Windows.Forms.TextBox();
+            this.label35 = new System.Windows.Forms.Label();
+            this.textBox_3_room = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.textBox_3_accmDt = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.textBox_3_patDtbr = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.textBox_3_patNm = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.textBox_3_patId = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.textBox_3_hsptId = new System.Windows.Forms.TextBox();
+            this.label34 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -180,6 +191,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -188,31 +200,16 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.textBox_0_url);
             this.tabPage1.Controls.Add(this.textBox_0_room);
             this.tabPage1.Controls.Add(this.label66);
             this.tabPage1.Controls.Add(this.textBox_0_patGndr);
             this.tabPage1.Controls.Add(this.label65);
-            this.tabPage1.Controls.Add(this.label64);
-            this.tabPage1.Controls.Add(this.textBox_0_LABL_BRCL_URGN_DEPT);
             this.tabPage1.Controls.Add(this.textBox_0_wrDspl);
             this.tabPage1.Controls.Add(this.label63);
             this.tabPage1.Controls.Add(this.textBox_0_wrType);
             this.tabPage1.Controls.Add(this.label62);
-            this.tabPage1.Controls.Add(this.label50);
-            this.tabPage1.Controls.Add(this.textBox_0_LABL_BRCL_IFFL_INDX);
-            this.tabPage1.Controls.Add(this.label48);
-            this.tabPage1.Controls.Add(this.textBox_0_LABL_BRCL_IFFL_DEPT);
-            this.tabPage1.Controls.Add(this.label49);
-            this.tabPage1.Controls.Add(this.textBox_0_LABL_BRCL_IFFL_OLMN);
-            this.tabPage1.Controls.Add(this.label14);
-            this.tabPage1.Controls.Add(this.textBox_0_Port);
-            this.tabPage1.Controls.Add(this.label13);
-            this.tabPage1.Controls.Add(this.textBox_0_IP);
             this.tabPage1.Controls.Add(this.button_0_Send);
-            this.tabPage1.Controls.Add(this.label20);
-            this.tabPage1.Controls.Add(this.textBox_0_LABL_BRCL_IFFL_CHIL);
-            this.tabPage1.Controls.Add(this.label17);
-            this.tabPage1.Controls.Add(this.textBox_0_LABL_BRCL_WR_TYPE);
             this.tabPage1.Controls.Add(this.textBox_0_mdfrType);
             this.tabPage1.Controls.Add(this.label19);
             this.tabPage1.Controls.Add(this.label18);
@@ -249,22 +246,47 @@
             this.tabPage1.Text = "환자팔찌";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // label64
+            // textBox_0_url
             // 
-            this.label64.AutoSize = true;
-            this.label64.Location = new System.Drawing.Point(17, 513);
-            this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(233, 12);
-            this.label64.TabIndex = 65;
-            this.label64.Text = "LABL_BRCL_URGN_DEPT(긴급한과코드)";
+            this.textBox_0_url.Location = new System.Drawing.Point(37, 403);
+            this.textBox_0_url.Name = "textBox_0_url";
+            this.textBox_0_url.Size = new System.Drawing.Size(184, 21);
+            this.textBox_0_url.TabIndex = 75;
+            this.textBox_0_url.Text = "http://localhost:9950/api/brcl";
             // 
-            // textBox_0_LABL_BRCL_URGN_DEPT
+            // textBox_0_room
             // 
-            this.textBox_0_LABL_BRCL_URGN_DEPT.Location = new System.Drawing.Point(298, 510);
-            this.textBox_0_LABL_BRCL_URGN_DEPT.Name = "textBox_0_LABL_BRCL_URGN_DEPT";
-            this.textBox_0_LABL_BRCL_URGN_DEPT.Size = new System.Drawing.Size(100, 21);
-            this.textBox_0_LABL_BRCL_URGN_DEPT.TabIndex = 66;
-            this.textBox_0_LABL_BRCL_URGN_DEPT.Text = "er1";
+            this.textBox_0_room.Location = new System.Drawing.Point(365, 199);
+            this.textBox_0_room.Name = "textBox_0_room";
+            this.textBox_0_room.Size = new System.Drawing.Size(100, 21);
+            this.textBox_0_room.TabIndex = 70;
+            this.textBox_0_room.Text = "정형외과";
+            // 
+            // label66
+            // 
+            this.label66.AutoSize = true;
+            this.label66.Location = new System.Drawing.Point(263, 204);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(68, 12);
+            this.label66.TabIndex = 69;
+            this.label66.Text = "room(병실)";
+            // 
+            // textBox_0_patGndr
+            // 
+            this.textBox_0_patGndr.Location = new System.Drawing.Point(349, 114);
+            this.textBox_0_patGndr.Name = "textBox_0_patGndr";
+            this.textBox_0_patGndr.Size = new System.Drawing.Size(100, 21);
+            this.textBox_0_patGndr.TabIndex = 68;
+            this.textBox_0_patGndr.Text = "M";
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Location = new System.Drawing.Point(247, 118);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(83, 12);
+            this.label65.TabIndex = 67;
+            this.label65.Text = "patGndr(성별)";
             // 
             // textBox_0_wrDspl
             // 
@@ -300,92 +322,9 @@
             this.label62.TabIndex = 61;
             this.label62.Text = "wrType(병실표시형식)";
             // 
-            // label50
-            // 
-            this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(17, 493);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(219, 12);
-            this.label50.TabIndex = 59;
-            this.label50.Text = "LABL_BRCL_IFFL_INDX(낙상지수이상)";
-            // 
-            // textBox_0_LABL_BRCL_IFFL_INDX
-            // 
-            this.textBox_0_LABL_BRCL_IFFL_INDX.Location = new System.Drawing.Point(298, 487);
-            this.textBox_0_LABL_BRCL_IFFL_INDX.Name = "textBox_0_LABL_BRCL_IFFL_INDX";
-            this.textBox_0_LABL_BRCL_IFFL_INDX.Size = new System.Drawing.Size(100, 21);
-            this.textBox_0_LABL_BRCL_IFFL_INDX.TabIndex = 60;
-            this.textBox_0_LABL_BRCL_IFFL_INDX.Text = "51";
-            // 
-            // label48
-            // 
-            this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(19, 440);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(227, 12);
-            this.label48.TabIndex = 57;
-            this.label48.Text = "LABL_BRCL_IFFL_OLMN(노인나이이상)";
-            // 
-            // textBox_0_LABL_BRCL_IFFL_DEPT
-            // 
-            this.textBox_0_LABL_BRCL_IFFL_DEPT.Location = new System.Drawing.Point(298, 463);
-            this.textBox_0_LABL_BRCL_IFFL_DEPT.Name = "textBox_0_LABL_BRCL_IFFL_DEPT";
-            this.textBox_0_LABL_BRCL_IFFL_DEPT.Size = new System.Drawing.Size(100, 21);
-            this.textBox_0_LABL_BRCL_IFFL_DEPT.TabIndex = 58;
-            this.textBox_0_LABL_BRCL_IFFL_DEPT.Text = "er1";
-            // 
-            // label49
-            // 
-            this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(18, 466);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(211, 12);
-            this.label49.TabIndex = 55;
-            this.label49.Text = "LABL_BRCL_IFFL_DEPT(낙상과코드)";
-            // 
-            // textBox_0_LABL_BRCL_IFFL_OLMN
-            // 
-            this.textBox_0_LABL_BRCL_IFFL_OLMN.Location = new System.Drawing.Point(298, 436);
-            this.textBox_0_LABL_BRCL_IFFL_OLMN.Name = "textBox_0_LABL_BRCL_IFFL_OLMN";
-            this.textBox_0_LABL_BRCL_IFFL_OLMN.Size = new System.Drawing.Size(100, 21);
-            this.textBox_0_LABL_BRCL_IFFL_OLMN.TabIndex = 56;
-            this.textBox_0_LABL_BRCL_IFFL_OLMN.Text = "75";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(265, 50);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(27, 12);
-            this.label14.TabIndex = 54;
-            this.label14.Text = "Port";
-            // 
-            // textBox_0_Port
-            // 
-            this.textBox_0_Port.Location = new System.Drawing.Point(298, 47);
-            this.textBox_0_Port.Name = "textBox_0_Port";
-            this.textBox_0_Port.Size = new System.Drawing.Size(100, 21);
-            this.textBox_0_Port.TabIndex = 53;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(264, 22);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(16, 12);
-            this.label13.TabIndex = 52;
-            this.label13.Text = "IP";
-            // 
-            // textBox_0_IP
-            // 
-            this.textBox_0_IP.Location = new System.Drawing.Point(286, 17);
-            this.textBox_0_IP.Name = "textBox_0_IP";
-            this.textBox_0_IP.Size = new System.Drawing.Size(100, 21);
-            this.textBox_0_IP.TabIndex = 51;
-            // 
             // button_0_Send
             // 
-            this.button_0_Send.Location = new System.Drawing.Point(331, 74);
+            this.button_0_Send.Location = new System.Drawing.Point(227, 401);
             this.button_0_Send.Name = "button_0_Send";
             this.button_0_Send.Size = new System.Drawing.Size(67, 23);
             this.button_0_Send.TabIndex = 50;
@@ -393,47 +332,13 @@
             this.button_0_Send.UseVisualStyleBackColor = true;
             this.button_0_Send.Click += new System.EventHandler(this.button_0_Send_Click);
             // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(19, 418);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(266, 12);
-            this.label20.TabIndex = 48;
-            this.label20.Text = "LABL_BRCL_IFFL_CHIL(소아나이미만으로표시)";
-            // 
-            // textBox_0_LABL_BRCL_IFFL_CHIL
-            // 
-            this.textBox_0_LABL_BRCL_IFFL_CHIL.Location = new System.Drawing.Point(298, 411);
-            this.textBox_0_LABL_BRCL_IFFL_CHIL.Name = "textBox_0_LABL_BRCL_IFFL_CHIL";
-            this.textBox_0_LABL_BRCL_IFFL_CHIL.Size = new System.Drawing.Size(100, 21);
-            this.textBox_0_LABL_BRCL_IFFL_CHIL.TabIndex = 49;
-            this.textBox_0_LABL_BRCL_IFFL_CHIL.Text = "8";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(19, 391);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(217, 12);
-            this.label17.TabIndex = 38;
-            this.label17.Text = "LABL_BRCL_WR_TYPE(병실표시형식)";
-            // 
-            // textBox_0_LABL_BRCL_WR_TYPE
-            // 
-            this.textBox_0_LABL_BRCL_WR_TYPE.Location = new System.Drawing.Point(298, 384);
-            this.textBox_0_LABL_BRCL_WR_TYPE.Name = "textBox_0_LABL_BRCL_WR_TYPE";
-            this.textBox_0_LABL_BRCL_WR_TYPE.Size = new System.Drawing.Size(100, 21);
-            this.textBox_0_LABL_BRCL_WR_TYPE.TabIndex = 39;
-            this.textBox_0_LABL_BRCL_WR_TYPE.Text = "WR";
-            // 
             // textBox_0_mdfrType
             // 
             this.textBox_0_mdfrType.Location = new System.Drawing.Point(141, 334);
             this.textBox_0_mdfrType.Name = "textBox_0_mdfrType";
             this.textBox_0_mdfrType.Size = new System.Drawing.Size(100, 21);
             this.textBox_0_mdfrType.TabIndex = 29;
-            this.textBox_0_mdfrType.Text = "A0";
+            this.textBox_0_mdfrType.Text = "test";
             // 
             // label19
             // 
@@ -459,7 +364,7 @@
             this.textBox_0_prntNm.Name = "textBox_0_prntNm";
             this.textBox_0_prntNm.Size = new System.Drawing.Size(100, 21);
             this.textBox_0_prntNm.TabIndex = 31;
-            this.textBox_0_prntNm.Text = "BIXLON";
+            this.textBox_0_prntNm.Text = "Microsoft Print to PDF";
             // 
             // textBox_0_urgnDvsn
             // 
@@ -693,15 +598,7 @@
             this.tabPage2.Controls.Add(this.label41);
             this.tabPage2.Controls.Add(this.textBox_1_wrType);
             this.tabPage2.Controls.Add(this.label42);
-            this.tabPage2.Controls.Add(this.label33);
-            this.tabPage2.Controls.Add(this.textBox_1_Port);
-            this.tabPage2.Controls.Add(this.label34);
-            this.tabPage2.Controls.Add(this.textBox_1_IP);
-            this.tabPage2.Controls.Add(this.button_1_Send);
-            this.tabPage2.Controls.Add(this.label35);
-            this.tabPage2.Controls.Add(this.textBox_1_LABL_SPCM_SLIP_NM);
-            this.tabPage2.Controls.Add(this.label36);
-            this.tabPage2.Controls.Add(this.textBox_1_LABL_SPCM_WR_TYPE);
+            this.tabPage2.Controls.Add(this.textBox_1_url);
             this.tabPage2.Controls.Add(this.textBox_1_mdfrType);
             this.tabPage2.Controls.Add(this.label15);
             this.tabPage2.Controls.Add(this.label16);
@@ -730,6 +627,7 @@
             this.tabPage2.Controls.Add(this.label31);
             this.tabPage2.Controls.Add(this.textBox_1_hsptId);
             this.tabPage2.Controls.Add(this.label32);
+            this.tabPage2.Controls.Add(this.button_1_Send);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -737,6 +635,23 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "검체";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // textBox_1_patGndr
+            // 
+            this.textBox_1_patGndr.Location = new System.Drawing.Point(367, 361);
+            this.textBox_1_patGndr.Name = "textBox_1_patGndr";
+            this.textBox_1_patGndr.Size = new System.Drawing.Size(100, 21);
+            this.textBox_1_patGndr.TabIndex = 103;
+            this.textBox_1_patGndr.Text = "M";
+            // 
+            // label67
+            // 
+            this.label67.AutoSize = true;
+            this.label67.Location = new System.Drawing.Point(265, 366);
+            this.label67.Name = "label67";
+            this.label67.Size = new System.Drawing.Size(83, 12);
+            this.label67.TabIndex = 102;
+            this.label67.Text = "patGndr(성별)";
             // 
             // textBox_1_spcmNo
             // 
@@ -942,81 +857,13 @@
             this.label42.TabIndex = 78;
             this.label42.Text = "wrType(병실표시형식)";
             // 
-            // label33
+            // textBox_1_url
             // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(181, 471);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(27, 12);
-            this.label33.TabIndex = 77;
-            this.label33.Text = "Port";
-            // 
-            // textBox_1_Port
-            // 
-            this.textBox_1_Port.Location = new System.Drawing.Point(214, 466);
-            this.textBox_1_Port.Name = "textBox_1_Port";
-            this.textBox_1_Port.Size = new System.Drawing.Size(100, 21);
-            this.textBox_1_Port.TabIndex = 76;
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(47, 471);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(16, 12);
-            this.label34.TabIndex = 75;
-            this.label34.Text = "IP";
-            // 
-            // textBox_1_IP
-            // 
-            this.textBox_1_IP.Location = new System.Drawing.Point(70, 466);
-            this.textBox_1_IP.Name = "textBox_1_IP";
-            this.textBox_1_IP.Size = new System.Drawing.Size(100, 21);
-            this.textBox_1_IP.TabIndex = 74;
-            // 
-            // button_1_Send
-            // 
-            this.button_1_Send.Location = new System.Drawing.Point(327, 466);
-            this.button_1_Send.Name = "button_1_Send";
-            this.button_1_Send.Size = new System.Drawing.Size(67, 23);
-            this.button_1_Send.TabIndex = 73;
-            this.button_1_Send.Text = "전송";
-            this.button_1_Send.UseVisualStyleBackColor = true;
-            this.button_1_Send.Click += new System.EventHandler(this.button_1_Send_Click);
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(15, 421);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(273, 12);
-            this.label35.TabIndex = 71;
-            this.label35.Text = "LABL_SPCM_SLIP_NM(검체라벨 처방전명 표시)";
-            // 
-            // textBox_1_LABL_SPCM_SLIP_NM
-            // 
-            this.textBox_1_LABL_SPCM_SLIP_NM.Location = new System.Drawing.Point(294, 414);
-            this.textBox_1_LABL_SPCM_SLIP_NM.Name = "textBox_1_LABL_SPCM_SLIP_NM";
-            this.textBox_1_LABL_SPCM_SLIP_NM.Size = new System.Drawing.Size(100, 21);
-            this.textBox_1_LABL_SPCM_SLIP_NM.TabIndex = 72;
-            this.textBox_1_LABL_SPCM_SLIP_NM.Text = "K";
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(15, 394);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(273, 12);
-            this.label36.TabIndex = 69;
-            this.label36.Text = "LABL_SPCM_WR_TYPE(검체라벨 병실표시형식)";
-            // 
-            // textBox_1_LABL_SPCM_WR_TYPE
-            // 
-            this.textBox_1_LABL_SPCM_WR_TYPE.Location = new System.Drawing.Point(294, 387);
-            this.textBox_1_LABL_SPCM_WR_TYPE.Name = "textBox_1_LABL_SPCM_WR_TYPE";
-            this.textBox_1_LABL_SPCM_WR_TYPE.Size = new System.Drawing.Size(100, 21);
-            this.textBox_1_LABL_SPCM_WR_TYPE.TabIndex = 70;
-            this.textBox_1_LABL_SPCM_WR_TYPE.Text = "WR";
+            this.textBox_1_url.Location = new System.Drawing.Point(136, 468);
+            this.textBox_1_url.Name = "textBox_1_url";
+            this.textBox_1_url.Size = new System.Drawing.Size(184, 21);
+            this.textBox_1_url.TabIndex = 74;
+            this.textBox_1_url.Text = "http://localhost:9950/api/spcm";
             // 
             // textBox_1_mdfrType
             // 
@@ -1024,7 +871,7 @@
             this.textBox_1_mdfrType.Name = "textBox_1_mdfrType";
             this.textBox_1_mdfrType.Size = new System.Drawing.Size(100, 21);
             this.textBox_1_mdfrType.TabIndex = 65;
-            this.textBox_1_mdfrType.Text = "B1";
+            this.textBox_1_mdfrType.Text = "test";
             // 
             // label15
             // 
@@ -1255,8 +1102,23 @@
             this.label32.TabIndex = 40;
             this.label32.Text = "hsptId(병원구분)";
             // 
+            // button_1_Send
+            // 
+            this.button_1_Send.Location = new System.Drawing.Point(327, 466);
+            this.button_1_Send.Name = "button_1_Send";
+            this.button_1_Send.Size = new System.Drawing.Size(67, 23);
+            this.button_1_Send.TabIndex = 73;
+            this.button_1_Send.Text = "전송";
+            this.button_1_Send.UseVisualStyleBackColor = true;
+            this.button_1_Send.Click += new System.EventHandler(this.button_1_Send_Click);
+            // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.textBox_2_mdfrType);
+            this.tabPage3.Controls.Add(this.label58);
+            this.tabPage3.Controls.Add(this.label64);
+            this.tabPage3.Controls.Add(this.textBox_2_prntNm);
+            this.tabPage3.Controls.Add(this.textBox_2_url);
             this.tabPage3.Controls.Add(this.textBox_2_patAge);
             this.tabPage3.Controls.Add(this.label53);
             this.tabPage3.Controls.Add(this.textBox_2_patDtbr);
@@ -1267,13 +1129,7 @@
             this.tabPage3.Controls.Add(this.label56);
             this.tabPage3.Controls.Add(this.textBox_2_hsptId);
             this.tabPage3.Controls.Add(this.label57);
-            this.tabPage3.Controls.Add(this.label59);
-            this.tabPage3.Controls.Add(this.textBox_2_Port);
-            this.tabPage3.Controls.Add(this.label60);
-            this.tabPage3.Controls.Add(this.textBox_2_IP);
             this.tabPage3.Controls.Add(this.button_2_Send);
-            this.tabPage3.Controls.Add(this.label58);
-            this.tabPage3.Controls.Add(this.textBox_2_LABL_CARD_TYPE);
             this.tabPage3.Controls.Add(this.textBox_2_ward);
             this.tabPage3.Controls.Add(this.label51);
             this.tabPage3.Controls.Add(this.textBox_2_deptCd);
@@ -1284,6 +1140,48 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "진료카드";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // textBox_2_mdfrType
+            // 
+            this.textBox_2_mdfrType.Location = new System.Drawing.Point(377, 154);
+            this.textBox_2_mdfrType.Name = "textBox_2_mdfrType";
+            this.textBox_2_mdfrType.Size = new System.Drawing.Size(100, 21);
+            this.textBox_2_mdfrType.TabIndex = 95;
+            this.textBox_2_mdfrType.Text = "test";
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(254, 159);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(117, 12);
+            this.label58.TabIndex = 94;
+            this.label58.Text = "mdfrType(서식타입)";
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Location = new System.Drawing.Point(254, 186);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(104, 12);
+            this.label64.TabIndex = 96;
+            this.label64.Text = "prntNm(프린터명)";
+            // 
+            // textBox_2_prntNm
+            // 
+            this.textBox_2_prntNm.Location = new System.Drawing.Point(377, 177);
+            this.textBox_2_prntNm.Name = "textBox_2_prntNm";
+            this.textBox_2_prntNm.Size = new System.Drawing.Size(100, 21);
+            this.textBox_2_prntNm.TabIndex = 97;
+            this.textBox_2_prntNm.Text = "BIXLON";
+            // 
+            // textBox_2_url
+            // 
+            this.textBox_2_url.Location = new System.Drawing.Point(71, 226);
+            this.textBox_2_url.Name = "textBox_2_url";
+            this.textBox_2_url.Size = new System.Drawing.Size(184, 21);
+            this.textBox_2_url.TabIndex = 93;
+            this.textBox_2_url.Text = "http://localhost:9950/api/card";
             // 
             // textBox_2_patAge
             // 
@@ -1370,64 +1268,15 @@
             this.label57.TabIndex = 83;
             this.label57.Text = "hsptId(병원구분)";
             // 
-            // label59
-            // 
-            this.label59.AutoSize = true;
-            this.label59.Location = new System.Drawing.Point(193, 260);
-            this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(27, 12);
-            this.label59.TabIndex = 82;
-            this.label59.Text = "Port";
-            // 
-            // textBox_2_Port
-            // 
-            this.textBox_2_Port.Location = new System.Drawing.Point(226, 255);
-            this.textBox_2_Port.Name = "textBox_2_Port";
-            this.textBox_2_Port.Size = new System.Drawing.Size(100, 21);
-            this.textBox_2_Port.TabIndex = 81;
-            // 
-            // label60
-            // 
-            this.label60.AutoSize = true;
-            this.label60.Location = new System.Drawing.Point(59, 260);
-            this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(16, 12);
-            this.label60.TabIndex = 80;
-            this.label60.Text = "IP";
-            // 
-            // textBox_2_IP
-            // 
-            this.textBox_2_IP.Location = new System.Drawing.Point(82, 255);
-            this.textBox_2_IP.Name = "textBox_2_IP";
-            this.textBox_2_IP.Size = new System.Drawing.Size(100, 21);
-            this.textBox_2_IP.TabIndex = 79;
-            // 
             // button_2_Send
             // 
-            this.button_2_Send.Location = new System.Drawing.Point(339, 255);
+            this.button_2_Send.Location = new System.Drawing.Point(261, 224);
             this.button_2_Send.Name = "button_2_Send";
             this.button_2_Send.Size = new System.Drawing.Size(67, 23);
             this.button_2_Send.TabIndex = 78;
             this.button_2_Send.Text = "전송";
             this.button_2_Send.UseVisualStyleBackColor = true;
             this.button_2_Send.Click += new System.EventHandler(this.button_2_Send_Click);
-            // 
-            // label58
-            // 
-            this.label58.AutoSize = true;
-            this.label58.Location = new System.Drawing.Point(42, 220);
-            this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(258, 12);
-            this.label58.TabIndex = 71;
-            this.label58.Text = "LABL_CARD_TYPE(진찰권 스티커, 카드 구분)";
-            // 
-            // textBox_2_LABL_CARD_TYPE
-            // 
-            this.textBox_2_LABL_CARD_TYPE.Location = new System.Drawing.Point(306, 217);
-            this.textBox_2_LABL_CARD_TYPE.Name = "textBox_2_LABL_CARD_TYPE";
-            this.textBox_2_LABL_CARD_TYPE.Size = new System.Drawing.Size(100, 21);
-            this.textBox_2_LABL_CARD_TYPE.TabIndex = 72;
-            this.textBox_2_LABL_CARD_TYPE.Text = "S";
             // 
             // textBox_2_ward
             // 
@@ -1463,56 +1312,320 @@
             this.label52.TabIndex = 24;
             this.label52.Text = "deptCd(과코드)";
             // 
-            // textBox_0_patGndr
+            // tabPage4
             // 
-            this.textBox_0_patGndr.Location = new System.Drawing.Point(349, 114);
-            this.textBox_0_patGndr.Name = "textBox_0_patGndr";
-            this.textBox_0_patGndr.Size = new System.Drawing.Size(100, 21);
-            this.textBox_0_patGndr.TabIndex = 68;
-            this.textBox_0_patGndr.Text = "M";
+            this.tabPage4.Controls.Add(this.textBox_3_mdfrType);
+            this.tabPage4.Controls.Add(this.label68);
+            this.tabPage4.Controls.Add(this.label69);
+            this.tabPage4.Controls.Add(this.textBox_3_prntNm);
+            this.tabPage4.Controls.Add(this.textBox_3_url);
+            this.tabPage4.Controls.Add(this.button1);
+            this.tabPage4.Controls.Add(this.textBox_3_ref);
+            this.tabPage4.Controls.Add(this.label59);
+            this.tabPage4.Controls.Add(this.textBox_3_injcMthd);
+            this.tabPage4.Controls.Add(this.label60);
+            this.tabPage4.Controls.Add(this.textBox_3_nody);
+            this.tabPage4.Controls.Add(this.label49);
+            this.tabPage4.Controls.Add(this.textBox_3_frqn);
+            this.tabPage4.Controls.Add(this.label50);
+            this.tabPage4.Controls.Add(this.textBox_3_qty);
+            this.tabPage4.Controls.Add(this.label48);
+            this.tabPage4.Controls.Add(this.textBox_3_itemNm);
+            this.tabPage4.Controls.Add(this.label36);
+            this.tabPage4.Controls.Add(this.textBox_3_bndNo);
+            this.tabPage4.Controls.Add(this.label35);
+            this.tabPage4.Controls.Add(this.textBox_3_room);
+            this.tabPage4.Controls.Add(this.label13);
+            this.tabPage4.Controls.Add(this.textBox_3_accmDt);
+            this.tabPage4.Controls.Add(this.label14);
+            this.tabPage4.Controls.Add(this.textBox_3_patDtbr);
+            this.tabPage4.Controls.Add(this.label17);
+            this.tabPage4.Controls.Add(this.textBox_3_patNm);
+            this.tabPage4.Controls.Add(this.label20);
+            this.tabPage4.Controls.Add(this.textBox_3_patId);
+            this.tabPage4.Controls.Add(this.label33);
+            this.tabPage4.Controls.Add(this.textBox_3_hsptId);
+            this.tabPage4.Controls.Add(this.label34);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(491, 531);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "수액라벨";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // label65
+            // textBox_3_mdfrType
             // 
-            this.label65.AutoSize = true;
-            this.label65.Location = new System.Drawing.Point(247, 118);
-            this.label65.Name = "label65";
-            this.label65.Size = new System.Drawing.Size(83, 12);
-            this.label65.TabIndex = 67;
-            this.label65.Text = "patGndr(성별)";
+            this.textBox_3_mdfrType.Location = new System.Drawing.Point(138, 380);
+            this.textBox_3_mdfrType.Name = "textBox_3_mdfrType";
+            this.textBox_3_mdfrType.Size = new System.Drawing.Size(100, 21);
+            this.textBox_3_mdfrType.TabIndex = 97;
+            this.textBox_3_mdfrType.Text = "test";
             // 
-            // textBox_0_room
+            // label68
             // 
-            this.textBox_0_room.Location = new System.Drawing.Point(365, 199);
-            this.textBox_0_room.Name = "textBox_0_room";
-            this.textBox_0_room.Size = new System.Drawing.Size(100, 21);
-            this.textBox_0_room.TabIndex = 70;
-            this.textBox_0_room.Text = "정형외과";
+            this.label68.AutoSize = true;
+            this.label68.Location = new System.Drawing.Point(15, 385);
+            this.label68.Name = "label68";
+            this.label68.Size = new System.Drawing.Size(117, 12);
+            this.label68.TabIndex = 96;
+            this.label68.Text = "mfdrType(서식타입)";
             // 
-            // label66
+            // label69
             // 
-            this.label66.AutoSize = true;
-            this.label66.Location = new System.Drawing.Point(263, 204);
-            this.label66.Name = "label66";
-            this.label66.Size = new System.Drawing.Size(68, 12);
-            this.label66.TabIndex = 69;
-            this.label66.Text = "room(병실)";
+            this.label69.AutoSize = true;
+            this.label69.Location = new System.Drawing.Point(15, 412);
+            this.label69.Name = "label69";
+            this.label69.Size = new System.Drawing.Size(104, 12);
+            this.label69.TabIndex = 98;
+            this.label69.Text = "prntNm(프린터명)";
             // 
-            // textBox_1_patGndr
+            // textBox_3_prntNm
             // 
-            this.textBox_1_patGndr.Location = new System.Drawing.Point(367, 361);
-            this.textBox_1_patGndr.Name = "textBox_1_patGndr";
-            this.textBox_1_patGndr.Size = new System.Drawing.Size(100, 21);
-            this.textBox_1_patGndr.TabIndex = 103;
-            this.textBox_1_patGndr.Text = "M";
+            this.textBox_3_prntNm.Location = new System.Drawing.Point(138, 403);
+            this.textBox_3_prntNm.Name = "textBox_3_prntNm";
+            this.textBox_3_prntNm.Size = new System.Drawing.Size(100, 21);
+            this.textBox_3_prntNm.TabIndex = 99;
+            this.textBox_3_prntNm.Text = "Microsoft Print to PDF";
             // 
-            // label67
+            // textBox_3_url
             // 
-            this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(265, 366);
-            this.label67.Name = "label67";
-            this.label67.Size = new System.Drawing.Size(83, 12);
-            this.label67.TabIndex = 102;
-            this.label67.Text = "patGndr(성별)";
+            this.textBox_3_url.Location = new System.Drawing.Point(53, 444);
+            this.textBox_3_url.Name = "textBox_3_url";
+            this.textBox_3_url.Size = new System.Drawing.Size(200, 21);
+            this.textBox_3_url.TabIndex = 95;
+            this.textBox_3_url.Text = "http://localhost:9950/api/infusion";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(259, 444);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(67, 23);
+            this.button1.TabIndex = 94;
+            this.button1.Text = "전송";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // textBox_3_ref
+            // 
+            this.textBox_3_ref.Location = new System.Drawing.Point(123, 353);
+            this.textBox_3_ref.Name = "textBox_3_ref";
+            this.textBox_3_ref.Size = new System.Drawing.Size(100, 21);
+            this.textBox_3_ref.TabIndex = 37;
+            this.textBox_3_ref.Text = "감염우려";
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(21, 357);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(77, 12);
+            this.label59.TabIndex = 36;
+            this.label59.Text = "ref(참조사항)";
+            // 
+            // textBox_3_injcMthd
+            // 
+            this.textBox_3_injcMthd.Location = new System.Drawing.Point(138, 326);
+            this.textBox_3_injcMthd.Name = "textBox_3_injcMthd";
+            this.textBox_3_injcMthd.Size = new System.Drawing.Size(100, 21);
+            this.textBox_3_injcMthd.TabIndex = 35;
+            this.textBox_3_injcMthd.Text = "inj";
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Location = new System.Drawing.Point(21, 330);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(111, 12);
+            this.label60.TabIndex = 34;
+            this.label60.Text = "injcMthd(주사방법)";
+            // 
+            // textBox_3_nody
+            // 
+            this.textBox_3_nody.Location = new System.Drawing.Point(132, 299);
+            this.textBox_3_nody.Name = "textBox_3_nody";
+            this.textBox_3_nody.Size = new System.Drawing.Size(100, 21);
+            this.textBox_3_nody.TabIndex = 33;
+            this.textBox_3_nody.Text = "5";
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Location = new System.Drawing.Point(30, 303);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(67, 12);
+            this.label49.TabIndex = 32;
+            this.label49.Text = "nody(날수)";
+            // 
+            // textBox_3_frqn
+            // 
+            this.textBox_3_frqn.Location = new System.Drawing.Point(134, 271);
+            this.textBox_3_frqn.Name = "textBox_3_frqn";
+            this.textBox_3_frqn.Size = new System.Drawing.Size(100, 21);
+            this.textBox_3_frqn.TabIndex = 31;
+            this.textBox_3_frqn.Text = "5";
+            this.textBox_3_frqn.TextChanged += new System.EventHandler(this.textBox_3_frqn_TextChanged);
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(32, 275);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(60, 12);
+            this.label50.TabIndex = 30;
+            this.label50.Text = "frqn(횟수)";
+            // 
+            // textBox_3_qty
+            // 
+            this.textBox_3_qty.Location = new System.Drawing.Point(134, 244);
+            this.textBox_3_qty.Name = "textBox_3_qty";
+            this.textBox_3_qty.Size = new System.Drawing.Size(100, 21);
+            this.textBox_3_qty.TabIndex = 29;
+            this.textBox_3_qty.Text = "10";
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(32, 248);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(56, 12);
+            this.label48.TabIndex = 28;
+            this.label48.Text = "qty(수량)";
+            // 
+            // textBox_3_itemNm
+            // 
+            this.textBox_3_itemNm.Location = new System.Drawing.Point(136, 216);
+            this.textBox_3_itemNm.Name = "textBox_3_itemNm";
+            this.textBox_3_itemNm.Size = new System.Drawing.Size(100, 21);
+            this.textBox_3_itemNm.TabIndex = 27;
+            this.textBox_3_itemNm.Text = "코로나";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(34, 220);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(95, 12);
+            this.label36.TabIndex = 26;
+            this.label36.Text = "itemNm(품목명)";
+            // 
+            // textBox_3_bndNo
+            // 
+            this.textBox_3_bndNo.Location = new System.Drawing.Point(134, 187);
+            this.textBox_3_bndNo.Name = "textBox_3_bndNo";
+            this.textBox_3_bndNo.Size = new System.Drawing.Size(100, 21);
+            this.textBox_3_bndNo.TabIndex = 25;
+            this.textBox_3_bndNo.Text = "1";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(32, 191);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(100, 12);
+            this.label35.TabIndex = 24;
+            this.label35.Text = "bndNo(묶음번호)";
+            // 
+            // textBox_3_room
+            // 
+            this.textBox_3_room.Location = new System.Drawing.Point(134, 160);
+            this.textBox_3_room.Name = "textBox_3_room";
+            this.textBox_3_room.Size = new System.Drawing.Size(100, 21);
+            this.textBox_3_room.TabIndex = 23;
+            this.textBox_3_room.Text = "1101";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(32, 165);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(68, 12);
+            this.label13.TabIndex = 22;
+            this.label13.Text = "room(병실)";
+            // 
+            // textBox_3_accmDt
+            // 
+            this.textBox_3_accmDt.Location = new System.Drawing.Point(136, 135);
+            this.textBox_3_accmDt.Name = "textBox_3_accmDt";
+            this.textBox_3_accmDt.Size = new System.Drawing.Size(100, 21);
+            this.textBox_3_accmDt.TabIndex = 21;
+            this.textBox_3_accmDt.Text = "29";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(32, 138);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(106, 12);
+            this.label14.TabIndex = 20;
+            this.label14.Text = "accmDt(실시일자)";
+            // 
+            // textBox_3_patDtbr
+            // 
+            this.textBox_3_patDtbr.Location = new System.Drawing.Point(134, 111);
+            this.textBox_3_patDtbr.Name = "textBox_3_patDtbr";
+            this.textBox_3_patDtbr.Size = new System.Drawing.Size(100, 21);
+            this.textBox_3_patDtbr.TabIndex = 19;
+            this.textBox_3_patDtbr.Text = "19930828";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(32, 116);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(102, 12);
+            this.label17.TabIndex = 18;
+            this.label17.Text = "patDtbr(생년월일)";
+            // 
+            // textBox_3_patNm
+            // 
+            this.textBox_3_patNm.Location = new System.Drawing.Point(134, 84);
+            this.textBox_3_patNm.Name = "textBox_3_patNm";
+            this.textBox_3_patNm.Size = new System.Drawing.Size(100, 21);
+            this.textBox_3_patNm.TabIndex = 17;
+            this.textBox_3_patNm.Text = "나환자";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(32, 89);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(76, 12);
+            this.label20.TabIndex = 16;
+            this.label20.Text = "patNm(성명)";
+            // 
+            // textBox_3_patId
+            // 
+            this.textBox_3_patId.Location = new System.Drawing.Point(134, 57);
+            this.textBox_3_patId.Name = "textBox_3_patId";
+            this.textBox_3_patId.Size = new System.Drawing.Size(100, 21);
+            this.textBox_3_patId.TabIndex = 15;
+            this.textBox_3_patId.Text = "12345678";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(32, 62);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(90, 12);
+            this.label33.TabIndex = 14;
+            this.label33.Text = "patId(병록번호)";
+            // 
+            // textBox_3_hsptId
+            // 
+            this.textBox_3_hsptId.Location = new System.Drawing.Point(134, 30);
+            this.textBox_3_hsptId.Name = "textBox_3_hsptId";
+            this.textBox_3_hsptId.Size = new System.Drawing.Size(100, 21);
+            this.textBox_3_hsptId.TabIndex = 13;
+            this.textBox_3_hsptId.Text = "31100015";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(32, 35);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(97, 12);
+            this.label34.TabIndex = 12;
+            this.label34.Text = "hsptId(병원구분)";
             // 
             // TestDataForm
             // 
@@ -1529,6 +1642,8 @@
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1537,8 +1652,6 @@
 
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox textBox_0_LABL_BRCL_WR_TYPE;
         private System.Windows.Forms.TextBox textBox_0_mdfrType;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label18;
@@ -1569,19 +1682,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.Label label50;
-        private System.Windows.Forms.TextBox textBox_0_LABL_BRCL_IFFL_INDX;
-        private System.Windows.Forms.Label label48;
-        private System.Windows.Forms.TextBox textBox_0_LABL_BRCL_IFFL_DEPT;
-        private System.Windows.Forms.Label label49;
-        private System.Windows.Forms.TextBox textBox_0_LABL_BRCL_IFFL_OLMN;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textBox_0_Port;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox textBox_0_IP;
-        private System.Windows.Forms.Button button_0_Send;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.TextBox textBox_0_LABL_BRCL_IFFL_CHIL;
         private System.Windows.Forms.TextBox textBox_1_prntDtm;
         private System.Windows.Forms.Label label47;
         private System.Windows.Forms.TextBox textBox_1_spcmUserNm;
@@ -1604,15 +1704,6 @@
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.TextBox textBox_1_wrType;
         private System.Windows.Forms.Label label42;
-        private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.TextBox textBox_1_Port;
-        private System.Windows.Forms.Label label34;
-        private System.Windows.Forms.TextBox textBox_1_IP;
-        private System.Windows.Forms.Button button_1_Send;
-        private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.TextBox textBox_1_LABL_SPCM_SLIP_NM;
-        private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.TextBox textBox_1_LABL_SPCM_WR_TYPE;
         private System.Windows.Forms.TextBox textBox_1_mdfrType;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
@@ -1641,13 +1732,7 @@
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.TextBox textBox_1_hsptId;
         private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.Label label59;
-        private System.Windows.Forms.TextBox textBox_2_Port;
-        private System.Windows.Forms.Label label60;
-        private System.Windows.Forms.TextBox textBox_2_IP;
         private System.Windows.Forms.Button button_2_Send;
-        private System.Windows.Forms.Label label58;
-        private System.Windows.Forms.TextBox textBox_2_LABL_CARD_TYPE;
         private System.Windows.Forms.TextBox textBox_2_ward;
         private System.Windows.Forms.Label label51;
         private System.Windows.Forms.TextBox textBox_2_deptCd;
@@ -1658,8 +1743,6 @@
         private System.Windows.Forms.Label label62;
         private System.Windows.Forms.TextBox textBox_0_wrDspl;
         private System.Windows.Forms.Label label63;
-        private System.Windows.Forms.Label label64;
-        private System.Windows.Forms.TextBox textBox_0_LABL_BRCL_URGN_DEPT;
         private System.Windows.Forms.TextBox textBox_2_patAge;
         private System.Windows.Forms.Label label53;
         private System.Windows.Forms.TextBox textBox_2_patDtbr;
@@ -1676,5 +1759,47 @@
         private System.Windows.Forms.Label label66;
         private System.Windows.Forms.TextBox textBox_1_patGndr;
         private System.Windows.Forms.Label label67;
+        private System.Windows.Forms.TextBox textBox_0_url;
+        private System.Windows.Forms.Button button_0_Send;
+        private System.Windows.Forms.TextBox textBox_1_url;
+        private System.Windows.Forms.Button button_1_Send;
+        private System.Windows.Forms.TextBox textBox_2_url;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TextBox textBox_3_url;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox_3_ref;
+        private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.TextBox textBox_3_injcMthd;
+        private System.Windows.Forms.Label label60;
+        private System.Windows.Forms.TextBox textBox_3_nody;
+        private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.TextBox textBox_3_frqn;
+        private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.TextBox textBox_3_qty;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.TextBox textBox_3_itemNm;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.TextBox textBox_3_bndNo;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.TextBox textBox_3_room;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox textBox_3_accmDt;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox textBox_3_patDtbr;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox textBox_3_patNm;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox textBox_3_patId;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.TextBox textBox_3_hsptId;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.TextBox textBox_2_mdfrType;
+        private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.Label label64;
+        private System.Windows.Forms.TextBox textBox_2_prntNm;
+        private System.Windows.Forms.TextBox textBox_3_mdfrType;
+        private System.Windows.Forms.Label label68;
+        private System.Windows.Forms.Label label69;
+        private System.Windows.Forms.TextBox textBox_3_prntNm;
     }
 }

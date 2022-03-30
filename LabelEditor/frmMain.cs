@@ -82,6 +82,7 @@ namespace LabelEditor
       
 
 
+
         private void buttonDesign_Click(object sender, EventArgs e)
         {
             if (m_paper == null)

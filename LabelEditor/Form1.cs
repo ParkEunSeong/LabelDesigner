@@ -144,7 +144,6 @@ namespace LabelEditor
     
             CreateMyStatusBar();
             FormClosed += Form1_FormClosed;
-         
             foreach ( string it in PrinterSettings.InstalledPrinters)
             {
                 m_printerList.Add(it);
@@ -160,18 +159,6 @@ namespace LabelEditor
             timer1.Start();
         }
 
-    
-
-        private void Canvas1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            if (e.Control && e.KeyCode == Keys.Delete)
-            {
-                if ( m_selectedCtrl != null )
-                {
-                    RemoveControl(m_selectedCtrl);
-                }
-            }
-        }
         public void RemoveControl( Control ctrl )
         {
             var tag = ctrl.Tag.ToString();
@@ -191,12 +178,19 @@ namespace LabelEditor
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            m_bQuit = true;
-            if (m_labelSetForm != null )
-                m_labelSetForm.Close();
-            timer1.Stop();
-            if ( m_netCient != null )
-                m_netCient.Close();
+            try
+            {
+                m_bQuit = true;
+                if (m_labelSetForm != null)
+                    m_labelSetForm.Close();
+                timer1.Stop();
+                if (m_netCient != null)
+                    m_netCient.Close();
+            }
+            catch ( Exception ex)
+            {
+                TRACE.Log(ex.ToString());
+            }
         }
 
         public void SetLabelFrom( frmMain frm )
@@ -211,100 +205,113 @@ namespace LabelEditor
         }
 
      
-        public void Initalize( Paper paper )
+        public void Initalize( Paper paper , bool print = false )
         {
-            m_paper = paper;  
-            labelMMSize.Text = $"{paper.MM_SIZE.Width}X{paper.MM_SIZE.Height}";
-            labelPixel.Text = $"{paper.PAPER_SIZE.Width}X{paper.PAPER_SIZE.Height}";
-            labelinch.Text = $"{paper.INCH_SIZE.Width}X{paper.INCH_SIZE.Height}";
-            if ( canvas1 == null )
+            try
             {
-                canvas1 = new Canvas();
+                m_paper = paper;
+                labelMMSize.Text = $"{paper.MM_SIZE.Width}X{paper.MM_SIZE.Height}";
+                labelPixel.Text = $"{paper.PAPER_SIZE.Width}X{paper.PAPER_SIZE.Height}";
+                labelinch.Text = $"{paper.INCH_SIZE.Width}X{paper.INCH_SIZE.Height}";
+                if (canvas1 == null)
+                {
+                    canvas1 = new Canvas();
+                    canvas1.Location = new Point(10, 10);
+                    canvas1.BackColor = Color.White;
+                    panel2.Controls.Add(canvas1);
+                }
+                canvas1.Width = paper.PAPER_SIZE.Width;
+                canvas1.Height = paper.PAPER_SIZE.Height;
+                canvas1.MouseMove += panel2_MouseMove;
+                canvas1.MouseUp += Canvas1_MouseUp;
+                
                 canvas1.Location = new Point(10, 10);
-                canvas1.BackColor = Color.White;
-                panel2.Controls.Add(canvas1);
-            }
-            canvas1.Width = paper.PAPER_SIZE.Width;
-            canvas1.Height = paper.PAPER_SIZE.Height;
-            canvas1.MouseMove += panel2_MouseMove;
-            canvas1.MouseUp += Canvas1_MouseUp;
-            canvas1.PreviewKeyDown += Canvas1_PreviewKeyDown;
-
-            canvas1.Location = new Point(10,10);
-            m_labelList.Clear();
-            m_qrList.Clear();
-            m_barcodeList.Clear();
-            listBoxCtrl.Items.Clear();
-            GC.Collect();
-            canvas1.Controls.Clear();
-
-        
-            for ( int i = 0; i < paper.texts.Count; i++ )
-            {
-                var label = new RotatedLabel();
-                label.AutoSize = true;
-                label.Name = paper.texts[i].key;
-                label.Location = new Point(paper.texts[i].x, paper.texts[i].y);
-                label.Font = new Font(paper.texts[i].font_name, paper.texts[i].font_size, paper.texts[i].bold ? FontStyle.Bold : FontStyle.Regular);
-                label.MouseDown += Label_MouseDown;
-                label.MouseMove += Label_MouseMove;
-                label.MouseUp += Label_MouseUp;
-                label.Text = label.Name;
-                label.Tag = 0;
-                label.Selected();
-                canvas1.Controls.Add(label);
-                listBoxCtrl.Items.Add(label.Name + "-Text");
-                m_labelList.Add(label );
-
-            }
-            for (int i = 0; i < paper.qrs.Count; i++ )
-            {
-                var pb = new QRCode();
-                pb.Name = paper.qrs[i].key;
-                pb.Image = Image.FromFile("qr.png");
-                pb.Width = paper.qrs[i].width;
-                pb.Height = paper.qrs[i].height;
-                pb.Text = pb.Name;
-                pb.Location = new Point(paper.qrs[i].x, paper.qrs[i].y);
-                pb.MouseDown += Label_MouseDown;
-                pb.MouseMove += Label_MouseMove;
-                pb.MouseUp += Label_MouseUp;
-                pb.SizeMode = PictureBoxSizeMode.StretchImage;
-                pb.Tag = 1;
-                canvas1.Controls.Add(pb);
-                m_qrList.Add(pb);
-                listBoxCtrl.Items.Add(pb.Name + "-QRCode");
-            }
-            for ( int i = 0; i < paper.barcodes.Count; i++ )
-            {
-                var pb = new Barcode();
-                Image img = null;
-                pb.Name = paper.barcodes[i].key;
-                if ( paper.barcodes[i].barcode39 == 0 )
+                if (print == false )
                 {
-                    Barcode39 barcode39 = new Barcode39();
-                    barcode39.Code = "12345678";
-                    barcode39.BarHeight = paper.barcodes[i].height;
-                    img = barcode39.CreateDrawingImage(Color.Black, Color.White);
+                    m_labelList.Clear();
+                    m_qrList.Clear();
+                    m_barcodeList.Clear();
+                    listBoxCtrl.Items.Clear();
+                    GC.Collect();
+                    canvas1.Controls.Clear();
                 }
-                else
+                
+
+                TRACE.Log("texts");
+                for (int i = 0; i < paper.texts.Count; i++)
                 {
-                    Barcode128 barcode128 = new Barcode128();
-                    barcode128.Code = "12345678";
-                    barcode128.BarHeight = paper.barcodes[i].height;
-                    img = barcode128.CreateDrawingImage(Color.Black, Color.White);
+                    var label = new RotatedLabel();
+                    label.AutoSize = true;
+                    label.Name = paper.texts[i].key;
+                    label.Location = new Point(paper.texts[i].x, paper.texts[i].y);
+                    label.Font = new Font(paper.texts[i].font_name, paper.texts[i].font_size, paper.texts[i].bold ? FontStyle.Bold : FontStyle.Regular);
+                    label.MouseDown += Label_MouseDown;
+                    label.MouseMove += Label_MouseMove;
+                    label.MouseUp += Label_MouseUp;
+                    
+                    label.Text = label.Name;
+                    label.Tag = 0;
+                    label.Selected();
+                    canvas1.Controls.Add(label);
+                    listBoxCtrl.Items.Add(label.Name + "-Text");
+                    m_labelList.Add(label);
+
                 }
-                pb.Image = img;
-                pb.Location = new Point(paper.barcodes[i].x, paper.barcodes[i].y);
-                pb.Width = paper.barcodes[i].width;
-                pb.Height = paper.barcodes[i].height;
-                pb.MouseDown += Label_MouseDown;
-                pb.MouseMove += Label_MouseMove;
-                pb.MouseUp += Label_MouseUp;
-                pb.Tag = 2;
-                canvas1.Controls.Add(pb);
-                m_barcodeList.Add(pb);
-                listBoxCtrl.Items.Add(pb.Name + "-Barcode");
+              
+                for (int i = 0; i < paper.qrs.Count; i++)
+                {
+                    var pb = new QRCode();
+                    pb.Name = paper.qrs[i].key;
+                    pb.Image = Image.FromFile("qr.png");
+                    pb.Width = paper.qrs[i].width;
+                    pb.Height = paper.qrs[i].height;
+                    pb.Text = pb.Name;
+                    pb.Location = new Point(paper.qrs[i].x, paper.qrs[i].y);
+                    pb.MouseDown += Label_MouseDown;
+                    pb.MouseMove += Label_MouseMove;
+                    pb.MouseUp += Label_MouseUp;
+                    pb.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pb.Tag = 1;
+                    canvas1.Controls.Add(pb);
+                    m_qrList.Add(pb);
+                    listBoxCtrl.Items.Add(pb.Name + "-QRCode");
+                }
+                TRACE.Log("barcodes");
+                for (int i = 0; i < paper.barcodes.Count; i++)
+                {
+                    var pb = new Barcode();
+                    Image img = null;
+                    pb.Name = paper.barcodes[i].key;
+                    if (paper.barcodes[i].barcode39 == 0)
+                    {
+                        Barcode39 barcode39 = new Barcode39();
+                        barcode39.Code = "12345678";
+                        barcode39.BarHeight = paper.barcodes[i].height;
+                        img = barcode39.CreateDrawingImage(Color.Black, Color.White);
+                    }
+                    else
+                    {
+                        Barcode128 barcode128 = new Barcode128();
+                        barcode128.Code = "12345678";
+                        barcode128.BarHeight = paper.barcodes[i].height;
+                        img = barcode128.CreateDrawingImage(Color.Black, Color.White);
+                    }
+                    pb.Image = img;
+                    pb.Location = new Point(paper.barcodes[i].x, paper.barcodes[i].y);
+                    pb.Width = paper.barcodes[i].width;
+                    pb.Height = paper.barcodes[i].height;
+                    pb.MouseDown += Label_MouseDown;
+                    pb.MouseMove += Label_MouseMove;
+                    pb.MouseUp += Label_MouseUp;
+                    pb.Tag = 2;
+                    canvas1.Controls.Add(pb);
+                    m_barcodeList.Add(pb);
+                    listBoxCtrl.Items.Add(pb.Name + "-Barcode");
+                }
+            }
+            catch ( Exception ex )
+            {
+                TRACE.Log(ex.ToString());
             }
                 
 
@@ -566,6 +573,8 @@ namespace LabelEditor
             PrintDocument doc = new PrintDocument();
         
             doc.PrinterSettings = new PrinterSettings();
+            PrintController printController = new StandardPrintController();
+            doc.PrintController = printController;
             doc.DefaultPageSettings.PaperSize = new PaperSize("Custom", m_paper.PAPER_SIZE.Width, m_paper.PAPER_SIZE.Height);
             doc.DefaultPageSettings.Landscape = m_paper.orientation == 1 ? false : true;
             if (listBoxPrinter.SelectedItem == null)
@@ -600,7 +609,7 @@ namespace LabelEditor
         {
             if (m_printButton)
             {
-                Initalize(m_paper);
+                Initalize(m_paper, true);
             }
         }
 
@@ -775,6 +784,8 @@ namespace LabelEditor
             var form = new SetFileNameForm();
             form.OnApply = delegate (string fileName)
             {
+                if (!Directory.Exists("data"))
+                    Directory.CreateDirectory("data");
                 using (var sw = new StreamWriter(@"data\"+fileName + ".json"))
                 {
                     sw.Write(jsonObject);
@@ -811,7 +822,6 @@ namespace LabelEditor
 
         private void buttonRefreshPrinter_Click(object sender, EventArgs e)
         {
-
             RefreshPrinterList();
         }
         private void RefreshPrinterList()
@@ -819,8 +829,7 @@ namespace LabelEditor
             listBoxPrinter.Items.Clear();
             foreach (string it in PrinterSettings.InstalledPrinters)
             {
-                if (!it.Contains("XPS") && !it.Contains("Fax") && !it.Contains("PDF"))
-                    listBoxPrinter.Items.Add(it);
+                listBoxPrinter.Items.Add(it);
             }
         }
 
@@ -831,10 +840,10 @@ namespace LabelEditor
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            timer1.Stop();
-            if ( m_netCient != null )
-                m_netCient.TryCnnnect();
-            timer1.Start();
+            //timer1.Stop();
+            //if ( m_netCient != null )
+            //    m_netCient.TryCnnnect();
+            //timer1.Start();
         }
 
         private void listBoxCtrl_MouseDown(object sender, MouseEventArgs e)

@@ -37,12 +37,10 @@ using System.Diagnostics;
                         sw.Close();
                     }
 
-                    if (Directory.Exists("greenATM") == false)
-                        Directory.CreateDirectory("greenATM");
                     if (Directory.Exists("trace") == false)
                         Directory.CreateDirectory("trace");
 
-                    var folder = @"C:\greenATM\trace\" + DateTime.Now.ToString("yyyy-MM-dd");
+                    var folder = @"trace\" + DateTime.Now.ToString("yyyy-MM-dd");
                     if (!Directory.Exists(folder))
                         Directory.CreateDirectory(folder);
 

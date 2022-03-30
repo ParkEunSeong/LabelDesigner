@@ -69,5 +69,13 @@ namespace LabelEditor
         private void textBoxFontSize_Click(object sender, EventArgs e)
         {
         }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            if ( MessageBox.Show($"{m_label.Name} 을 삭제하시겠습니까?", "알림", MessageBoxButtons.YesNo) == DialogResult.Yes )
+            {
+                
+            }
+        }
     }
 }
