@@ -470,13 +470,13 @@ namespace LabelEditor
                 }
             }
                 TRACE.Log("PrintName = " + m_selectedPrint);
-            doc.PrinterSettings.PrinterName = m_selectedPrint;
+            doc.PrinterSettings.PrinterName = PrinterSettings.InstalledPrinters[0];
 
             //doc.OriginAtMargins
-            doc.PrinterSettings.PrintRange = PrintRange.Selection;
-            doc.PrinterSettings.FromPage = 0;
-            doc.PrinterSettings.ToPage = 0;
-             doc.PrintPage += Doc_PrintPage;
+            //     doc.PrinterSettings.PrintRange = PrintRange.Selection;
+            //doc.PrinterSettings.FromPage = 0;
+            //doc.PrinterSettings.ToPage = 1;
+            doc.PrintPage += Doc_PrintPage;
             doc.EndPrint += Doc_EndPrint;
             if ( sender != null )
                 m_printButton = true;
@@ -515,35 +515,44 @@ namespace LabelEditor
                 barcodeWriter.Options.Width = it.Width;
                 barcodeWriter.Options.Height = it.Height;
 
-                string strQRCode = it.Text; 
-
-                Image img = barcodeWriter.Write(strQRCode);
-                g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
-                TRACE.Log("QR=" + it.Text + "," + it.Location.X + "," + it.Location.Y + ", " + it.Width + "," + it.Height );
-                img.Dispose();
+                string strQRCode = it.Text;
+                if (!string.IsNullOrEmpty(strQRCode))
+                {
+                    Image img = barcodeWriter.Write(strQRCode);
+                    g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
+                    TRACE.Log("QR=" + it.Text + "," + it.Location.X + "," + it.Location.Y + ", " + it.Width + "," + it.Height);
+                    img.Dispose();
+                }
             }
             foreach( var it in m_barcodeList )
             {
-                if (it.code39 == 1)
+                try
                 {
-                    Barcode39 barcode39 = new Barcode39();
-                    barcode39.Code = it.Text;
-                    barcode39.BarHeight = it.Height;
-                    var img = barcode39.CreateDrawingImage(Color.Black, Color.White);
-                    g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
-                    TRACE.Log("barcode39=" + it.Text + "," + it.Location.X + "," + it.Location.Y + ", " + it.Width + "," + it.Height);
-                    img.Dispose();
+                    if (it.code39 == 1)
+                    {
+                        Barcode39 barcode39 = new Barcode39();
+                        barcode39.Code = it.Text;
+                        barcode39.BarHeight = it.Height;
+                        var img = barcode39.CreateDrawingImage(Color.Black, Color.White);
+                        g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
+                        TRACE.Log("barcode39=" + it.Text + "," + it.Location.X + "," + it.Location.Y + ", " + it.Width + "," + it.Height);
+                        img.Dispose();
+                    }
+                    else
+                    {
+                        Barcode128 barcode128 = new Barcode128();
+                        barcode128.Code = it.Text;
+                        barcode128.BarHeight = it.Height;
+                        var img = barcode128.CreateDrawingImage(Color.Black, Color.White);
+                        g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
+                        TRACE.Log("barcode128=" + it.Text + "," + it.Location.X + "," + it.Location.Y + ", " + it.Width + "," + it.Height);
+                        img.Dispose();
+
+                    }
                 }
-                else
+                catch(Exception ex)
                 {
-                    Barcode128 barcode128 = new Barcode128();
-                    barcode128.Code = it.Text;
-                    barcode128.BarHeight = it.Height;
-                    var img = barcode128.CreateDrawingImage(Color.Black, Color.White);
-                    g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
-                    TRACE.Log("barcode128=" + it.Text + "," + it.Location.X + "," + it.Location.Y + ", " + it.Width + "," + it.Height);
-                    img.Dispose();
-                
+                    TRACE.Log(ex.ToString());
                 }
 
             }

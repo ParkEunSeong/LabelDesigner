@@ -81,8 +81,16 @@ namespace LabelEditor
             {
                 try
                 {
+                    JObject j = null;
+                    try
+                    {
+                        j = JObject.Parse(json);
+                    }
+                    catch(Exception ex)
+                    {
+                        TRACE.Log(ex.ToString());
+                    }
 
-                    var j = JObject.Parse(json);
                     foreach (var it in j.Properties())
                     {
                         if ( it.Name == "form_id" )
