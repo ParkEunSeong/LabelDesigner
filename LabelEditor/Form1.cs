@@ -459,7 +459,18 @@ namespace LabelEditor
             }
        
         }
-
+        private void RemoveControl( string name, string strType )
+        {
+           foreach( string it in listBoxCtrl.Items )
+            {
+                var split = it.Split('-');
+                if ( split[0] == name && strType == split[1] )
+                {
+                    listBoxCtrl.Items.Remove(it);
+                    break;
+                }
+            }
+        }
         private void Label_MouseDown(object sender, MouseEventArgs e)
         {
             var ctrl = sender as Control;
@@ -479,36 +490,66 @@ namespace LabelEditor
                 {
                     ((Barcode)ctrl).Selected();
                 }
+                m_selectedCtrl = ctrl;
             }
             else
             {
-                if (ctrl is RotatedLabel)
+                try
                 {
-                    var form = new PropertyTextForm();
-                    form.SetLabel(ctrl as RotatedLabel);
-                    form.StartPosition = FormStartPosition.CenterScreen;
-                    form.FormClosed += Form_FormClosed;
-                    form.Show();
-                }
-                else if (ctrl is Barcode)
-                {
-                    var form = new PropertyBarcodeForm();
-                    form.SetLabel(ctrl as Barcode);
-                    form.StartPosition = FormStartPosition.CenterScreen;
-                    form.FormClosed += Form_FormClosed;
-                    form.Show();
-                }
-                else if (ctrl is QRCode)
-                {
-                    var form = new PropertyQRForm();
-                    form.SetQR(ctrl as QRCode);
-                    form.FormClosed += Form_FormClosed;
-                    form.Show();
-                }
-               
-           }
+                    if (ctrl is RotatedLabel)
+                    {
+                        m_labelList.Remove(((RotatedLabel)ctrl));
+                        ((RotatedLabel)ctrl).Selected();
+                        RemoveControl(ctrl.Name, "Text");
 
-                m_selectedCtrl = ctrl;
+
+                    }
+                    else if (ctrl is QRCode)
+                    {
+                        m_qrList.Remove(((QRCode)ctrl));
+                        ((QRCode)ctrl).Selected();
+                        RemoveControl(ctrl.Name, "QRCode");
+
+                    }
+                    else if (ctrl is Barcode)
+                    {
+                        m_barcodeList.Remove(((Barcode)ctrl));
+                        ((Barcode)ctrl).Selected();
+                        RemoveControl(ctrl.Name, "Barcode");
+                    }
+                    canvas1.Controls.Remove(ctrl);
+                }
+                catch(Exception ex)
+                {
+                    TRACE.Log(ex.ToString());
+                }
+                //if (ctrl is RotatedLabel)
+                //{
+                //    var form = new PropertyTextForm();
+                //    form.SetLabel(ctrl as RotatedLabel);
+                //    form.StartPosition = FormStartPosition.CenterScreen;
+                //    form.FormClosed += Form_FormClosed;
+                //    form.Show();
+                //}
+                //else if (ctrl is Barcode)
+                //{
+                //    var form = new PropertyBarcodeForm();
+                //    form.SetLabel(ctrl as Barcode);
+                //    form.StartPosition = FormStartPosition.CenterScreen;
+                //    form.FormClosed += Form_FormClosed;
+                //    form.Show();
+                //}
+                //else if (ctrl is QRCode)
+                //{
+                //    var form = new PropertyQRForm();
+                //    form.SetQR(ctrl as QRCode);
+                //    form.FormClosed += Form_FormClosed;
+                //    form.Show();
+                //}
+
+            }
+
+             
        //     panelParent.Invalidate();
         }
 
@@ -777,6 +818,7 @@ namespace LabelEditor
                 qr.height = it.Height;
                 qr.x = it.Location.X;
                 qr.y = it.Location.Y;
+
                 m_paper.qrs.Add(qr);
             }
             var jsonObject = JsonConvert.SerializeObject(m_paper);
@@ -793,6 +835,7 @@ namespace LabelEditor
             };
 
             form.ShowDialog();
+            Process.Start(@"data");
         }
 
         private void buttonLoad_Click(object sender, EventArgs e)

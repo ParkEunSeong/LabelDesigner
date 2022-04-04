@@ -37,7 +37,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radioButtonHorizontal = new System.Windows.Forms.RadioButton();
             this.radioButtonVertical = new System.Windows.Forms.RadioButton();
-            this.buttonLoad = new System.Windows.Forms.Button();
             this.groupBox7.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -98,7 +97,7 @@
             // 
             // buttonDesign
             // 
-            this.buttonDesign.Location = new System.Drawing.Point(117, 169);
+            this.buttonDesign.Location = new System.Drawing.Point(168, 169);
             this.buttonDesign.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonDesign.Name = "buttonDesign";
             this.buttonDesign.Size = new System.Drawing.Size(117, 66);
@@ -144,23 +143,11 @@
             this.radioButtonVertical.Text = "세로";
             this.radioButtonVertical.UseVisualStyleBackColor = true;
             // 
-            // buttonLoad
-            // 
-            this.buttonLoad.Location = new System.Drawing.Point(244, 169);
-            this.buttonLoad.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.buttonLoad.Name = "buttonLoad";
-            this.buttonLoad.Size = new System.Drawing.Size(117, 66);
-            this.buttonLoad.TabIndex = 31;
-            this.buttonLoad.Text = "불러오기";
-            this.buttonLoad.UseVisualStyleBackColor = true;
-            this.buttonLoad.Click += new System.EventHandler(this.buttonLoad_Click_1);
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(476, 269);
-            this.Controls.Add(this.buttonLoad);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buttonDesign);
             this.Controls.Add(this.groupBox7);
@@ -187,7 +174,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioButtonHorizontal;
         private System.Windows.Forms.RadioButton radioButtonVertical;
-        private System.Windows.Forms.Button buttonLoad;
     }
 }
 

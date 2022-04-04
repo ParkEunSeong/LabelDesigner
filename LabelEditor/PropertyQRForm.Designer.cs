@@ -30,6 +30,10 @@ namespace LabelEditor
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBoxHeight = new System.Windows.Forms.TextBox();
+            this.textBoxWidth = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.buttonSave = new System.Windows.Forms.Button();
             this.textBoxY = new System.Windows.Forms.TextBox();
             this.textBoxX = new System.Windows.Forms.TextBox();
@@ -37,10 +41,6 @@ namespace LabelEditor
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBoxHeight = new System.Windows.Forms.TextBox();
-            this.textBoxWidth = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,6 +64,41 @@ namespace LabelEditor
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             // 
+            // textBoxHeight
+            // 
+            this.textBoxHeight.Location = new System.Drawing.Point(186, 90);
+            this.textBoxHeight.Name = "textBoxHeight";
+            this.textBoxHeight.Size = new System.Drawing.Size(41, 29);
+            this.textBoxHeight.TabIndex = 13;
+            this.textBoxHeight.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // textBoxWidth
+            // 
+            this.textBoxWidth.Location = new System.Drawing.Point(70, 90);
+            this.textBoxWidth.Name = "textBoxWidth";
+            this.textBoxWidth.Size = new System.Drawing.Size(44, 29);
+            this.textBoxWidth.TabIndex = 12;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.Location = new System.Drawing.Point(120, 98);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(60, 21);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Height";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label5.Location = new System.Drawing.Point(10, 93);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(54, 21);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Width";
+            // 
             // buttonSave
             // 
             this.buttonSave.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
@@ -79,7 +114,7 @@ namespace LabelEditor
             // 
             this.textBoxY.Location = new System.Drawing.Point(186, 55);
             this.textBoxY.Name = "textBoxY";
-            this.textBoxY.Size = new System.Drawing.Size(33, 29);
+            this.textBoxY.Size = new System.Drawing.Size(41, 29);
             this.textBoxY.TabIndex = 7;
             this.textBoxY.TextChanged += new System.EventHandler(this.textBoxY_TextChanged);
             // 
@@ -87,7 +122,7 @@ namespace LabelEditor
             // 
             this.textBoxX.Location = new System.Drawing.Point(70, 55);
             this.textBoxX.Name = "textBoxX";
-            this.textBoxX.Size = new System.Drawing.Size(31, 29);
+            this.textBoxX.Size = new System.Drawing.Size(44, 29);
             this.textBoxX.TabIndex = 6;
             // 
             // textBoxName
@@ -126,41 +161,6 @@ namespace LabelEditor
             this.label4.Size = new System.Drawing.Size(53, 21);
             this.label4.TabIndex = 1;
             this.label4.Text = "Name";
-            // 
-            // textBoxHeight
-            // 
-            this.textBoxHeight.Location = new System.Drawing.Point(186, 90);
-            this.textBoxHeight.Name = "textBoxHeight";
-            this.textBoxHeight.Size = new System.Drawing.Size(33, 29);
-            this.textBoxHeight.TabIndex = 13;
-            this.textBoxHeight.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // textBoxWidth
-            // 
-            this.textBoxWidth.Location = new System.Drawing.Point(70, 90);
-            this.textBoxWidth.Name = "textBoxWidth";
-            this.textBoxWidth.Size = new System.Drawing.Size(31, 29);
-            this.textBoxWidth.TabIndex = 12;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.Location = new System.Drawing.Point(120, 98);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 21);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Height";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label5.Location = new System.Drawing.Point(10, 93);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(54, 21);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "Width";
             // 
             // PropertyQRForm
             // 
