@@ -28,15 +28,30 @@ namespace LabelEditor
             textBoxY.Text = label.Location.Y.ToString();
             textBoxWidth.Text = label.Width.ToString();
             textBoxHeight.Text = label.Height.ToString();
-            radioButton128.Checked = label.code39 == 0;
-            radioButton39.Checked = label.code39 == 1;
+            radioButton128.Checked = label.code39 == 1;
+            radioButton39.Checked = label.code39 == 0;
             m_font = label.Font;
-       
-        }
-
-        private void comboBoxRotation_SelectedIndexChanged(object sender, EventArgs e)
-        {
-              
+            textBoxFontSize.Text = label.Padding.ToString();
+            comboBoxRotation.Items.Add(0);
+            comboBoxRotation.Items.Add(90);
+            comboBoxRotation.Items.Add(180);
+            comboBoxRotation.Items.Add(270);
+            if (label.Angle == 0)
+            {
+                comboBoxRotation.SelectedIndex = 0;
+            }
+            else if (label.Angle == 90)
+            {
+                comboBoxRotation.SelectedIndex = 1;
+            }
+            else if (label.Angle == 180)
+            {
+                comboBoxRotation.SelectedIndex = 2;
+            }
+            else if (label.Angle == 270)
+            {
+                comboBoxRotation.SelectedIndex = 3;
+            }
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -45,23 +60,25 @@ namespace LabelEditor
             int y = 0;
             int.TryParse(textBoxX.Text, out x);
             int.TryParse(textBoxY.Text, out y);
-            
+            int padding = 0;
+            int.TryParse(textBoxFontSize.Text, out padding);
             m_label.Location = new Point(x, y);
             m_label.Font = m_font;
             m_label.Name = textBoxName.Text;
-
+            m_label.Padding = padding;
             if (radioButton39.Checked)
-                m_label.code39 = 1;
-            else
                 m_label.code39 = 0;
+            else
+                m_label.code39 = 1;
             int value = 0;
+            
             int.TryParse(textBoxWidth.Text, out value);
             m_label.Width = value;
             int.TryParse(textBoxHeight.Text, out value);
             m_label.Height = value;
+            m_label.Angle = PropUtil.GetIdxToAngle(comboBoxRotation.SelectedIndex);
 
-            
-       
+
 
             Close();
         }

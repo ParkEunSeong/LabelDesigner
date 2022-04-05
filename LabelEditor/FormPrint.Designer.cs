@@ -79,7 +79,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1069, 680);
             this.panel2.TabIndex = 0;
-            this.panel2.Scroll += new System.Windows.Forms.ScrollEventHandler(this.panel2_Scroll);
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // buttonMakeText
@@ -274,7 +273,7 @@
             this.buttonSave.TabIndex = 9;
             this.buttonSave.Text = "저장하기";
             this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+
             // 
             // buttonLoad
             // 
@@ -284,7 +283,6 @@
             this.buttonLoad.TabIndex = 10;
             this.buttonLoad.Text = "불러오기";
             this.buttonLoad.UseVisualStyleBackColor = true;
-            this.buttonLoad.Click += new System.EventHandler(this.buttonLoad_Click);
             // 
             // buttonLabelSetting
             // 
@@ -324,7 +322,6 @@
             this.listBoxPrinter.Name = "listBoxPrinter";
             this.listBoxPrinter.Size = new System.Drawing.Size(157, 88);
             this.listBoxPrinter.TabIndex = 13;
-            this.listBoxPrinter.DoubleClick += new System.EventHandler(this.listBoxPrinter_DoubleClick);
             // 
             // buttonRefreshPrinter
             // 
@@ -335,13 +332,13 @@
             this.buttonRefreshPrinter.TabIndex = 15;
             this.buttonRefreshPrinter.Text = "Refresh";
             this.buttonRefreshPrinter.UseVisualStyleBackColor = true;
-            this.buttonRefreshPrinter.Click += new System.EventHandler(this.buttonRefreshPrinter_Click);
+      
             // 
             // timer1
             // 
             this.timer1.Enabled = true;
             this.timer1.Interval = 3000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+
             // 
             // buttonClear
             // 

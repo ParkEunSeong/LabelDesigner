@@ -660,6 +660,7 @@
             this.textBox_1_spcmNo.Size = new System.Drawing.Size(100, 21);
             this.textBox_1_spcmNo.TabIndex = 101;
             this.textBox_1_spcmNo.Text = "0001";
+            this.textBox_1_spcmNo.TextChanged += new System.EventHandler(this.textBox_1_spcmNo_TextChanged);
             // 
             // label61
             // 

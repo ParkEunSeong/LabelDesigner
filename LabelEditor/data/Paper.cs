@@ -45,6 +45,7 @@ namespace LabelEditor.data
         public List<Barcode> barcodes { get; set; } = new List<Barcode>();
         public List<Text> texts { get; set; } = new List<Text>();
         public List<QR> qrs { get; set; } = new List<QR>();
+        public List<Text> dateTimes { get; set; } = new List<Text>();
 
     }
 }

@@ -119,7 +119,10 @@ namespace LabelEditor
             j.Add("spcmUserNm", textBox_1_spcmUserNm.Text);
             j.Add("prntDtm", textBox_1_prntDtm.Text);
 
-
+            j.Add("spcmNo", textBox_1_spcmNo.Text);
+            j.Add("spcmNm", textBox_1_spcmNm.Text);
+            j.Add("slipNm", textBox_1_slipNm.Text);
+            j.Add("dwrDspl", textBox_1_dwrDspl.Text);
             j.Add("mdfrType", textBox_1_mdfrType.Text);
             j.Add("prntNm", textBox_1_prntNm.Text);
             var json = j.ToString();
@@ -177,6 +180,11 @@ namespace LabelEditor
   .SetURL(textBox_2_url.Text)
               .SetMethod(HTTPConnection.Method.POST)
               .Build().PostJson(text);
+        }
+
+        private void textBox_1_spcmNo_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

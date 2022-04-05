@@ -60,6 +60,7 @@
             this.buttonRefreshPrinter = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.buttonClear = new System.Windows.Forms.Button();
+            this.buttonDateTime = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -356,11 +357,23 @@
             this.buttonClear.UseVisualStyleBackColor = true;
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
+            // buttonDateTime
+            // 
+            this.buttonDateTime.Location = new System.Drawing.Point(835, 27);
+            this.buttonDateTime.Name = "buttonDateTime";
+            this.buttonDateTime.Size = new System.Drawing.Size(75, 52);
+            this.buttonDateTime.TabIndex = 17;
+            this.buttonDateTime.Tag = "3";
+            this.buttonDateTime.Text = "DateTime";
+            this.buttonDateTime.UseVisualStyleBackColor = true;
+            this.buttonDateTime.Click += new System.EventHandler(this.OnButtonClickedMakeControl);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1298, 831);
+            this.Controls.Add(this.buttonDateTime);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.buttonRefreshPrinter);
             this.Controls.Add(this.label3);
@@ -426,6 +439,7 @@
         private System.Windows.Forms.Button buttonRefreshPrinter;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button buttonClear;
+        private System.Windows.Forms.Button buttonDateTime;
     }
 }
 

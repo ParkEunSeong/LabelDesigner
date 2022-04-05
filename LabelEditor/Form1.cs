@@ -3,14 +3,17 @@ using iTextSharp.text.pdf;
 using LabelEditor.data;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RotatePictureBox;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Printing;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -53,6 +56,7 @@ namespace LabelEditor
         private List<RotatedLabel> m_labelList = new List<RotatedLabel>();
         private List<Barcode> m_barcodeList = new List<Barcode>();
         private List<QRCode> m_qrList = new List<QRCode>();
+        private List<RotatedLabel> m_dataTimeList = new List<RotatedLabel>();
         private List<string> m_printerList = new List<string>();
         private Paper m_paper;
         private delegate void FromServerData(string json);
@@ -86,14 +90,14 @@ namespace LabelEditor
                     {
                         j = JObject.Parse(json);
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         TRACE.Log(ex.ToString());
                     }
 
                     foreach (var it in j.Properties())
                     {
-                        if ( it.Name == "form_id" )
+                        if (it.Name == "form_id")
                         {
                             using (var sr = new StreamReader($"data/{it.Value}.json"))
                             {
@@ -130,6 +134,13 @@ namespace LabelEditor
                                 jt.Text = it.Value.ToString();
                             }
                         }
+                        foreach ( var jt in m_dataTimeList )
+                        {
+                            if (jt.Name == it.Name)
+                            {
+                                jt.Text = it.Value.ToString();
+                            }
+                        }
 
                     }
                 }
@@ -149,10 +160,10 @@ namespace LabelEditor
         {
 
             InitializeComponent();
-    
+
             CreateMyStatusBar();
             FormClosed += Form1_FormClosed;
-            foreach ( string it in PrinterSettings.InstalledPrinters)
+            foreach (string it in PrinterSettings.InstalledPrinters)
             {
                 m_printerList.Add(it);
             }
@@ -167,16 +178,20 @@ namespace LabelEditor
             timer1.Start();
         }
 
-        public void RemoveControl( Control ctrl )
+        public void RemoveControl(Control ctrl)
         {
             var tag = ctrl.Tag.ToString();
-            if ( tag == "0" )
+            if (tag == "0")
             {
                 m_labelList.Remove(ctrl as RotatedLabel);
             }
-            else if ( tag == "1")
+            else if (tag == "1")
             {
                 m_qrList.Remove(ctrl as QRCode);
+            }
+            else if ( tag == "3" )
+            {
+                m_dataTimeList.Remove(ctrl as RotatedLabel);
             }
             else
             {
@@ -195,16 +210,16 @@ namespace LabelEditor
                 if (m_netCient != null)
                     m_netCient.Close();
             }
-            catch ( Exception ex)
+            catch (Exception ex)
             {
                 TRACE.Log(ex.ToString());
             }
         }
 
-        public void SetLabelFrom( frmMain frm )
+        public void SetLabelFrom(frmMain frm)
         {
             m_labelSetForm = frm;
-                Text = "LabelDesigner v1.0.0";
+            Text = "LabelDesigner v1.0.0";
         }
 
         private void Canvas1_MouseUp(object sender, MouseEventArgs e)
@@ -212,8 +227,8 @@ namespace LabelEditor
             m_selectedCtrl = null;
         }
 
-     
-        public void Initalize( Paper paper , bool print = false )
+
+        public void Initalize(Paper paper, bool print = false)
         {
             try
             {
@@ -232,18 +247,20 @@ namespace LabelEditor
                 canvas1.Height = paper.PAPER_SIZE.Height;
                 canvas1.MouseMove += panel2_MouseMove;
                 canvas1.MouseUp += Canvas1_MouseUp;
-                
+
                 canvas1.Location = new Point(10, 10);
-                if (print == false )
+                if (print == false)
                 {
                     m_labelList.Clear();
                     m_qrList.Clear();
                     m_barcodeList.Clear();
-                    listBoxCtrl.Items.Clear();
+                    m_dataTimeList.Clear();
+              
                     GC.Collect();
                     canvas1.Controls.Clear();
                 }
-                
+                listBoxCtrl.Items.Clear();
+
 
                 TRACE.Log("texts");
                 for (int i = 0; i < paper.texts.Count; i++)
@@ -256,16 +273,34 @@ namespace LabelEditor
                     label.MouseDown += Label_MouseDown;
                     label.MouseMove += Label_MouseMove;
                     label.MouseUp += Label_MouseUp;
-                    
+
                     label.Text = label.Name;
                     label.Tag = 0;
                     label.Selected();
                     canvas1.Controls.Add(label);
                     listBoxCtrl.Items.Add(label.Name + "-Text");
                     m_labelList.Add(label);
-
                 }
-              
+                TRACE.Log("datetimes");
+                for (int i = 0; i < paper.dateTimes.Count; i++)
+                {
+                    var label = new RotatedLabel();
+                    label.AutoSize = true;
+                    label.Name = paper.dateTimes[i].key;
+                    label.Location = new Point(paper.dateTimes[i].x, paper.dateTimes[i].y);
+                    label.Font = new Font(paper.dateTimes[i].font_name, paper.dateTimes[i].font_size, paper.dateTimes[i].bold ? FontStyle.Bold : FontStyle.Regular);
+                    label.MouseDown += Label_MouseDown;
+                    label.MouseMove += Label_MouseMove;
+                    label.MouseUp += Label_MouseUp;
+                    label.m_dateTimeFormat = paper.dateTimes[i].datetime_type;
+                    label.Text = label.Name;
+                    label.Tag = 3;
+                    label.Selected();
+                    canvas1.Controls.Add(label);
+                    listBoxCtrl.Items.Add(label.Name + "-DateTime");
+                    m_dataTimeList.Add(label);
+                }
+                TRACE.Log("qrs");
                 for (int i = 0; i < paper.qrs.Count; i++)
                 {
                     var pb = new QRCode();
@@ -273,6 +308,7 @@ namespace LabelEditor
                     pb.Image = Image.FromFile("qr.png");
                     pb.Width = paper.qrs[i].width;
                     pb.Height = paper.qrs[i].height;
+                    
                     pb.Text = pb.Name;
                     pb.Location = new Point(paper.qrs[i].x, paper.qrs[i].y);
                     pb.MouseDown += Label_MouseDown;
@@ -290,6 +326,8 @@ namespace LabelEditor
                     var pb = new Barcode();
                     Image img = null;
                     pb.Name = paper.barcodes[i].key;
+                    pb.Padding = paper.barcodes[i].Padding;
+                    pb.code39 = paper.barcodes[i].barcode39;
                     if (paper.barcodes[i].barcode39 == 0)
                     {
                         Barcode39 barcode39 = new Barcode39();
@@ -317,18 +355,18 @@ namespace LabelEditor
                     listBoxCtrl.Items.Add(pb.Name + "-Barcode");
                 }
             }
-            catch ( Exception ex )
+            catch (Exception ex)
             {
                 TRACE.Log(ex.ToString());
             }
-                
+
 
         }
 
 
         public void Refresh(Paper paper)
         {
-            Initalize( paper);
+            Initalize(paper);
             panel2.Invalidate();
         }
 
@@ -341,7 +379,7 @@ namespace LabelEditor
             m_statusBarPanel2.ToolTipText = "Started: " + System.DateTime.Now.ToShortTimeString();
             m_statusBarPanel2.Text = System.DateTime.Today.ToLongDateString();
             m_statusBarPanel2.AutoSize = StatusBarPanelAutoSize.Contents;
-            statusBar1.ShowPanels = true;		
+            statusBar1.ShowPanels = true;
             statusBar1.Panels.Add(m_statusBarPanel1);
             statusBar1.Panels.Add(m_statusBarPanel2);
             this.Controls.Add(statusBar1);
@@ -349,7 +387,7 @@ namespace LabelEditor
 
         private void panel2_MouseMove(object sender, MouseEventArgs e)
         {
-            if ( m_selectedCtrl != null )
+            if (m_selectedCtrl != null)
             {
                 m_statusBarPanel1.Text = $"position:{m_selectedCtrl.Location.X},{m_selectedCtrl.Location.Y}";
             }
@@ -367,15 +405,15 @@ namespace LabelEditor
             {
                 var label = new DigitalProduction.Forms.RotatedLabel();
                 label.Name = "label" + canvas1.Controls.Count;
-                label.Location = new Point(100, 100);
+                label.Location = new Point((int)(canvas1.Width * 0.5f), (int)(canvas1.Height * 0.5f));
                 label.Font = new Font("맑은 고딕", 14, FontStyle.Regular);
                 label.Text = label.Name;
                 label.AutoSize = true;
-                label.Height = (int)(label.Font.Size*2);
+                label.Height = (int)(label.Font.Size * 2);
                 label.MouseDown += Label_MouseDown;
                 label.MouseMove += Label_MouseMove;
                 label.MouseUp += Label_MouseUp;
-               
+
                 label.Tag = 0;
                 canvas1.Controls.Add(label);
                 m_labelList.Add(label);
@@ -391,7 +429,7 @@ namespace LabelEditor
                 pb.Width = 50;
                 pb.Height = 50;
                 pb.Text = pb.Name;
-                pb.Location = new Point(100, 100);
+                pb.Location = new Point((int)(canvas1.Width * 0.5f), (int)(canvas1.Height * 0.5f));
                 pb.MouseDown += Label_MouseDown;
                 pb.MouseMove += Label_MouseMove;
                 pb.MouseUp += Label_MouseUp;
@@ -403,16 +441,37 @@ namespace LabelEditor
                 pb.Selected();
 
             }
+            else if ( tag.ToString() == "3" )
+            {
+                var label = new DigitalProduction.Forms.RotatedLabel();
+                label.Name = "datetime" + canvas1.Controls.Count;
+                label.Location = new Point( (int)(canvas1.Width * 0.5f), (int)(canvas1.Height * 0.5f));
+                label.Font = new Font("맑은 고딕", 14, FontStyle.Regular);
+                label.Text = label.Name;
+                label.AutoSize = true;
+                label.Height = (int)(label.Font.Size * 2);
+                label.MouseDown += Label_MouseDown;
+                label.MouseMove += Label_MouseMove;
+                label.MouseUp += Label_MouseUp;
+
+                label.Tag = 3;
+                canvas1.Controls.Add(label);
+                m_dataTimeList.Add(label);
+                listBoxCtrl.Items.Add(label.Name + "-DateTime");
+                label.Selected();
+            }
             else
             {
                 Barcode39 barcode39 = new Barcode39();
                 barcode39.Code = "12345678";
                 barcode39.BarHeight = 30;
+             
                 var img = barcode39.CreateDrawingImage(Color.Black, Color.White);
 
                 var pb = new Barcode();
+                pb.Padding = 19;
                 pb.Name = "barcode" + canvas1.Controls.Count;
-                pb.Location = new Point(100, 100);
+                pb.Location = new Point((int)(canvas1.Width * 0.5f), (int)(canvas1.Height * 0.5f));
                 pb.Width = 80;
                 pb.Height = 20;
                 pb.MouseDown += Label_MouseDown;
@@ -425,7 +484,7 @@ namespace LabelEditor
                 listBoxCtrl.Items.Add(pb.Name + "-Barcode");
                 pb.Selected();
             }
-        
+
         }
         private void Label_MouseUp(object sender, MouseEventArgs e)
         {
@@ -439,7 +498,7 @@ namespace LabelEditor
             {
                 ((QRCode)ctrl).UnSelected();
             }
-            else if ( ctrl is Barcode )
+            else if (ctrl is Barcode)
             {
                 ((Barcode)ctrl).UnSelected();
             }
@@ -462,17 +521,17 @@ namespace LabelEditor
                 {
                     ctrl.Top = 0;
                 }
-                else if (ctrl.Top > (canvas1.Height + ctrl.Height ))
+                else if (ctrl.Top > (canvas1.Height + ctrl.Height))
                     ctrl.Height = canvas1.Height;
             }
-       
+
         }
-        private void RemoveControl( string name, string strType )
+        private void RemoveControl(string name, string strType)
         {
-           foreach( string it in listBoxCtrl.Items )
+            foreach (string it in listBoxCtrl.Items)
             {
                 var split = it.Split('-');
-                if ( split[0] == name && strType == split[1] )
+                if (split[0] == name && strType == split[1])
                 {
                     listBoxCtrl.Items.Remove(it);
                     break;
@@ -506,12 +565,22 @@ namespace LabelEditor
                 {
                     if (ctrl is RotatedLabel)
                     {
-                        m_labelList.Remove(((RotatedLabel)ctrl));
-                        ((RotatedLabel)ctrl).Selected();
-                        RemoveControl(ctrl.Name, "Text");
 
+                        if (ctrl.Tag.ToString() == "0")
+                        {
+                            m_labelList.Remove(((RotatedLabel)ctrl));
+                            ((RotatedLabel)ctrl).Selected();
+                            RemoveControl(ctrl.Name, "Text");
+                        }
+                        else
+                        {
+                            m_dataTimeList.Remove(((RotatedLabel)ctrl));
+                            ((RotatedLabel)ctrl).Selected();
+                            RemoveControl(ctrl.Name, "DateTime");
+                        }
 
                     }
+                 
                     else if (ctrl is QRCode)
                     {
                         m_qrList.Remove(((QRCode)ctrl));
@@ -527,7 +596,7 @@ namespace LabelEditor
                     }
                     canvas1.Controls.Remove(ctrl);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     TRACE.Log(ex.ToString());
                 }
@@ -557,8 +626,8 @@ namespace LabelEditor
 
             }
 
-             
-       //     panelParent.Invalidate();
+
+            //     panelParent.Invalidate();
         }
 
         private void Form_FormClosed(object sender, FormClosedEventArgs e)
@@ -566,7 +635,7 @@ namespace LabelEditor
             RefreshListBox();
         }
 
-        public void SetSelectedControl( Control ctrl )
+        public void SetSelectedControl(Control ctrl)
         {
             if (ctrl == null)
                 return;
@@ -597,21 +666,21 @@ namespace LabelEditor
         private void Form1_Load(object sender, EventArgs e)
         {
             RefreshPrinterList();
-            
+
         }
-        
-        private bool IntersectRect( Point pt )
+
+        private bool IntersectRect(Point pt)
         {
-            for( int i = 0; i < m_labelList.Count; i++ )
+            for (int i = 0; i < m_labelList.Count; i++)
             {
                 if (m_labelList[i].Location.X <= pt.X &&
                     pt.X <= m_labelList[i].Location.X + m_labelList[i].Width &&
                     m_labelList[i].Location.Y <= pt.Y &&
-                    pt.Y <= m_labelList[i].Location.Y + m_labelList[i].Height )
+                    pt.Y <= m_labelList[i].Location.Y + m_labelList[i].Height)
                 {
                     return true;
                 }
-                    
+
             }
             return false;
         }
@@ -620,7 +689,7 @@ namespace LabelEditor
         private void buttonPrint_Click(object sender, EventArgs e)
         {
             PrintDocument doc = new PrintDocument();
-        
+
             doc.PrinterSettings = new PrinterSettings();
             PrintController printController = new StandardPrintController();
             doc.PrintController = printController;
@@ -636,7 +705,7 @@ namespace LabelEditor
                     return;
                 }
             }
-            
+
             doc.PrinterSettings.PrinterName = listBoxPrinter.SelectedItem.ToString();
             if (doc.PrinterSettings.PrinterName.Contains("PDF"))
             {
@@ -647,9 +716,9 @@ namespace LabelEditor
             doc.PrinterSettings.PrintRange = PrintRange.Selection;
             doc.PrinterSettings.FromPage = 0;
             doc.PrinterSettings.ToPage = 0;
-             doc.PrintPage += Doc_PrintPage;
+            doc.PrintPage += Doc_PrintPage;
             doc.EndPrint += Doc_EndPrint;
-            if ( sender != null )
+            if (sender != null)
                 m_printButton = true;
             doc.Print();
         }
@@ -661,7 +730,128 @@ namespace LabelEditor
                 Initalize(m_paper, true);
             }
         }
+        private void DrawRotatedTextAt(Graphics gr, float angle, string txt, int x, int y, Font the_font, Brush the_brush)
+        {
+            // Save the graphics state.
+            GraphicsState state = gr.Save();
+            gr.ResetTransform();
 
+            // Rotate.
+            gr.RotateTransform(angle);
+
+            // Translate to desired position. Be sure to append
+            // the rotation so it occurs after the rotation.
+            gr.TranslateTransform(x, y, MatrixOrder.Append);
+
+            // Draw the text at the origin.
+            gr.DrawString(txt, the_font, the_brush, 0, 0);
+
+            // Restore the graphics state.
+            gr.Restore(state);
+        }
+        private void DrawRotatedImage(Graphics gr, Image img, float angle, string txt, int x, int y, int w, int h)
+        {
+            // Save the graphics state.
+            GraphicsState state = gr.Save();
+            gr.ResetTransform();
+
+            // Rotate.
+            gr.RotateTransform(angle);
+
+            // Translate to desired position. Be sure to append
+            // the rotation so it occurs after the rotation.
+            gr.TranslateTransform(x, y, MatrixOrder.Append);
+
+            // Draw the text at the origin.
+            gr.DrawImage(img, x, y, w, h);
+
+            // Restore the graphics state.
+            gr.Restore(state);
+        }
+        public static Bitmap RotateImage(Image image, PointF offset, float angle)
+        {
+            if (image == null)
+                throw new ArgumentNullException("image");
+
+            //create a new empty bitmap to hold rotated image
+            Bitmap rotatedBmp = new Bitmap(image.Width, image.Height);
+            rotatedBmp.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            //make a graphics object from the empty bitmap
+            Graphics g = Graphics.FromImage(rotatedBmp);
+
+            //Put the rotation point in the center of the image
+            g.TranslateTransform(offset.X, offset.Y);
+
+            //rotate the image
+            g.RotateTransform(angle);
+
+            //move the image back
+            g.TranslateTransform(-offset.X, -offset.Y);
+
+            //draw passed in image onto graphics object
+            g.DrawImage(image, new PointF(0, 0));
+
+            return rotatedBmp;
+        }
+        //public static List<string> DataTimeFormat = new List<string>() { "", "yy-MM-dd HH:mm",
+        //                                                            "yyyy-MM-dd HH:mm",
+        //                                                              "yy년MM월dd일 HH시mm분",
+        //                                                              "yyyy년MM월dd일 HH시mm분"};
+        public string ParseStrDateTime( string text, int s, int e )
+        {
+            try
+            {
+                return text.Substring(s, e);
+            }
+            catch(Exception ex)
+            {
+                TRACE.Log(text + ", " + s + "," + e + "," + ex.ToString());
+                
+            }
+            return "";
+        }
+        public string ConvertDateTime( string text, int format )
+        {
+            string year = ParseStrDateTime(text, 0, 4);
+            string month = ParseStrDateTime(text, 4, 2);
+            string day = ParseStrDateTime(text, 6, 2);
+            string hour = ParseStrDateTime(text, 8, 2);
+            string min = ParseStrDateTime(text, 10, 2);
+
+            if (format == 0)
+                return text;
+            else if (format == 1)
+            {
+                year = ParseStrDateTime(year, 2, 2);
+                if (!string.IsNullOrEmpty(hour))
+                    return $"{year}-{month}-{day} {hour}:{min}";
+                else
+                    return $"{year}-{month}-{day}";
+            }
+            else if ( format == 2 )
+            {
+                if ( !string.IsNullOrEmpty(hour ))
+                    return $"{year}-{month}-{day} {hour}:{min}";
+                else
+                    return $"{year}-{month}-{day}";
+            }
+            else if ( format == 3 )
+            {
+                year = ParseStrDateTime(year, 2, 2);
+                if (!string.IsNullOrEmpty(hour))
+                    return $"{year}년{month}월{day}일 {hour}시{min}분";
+                else
+                    return $"{year}년{month}월{day}일";
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(hour))
+                    return $"{year}년{month}월{day}일 {hour}시{min}분";
+                else
+                    return $"{year}년{month}월{day}일";
+            }
+        }
         private void Doc_PrintPage(object sender, PrintPageEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -674,11 +864,34 @@ namespace LabelEditor
                 {
                     using (SolidBrush drawBrush = new SolidBrush(Color.Black))
                     {
-                        g.DrawString(it.Text, font, drawBrush, drawPoint);
+              
+                        DrawRotatedTextAt(g, it.Angle, it.Text, (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
+                        //g.DrawString(it.Text, font, drawBrush, 0, 0);
+
                     }
                 }
             }
-            foreach( var it in m_qrList )
+            foreach (var it in m_dataTimeList)
+            {
+
+                PointF drawPoint = new PointF(it.Location.X, it.Location.Y); // 좌측 상단 시작점. // 2중 using 문 사용.
+
+                using (Font font = new Font("맑은 고딕", it.Font.Size))
+                {
+                    using (SolidBrush drawBrush = new SolidBrush(Color.Black))
+                    {
+                        if (string.IsNullOrEmpty(it.Text) || !string.IsNullOrEmpty(it.Text) && it.Text.Contains("datetime"))
+                            it.Text = DateTime.Now.ToString("yyyyMMddHHmm");
+                        var str = ConvertDateTime(it.Text, it.m_dateTimeFormat);
+                        TRACE.Log($"dateTime {it.Text}, {it.Anchor}, {str}, {it.m_dateTimeFormat}");
+                        DrawRotatedTextAt(g, it.Angle, str, (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
+                        it.Text = it.Name;
+                        //g.DrawString(it.Text, font, drawBrush, 0, 0);
+
+                    }
+                }
+            }
+            foreach (var it in m_qrList)
             {
                 ZXing.BarcodeWriter barcodeWriter = new ZXing.BarcodeWriter();
                 barcodeWriter.Format = ZXing.BarcodeFormat.QR_CODE;
@@ -686,58 +899,123 @@ namespace LabelEditor
                 barcodeWriter.Options.Width = it.Width;
                 barcodeWriter.Options.Height = it.Height;
 
-                string strQRCode = it.Text; 
+                string strQRCode = it.Text;
 
                 Image img = barcodeWriter.Write(strQRCode);
                 g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
                 img.Dispose();
             }
-            foreach( var it in m_barcodeList )
+            PrivateFontCollection pF = new PrivateFontCollection();
+            pF.AddFontFile("font/code39.ttf");
+            pF.AddFontFile("font/code128.ttf");
+            foreach (var it in m_barcodeList)
             {
-                if (it.code39 == 1)
+                if (it.code39 == 0)
                 {
-                    Barcode39 barcode39 = new Barcode39();
-                    barcode39.Code = it.Text;
-                    barcode39.BarHeight = it.Height;
-                    var img = barcode39.CreateDrawingImage(Color.Black, Color.White);
-                    g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
-                    img.Dispose();
+                    var generator = new Code39Barcode();
+                    if (string.IsNullOrEmpty(it.Text))
+                        it.Text = "*12345678*";
+                    var bitmap = generator.Create(it.Width, it.Text, it.Padding, false, it.Height);
+                    bitmap.Save("test.jpg");
+                    var bmp = new Bitmap("test.jpg");
+                    bmp = Utilities.RotateImage(bmp, it.Angle);
+                    bmp.Save("test2.jpg");
+                    //g.DrawImage(bmp, it.Location.X, it.Location.Y, it.Width, it.Height);
+
+                    g.DrawImage(bmp, it.Location.X, it.Location.Y, it.Width, it.Height);
+
+                    bmp.Dispose();
+
+                    //PointF drawPoint = new PointF(it.Location.X, it.Location.Y); // 좌측 상단 시작점. // 2중 using 문 사용.
+
+                    //using (Font font = new Font(pF.Families[0], it.Font.Size))
+                    //{
+                    //    using (SolidBrush drawBrush = new SolidBrush(Color.Black))
+                    //    {
+                    //        //DrawRotatedTextAt(g, it.Angle, "12345678", (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
+                    //        g.DrawString(it.Text, font, drawBrush, 0, 0);
+
+                    //    }
+                    //}
+
                 }
                 else
                 {
+
+                    //PointF drawPoint = new PointF(it.Location.X, it.Location.Y); // 좌측 상단 시작점. // 2중 using 문 사용.
+
+                    //using (Font font = new Font(pF.Families[1], it.Font.Size))
+                    //{
+                    //    using (SolidBrush drawBrush = new SolidBrush(Color.Black))
+                    //    {
+                    //        DrawRotatedTextAt(g, it.Angle, "12345678", (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
+                    //        //g.DrawString(it.Text, font, drawBrush, 0, 0);
+
+                    //    }
+                    //}
                     Barcode128 barcode128 = new Barcode128();
+                    if (string.IsNullOrEmpty(it.Text))
+                        it.Text = "*12345678*";
                     barcode128.Code = it.Text;
+
                     barcode128.BarHeight = it.Height;
+
                     var img = barcode128.CreateDrawingImage(Color.Black, Color.White);
-                    g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
+
+                    //           g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
+                    DrawRotatedImage(g, img, it.Angle, it.Text, it.Location.X, it.Location.Y, it.Width, it.Height);
                     img.Dispose();
-                
+
                 }
+                pF.Families[0].Dispose();
+                pF.Families[1].Dispose();
+                pF.Dispose();
 
             }
 
         }
+        private Image RotateImage(Image img)
+        {
+            int direction = 180; //회전각도
+
+            //회전한 이미지 저장용 Bitmap 객체 생성
+            Bitmap rimg = new Bitmap(img.Width, img.Height);
+            Graphics GFX = Graphics.FromImage(rimg);
+
+            //이미지 중심을 기준으로 회전
+            Matrix matrix = new Matrix();
+            Point center = new Point((int)img.Width / 2, (int)img.Height / 2);
+            matrix.RotateAt(direction, center);
+
+            GFX.Transform = matrix;
+            GFX.Clear(Color.Transparent);
+            GFX.DrawImage(img, new Point(0, 0));  //회전시킨 Graphics 객체에 원본 이미지 투하..
+            GFX.Dispose();
+
+            return rimg;
+        }
+        private void RoateImage( Graphics g, Bitmap src, Point point, float angle)
+        {
+            GraphicsState state = g.Save();
+            g.ResetTransform();
+
+            Bitmap trg = new Bitmap(src.Width, src.Height);
+     //      Graphics g = Graphics.FromImage(trg); // 이미지 중심을 (0,0)으로 이동 
+            g.TranslateTransform( src.Width / 2,src.Height / 2); // 회전 
+            g.RotateTransform(angle); // 이미지 중심 원래 자표로 이동 
+            g.TranslateTransform(-src.Width / 2, -src.Height / 2); // 원본 이미지로 그리기
+            g.DrawImage(src, point);
+            g.Restore(state);
+        }
+
 
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
 
-  
+
         }
 
-        private void DrawText( Graphics g, int x, int y, string text)
-        {
-          
-            // Create font and brush.
-            Font drawFont = new Font("맑은 고딕", 8);
-            SolidBrush drawBrush = new SolidBrush(Color.Black);
 
-            // Set format of string.
-            StringFormat drawFormat = new StringFormat();
-         //   drawFormat.FormatFlags = StringFormatFlags.;
-
-            // Draw string to screen.
-        ///  g.DrawString(text, drawFont, drawBrush, x, y, drawFormat);
-        }
 
         private void checkBoxBold_CheckedChanged(object sender, EventArgs e)
         {
@@ -765,13 +1043,16 @@ namespace LabelEditor
                 if (it.Tag != null)
                 {
                     if (it.Tag.ToString() == "0")
-
                     {
                         listBoxCtrl.Items.Add(it.Name + "-Text");
                     }
                     else if (it.Tag.ToString() == "1")
                     {
                         listBoxCtrl.Items.Add(it.Name + "-QRCode");
+                    }
+                    else if ( it.Tag.ToString() == "3" )
+                    {
+                        listBoxCtrl.Items.Add(it.Name + "-DateTime");
                     }
                     else
                     {
@@ -793,7 +1074,11 @@ namespace LabelEditor
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            
+            m_paper.texts.Clear();
+            m_paper.qrs.Clear();
+            m_paper.barcodes.Clear();
+            m_paper.dateTimes.Clear();
+
             var json = new JObject();
             foreach (var it in m_labelList )
             {
@@ -807,7 +1092,19 @@ namespace LabelEditor
 
                 m_paper.texts.Add(text);
             }
-            foreach( var it in m_barcodeList )
+            foreach (var it in m_dataTimeList)
+            {
+                var text = new Text();
+                text.key = it.Name;
+                text.font_name = it.Font.Name;
+                text.font_size = (int)it.Font.Size;
+                text.rotation = PropUtil.GetAngleToIdx(it.Angle);
+                text.datetime_type = it.m_dateTimeFormat;
+                text.x = it.Location.X;
+                text.y = it.Location.Y;
+                m_paper.dateTimes.Add(text);
+            }
+            foreach ( var it in m_barcodeList )
             {
                 var barcode = new data.Barcode();
                 barcode.key = it.Name;
@@ -816,6 +1113,9 @@ namespace LabelEditor
                 barcode.width = it.Width;
                 barcode.height = it.Height;
                 barcode.barcode39 = it.code39;
+                barcode.Angle = it.Angle;
+                barcode.Padding = it.Padding;
+
                 m_paper.barcodes.Add(barcode);
             }
             foreach(var it in m_qrList )
@@ -829,6 +1129,7 @@ namespace LabelEditor
 
                 m_paper.qrs.Add(qr);
             }
+
             var jsonObject = JsonConvert.SerializeObject(m_paper);
 
             var form = new SetFileNameForm();
@@ -836,6 +1137,8 @@ namespace LabelEditor
             {
                 if (!Directory.Exists("data"))
                     Directory.CreateDirectory("data");
+                if (File.Exists(@"data\" + fileName + ".json"))
+                    File.Delete(@"data\" + fileName + ".json");
                 using (var sw = new StreamWriter(@"data\"+fileName + ".json"))
                 {
                     sw.Write(jsonObject);
@@ -848,6 +1151,7 @@ namespace LabelEditor
 
         private void buttonLoad_Click(object sender, EventArgs e)
         {
+            buttonClear_Click(null, null);
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.InitialDirectory = Environment.CurrentDirectory;
             if (dlg.ShowDialog() == DialogResult.OK)
@@ -891,10 +1195,6 @@ namespace LabelEditor
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //timer1.Stop();
-            //if ( m_netCient != null )
-            //    m_netCient.TryCnnnect();
-            //timer1.Start();
         }
 
         private void listBoxCtrl_MouseDown(object sender, MouseEventArgs e)
@@ -905,11 +1205,23 @@ namespace LabelEditor
                 {
                     if (m_selectedCtrl is RotatedLabel)
                     {
-                        var form = new PropertyTextForm();
-                        form.SetLabel(m_selectedCtrl as RotatedLabel);
-                        form.StartPosition = FormStartPosition.CenterScreen;
-                        form.FormClosed += Form_FormClosed;
-                        form.Show();
+                        if (m_selectedCtrl.Tag.ToString() == "0")
+                        {
+                            var form = new PropertyTextForm();
+                            form.SetLabel(m_selectedCtrl as RotatedLabel);
+                            form.StartPosition = FormStartPosition.CenterScreen;
+                            form.FormClosed += Form_FormClosed;
+                            form.Show();
+                        }
+                        else
+                        {
+                            var form = new PropertyDateTimeForm();
+                            form.SetLabel(m_selectedCtrl as RotatedLabel);
+                            form.StartPosition = FormStartPosition.CenterScreen;
+                            form.FormClosed += Form_FormClosed;
+
+                            form.Show();
+                        }
                     }
                     else if (m_selectedCtrl is Barcode)
                     {
@@ -924,6 +1236,7 @@ namespace LabelEditor
                         var form = new PropertyQRForm();
                         form.SetQR(m_selectedCtrl as QRCode);
                         form.FormClosed += Form_FormClosed;
+                        form.StartPosition = FormStartPosition.CenterScreen;
                         form.Show();
                     }
                 }
@@ -932,12 +1245,14 @@ namespace LabelEditor
 
         private void listBoxCtrl_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (listBoxCtrl.SelectedItem == null)
+                return;
             var selectedName = listBoxCtrl.SelectedItem.ToString();
             var split = selectedName.Split('-');
             
             foreach ( Control it in canvas1.Controls )
             {
-                if ( split[0] == it.Name && it.Tag.ToString() == "0")
+                if ( split[0] == it.Name && it.Tag.ToString() == "0" && split[1] == "Text" )
                 {
                     var form = new PropertyTextForm();
                     form.SetLabel(it as RotatedLabel);
@@ -945,18 +1260,26 @@ namespace LabelEditor
                     form.FormClosed += Form_FormClosed;
                     form.Show();
                 }
-                else if (split[0] == it.Name && it.Tag.ToString() == "1")
+                else if (split[0] == it.Name && it.Tag.ToString() == "1" && split[1] == "QRCode")
                 {
                     var form = new PropertyQRForm();
                     form.SetQR(it as QRCode);
                     form.FormClosed += Form_FormClosed;
                     form.Show();
                 }
-                else if ( split[0] == it.Name && it.Tag.ToString() == "2" )
+                else if ( split[0] == it.Name && it.Tag.ToString() == "2" && split[1] == "Barcode")
                 {
 
                     var form = new PropertyBarcodeForm();
                     form.SetLabel(it as Barcode);
+                    form.StartPosition = FormStartPosition.CenterScreen;
+                    form.FormClosed += Form_FormClosed;
+                    form.Show();
+                }
+                else if (split[0] == it.Name && it.Tag.ToString() == "3" && split[1] == "DateTime")
+                {
+                    var form = new PropertyDateTimeForm();
+                    form.SetLabel(it as RotatedLabel);
                     form.StartPosition = FormStartPosition.CenterScreen;
                     form.FormClosed += Form_FormClosed;
                     form.Show();

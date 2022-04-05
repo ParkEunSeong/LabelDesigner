@@ -15,5 +15,11 @@ namespace LabelEditor.data
         public string font_name { get; set; }
         public bool bold { get; set; }
         public int rotation { get; set; }
+        public int datetime_type { get; set; }
+
+        public static List<string> DataTimeFormat = new List<string>() { "", "yy-MM-dd HH:mm",
+                                                                    "yyyy-MM-dd HH:mm",
+                                                                      "yy년MM월dd일 HH시mm분",
+                                                                      "yyyy년MM월dd일 HH시mm분"};
     }
 }

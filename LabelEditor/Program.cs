@@ -1,4 +1,5 @@
 ﻿using AJKiosk;
+using greenATM.Util;
 using LabelEditor.data;
 using Newtonsoft.Json;
 using SampleProgram;
@@ -19,29 +20,40 @@ namespace LabelEditor
         [STAThread]
         static void Main( string[] args )
         {
+#if DEBUG
+                        //args = new string[1];
+                        //using (var sr = new StreamReader("test.txt"))
+                        //{
+                        //    args[0] = sr.ReadToEnd();
+                        //}
+#endif
+            Deleter.DeleteTrace();
+            Deleter.DeleteTraceLogger();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Config.Load();
             TRACE.Log("프로그램 실행");
             TRACE.Log(Environment.CurrentDirectory);
             var text = "";
+            //if (false)
+            //{
             if (args != null && args.Length > 0)
             {
                 TRACE.Log(args[0]);
                 var form = new FormPrint();
                 form.OnFromServerData(args[0]);
-                Application.Run(form);
+                //  Application.Run(form);
             }
             else
             {
                 var form = new frmMain();
                 Application.Run(form);
             }
-
+            //}
             //if ( Config.FORM_TYPE == "1" )
             //{
             //    var form = new TestDataForm();
-            //    Application.Run(form);
+            //   Application.Run(form);
 
             //}
             //else if ( Config.FORM_TYPE == "2")

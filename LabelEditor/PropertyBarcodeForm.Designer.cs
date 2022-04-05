@@ -30,6 +30,10 @@ namespace LabelEditor
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBoxFontSize = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.comboBoxRotation = new System.Windows.Forms.ComboBox();
             this.textBoxHeight = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxWidth = new System.Windows.Forms.TextBox();
@@ -49,6 +53,10 @@ namespace LabelEditor
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.textBoxFontSize);
+            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.comboBoxRotation);
             this.groupBox2.Controls.Add(this.textBoxHeight);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.textBoxWidth);
@@ -65,13 +73,49 @@ namespace LabelEditor
             this.groupBox2.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.groupBox2.Location = new System.Drawing.Point(12, -6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(219, 252);
+            this.groupBox2.Size = new System.Drawing.Size(219, 355);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             // 
+            // textBoxFontSize
+            // 
+            this.textBoxFontSize.Location = new System.Drawing.Point(113, 120);
+            this.textBoxFontSize.Name = "textBoxFontSize";
+            this.textBoxFontSize.Size = new System.Drawing.Size(80, 29);
+            this.textBoxFontSize.TabIndex = 30;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label7.Location = new System.Drawing.Point(29, 125);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(80, 21);
+            this.label7.TabIndex = 29;
+            this.label7.Text = "폰트 크기";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label6.Location = new System.Drawing.Point(28, 233);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(73, 21);
+            this.label6.TabIndex = 28;
+            this.label6.Text = "Rotation";
+            // 
+            // comboBoxRotation
+            // 
+            this.comboBoxRotation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxRotation.FormattingEnabled = true;
+            this.comboBoxRotation.Location = new System.Drawing.Point(113, 228);
+            this.comboBoxRotation.Name = "comboBoxRotation";
+            this.comboBoxRotation.Size = new System.Drawing.Size(83, 29);
+            this.comboBoxRotation.TabIndex = 27;
+            // 
             // textBoxHeight
             // 
-            this.textBoxHeight.Location = new System.Drawing.Point(108, 158);
+            this.textBoxHeight.Location = new System.Drawing.Point(113, 190);
             this.textBoxHeight.Name = "textBoxHeight";
             this.textBoxHeight.Size = new System.Drawing.Size(80, 29);
             this.textBoxHeight.TabIndex = 26;
@@ -80,7 +124,7 @@ namespace LabelEditor
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.Location = new System.Drawing.Point(24, 163);
+            this.label1.Location = new System.Drawing.Point(29, 195);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(60, 21);
             this.label1.TabIndex = 25;
@@ -88,7 +132,7 @@ namespace LabelEditor
             // 
             // textBoxWidth
             // 
-            this.textBoxWidth.Location = new System.Drawing.Point(108, 123);
+            this.textBoxWidth.Location = new System.Drawing.Point(113, 155);
             this.textBoxWidth.Name = "textBoxWidth";
             this.textBoxWidth.Size = new System.Drawing.Size(80, 29);
             this.textBoxWidth.TabIndex = 24;
@@ -97,7 +141,7 @@ namespace LabelEditor
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label5.Location = new System.Drawing.Point(24, 128);
+            this.label5.Location = new System.Drawing.Point(29, 160);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(54, 21);
             this.label5.TabIndex = 23;
@@ -128,7 +172,7 @@ namespace LabelEditor
             // buttonSave
             // 
             this.buttonSave.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.buttonSave.Location = new System.Drawing.Point(74, 208);
+            this.buttonSave.Location = new System.Drawing.Point(72, 302);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 38);
             this.buttonSave.TabIndex = 9;
@@ -191,7 +235,7 @@ namespace LabelEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(244, 258);
+            this.ClientSize = new System.Drawing.Size(244, 361);
             this.Controls.Add(this.groupBox2);
             this.Name = "PropertyBarcodeForm";
             this.Text = "Text Property";
@@ -218,5 +262,9 @@ namespace LabelEditor
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxHeight;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox comboBoxRotation;
+        private System.Windows.Forms.TextBox textBoxFontSize;
+        private System.Windows.Forms.Label label7;
     }
 }

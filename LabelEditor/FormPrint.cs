@@ -3,14 +3,17 @@ using iTextSharp.text.pdf;
 using LabelEditor.data;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RotatePictureBox;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Printing;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -51,6 +54,7 @@ namespace LabelEditor
         );
         private frmMain m_labelSetForm;
         private List<RotatedLabel> m_labelList = new List<RotatedLabel>();
+        private List<RotatedLabel> m_dateTimeList = new List<RotatedLabel>();
         private List<Barcode> m_barcodeList = new List<Barcode>();
         private List<QRCode> m_qrList = new List<QRCode>();
         private List<string> m_printerList = new List<string>();
@@ -79,7 +83,7 @@ namespace LabelEditor
             }
             catch (Exception ex)
             {
-                TRACE.Log(ex.ToString());
+                TRACE.Log("key="+ key +","+ ex.ToString());
             }
             return "";
         }
@@ -94,7 +98,6 @@ namespace LabelEditor
             {
                 try
                 {
-
                     var j = JObject.Parse(json);
                     TRACE.Log(j.ToString());
                     m_selectedPrint = GetJsonStringValue(ref j, "prntNm");
@@ -109,73 +112,75 @@ namespace LabelEditor
                         MessageBox.Show("서식파일이 null");
                         return;
                     }
-             
+
 
                     foreach (var it in j.Properties())
                     {
-                        if ( it.Name == "mdfrType" )
+                        if (it.Name == "mdfrType")
                         {
                             TRACE.Log("mdfrType = " + fileName);
-                            
-                            using (var sr = new StreamReader($"data/{fileName}.json"))
+                            var path = $"data/{fileName}.json";
+                            if (File.Exists(path))
                             {
-                                var data = sr.ReadToEnd();
-                                try
+                                using (var sr = new StreamReader(path))
                                 {
-                                    m_paper = JsonConvert.DeserializeObject<Paper>(data);
-                                    if (m_paper != null)
+                                    var data = sr.ReadToEnd();
+                                    try
                                     {
-                                        Initalize(m_paper);
-                                        foreach (var jt in m_labelList)
+                                        m_paper = JsonConvert.DeserializeObject<Paper>(data);
+                                        if (m_paper != null)
                                         {
-                                            jt.Text = GetJsonStringValue(ref j, jt.Name);
-                                            TRACE.Log("name = " + jt.Name + ", text = " + jt.Text);
+                                            Initalize(m_paper);
+                                            foreach (var jt in m_labelList)
+                                            {
+                                                jt.Text = GetJsonStringValue(ref j, jt.Name);
+                                                if (jt.Name == "spcmCnnr")
+                                                {
+                                                    var jarr = j["spcmCnnr"].ToArray();
+                                                    jt.Text = "";
+                                                    foreach(var kt in jarr )
+                                                    {
+                                                        jt.Text += kt;
+                                                    }
+                                                    
+                                                }
+
+                                                TRACE.Log("text name = " + jt.Name + ", text = " + jt.Text);
+                                            }
+                                            foreach (var jt in m_dateTimeList)
+                                            {
+                                                jt.Text = GetJsonStringValue(ref j, jt.Name);
+                                                TRACE.Log("datetime name = " + jt.Name + ", text = " + jt.Text);
+                                            }
+                                            foreach (var jt in m_qrList)
+                                            {
+                                                jt.Text = GetJsonStringValue(ref j, jt.Name);
+                                                TRACE.Log("qr name = " + jt.Name + ", text = " + jt.Text);
+                                            }
+                                            foreach (var jt in m_barcodeList)
+                                            {
+                                                jt.Text = GetJsonStringValue(ref j, jt.Name);
+                                                TRACE.Log("barcode name = " + jt.Name + ", text = " + jt.Text);
+                                            }
                                         }
-                                        foreach (var jt in m_qrList)
+                                        else
                                         {
-                                            jt.Text = GetJsonStringValue(ref j, jt.Name);
-                                        }
-                                        foreach (var jt in m_barcodeList)
-                                        {
-                                            jt.Text = GetJsonStringValue(ref j, jt.Name);
+                                            MessageBox.Show("Paper is null.", "알림");
                                         }
                                     }
-                                    else
+                                    catch (Exception ex)
                                     {
-                                        MessageBox.Show("Paper is null.", "알림");
+                                        MessageBox.Show("불러온 데이터 파일에 형식 오류가 있습니다." + ex.ToString(), "알림");
                                     }
-                                }
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show("불러온 데이터 파일에 형식 오류가 있습니다." + ex.ToString(), "알림");
                                 }
                             }
+                            else
+                            {
+                                TRACE.Log("서식 파일이 존재하지 않습니다.");
+                             //   Close();
+                                return;
+                            }
                         }
-                        //foreach (var jt in m_labelList)
-                        //{
-                        //    TRACE.Log(jt.Name + "," + it.Name + ", " + it.Value );
-                        //    if (jt.Name == it.Name)
-                        //    {
-                        //        jt.Text = it.Value.ToString();
-                        //    }
-                        //}
-                        //foreach (var jt in m_qrList)
-                        //{
-                        //    TRACE.Log(jt.Name);
-                        //    if (jt.Name == it.Name)
-                        //    {
-                        //        jt.Text = it.Value.ToString();
-                        //    }
-                        //}
-                        //foreach (var jt in m_barcodeList)
-                        //{
-                        //    TRACE.Log(jt.Name);
-                        //    if (jt.Name == it.Name)
-                        //    {
-                        //        jt.Text = it.Value.ToString();
-                        //    }
-                        //}
-
                     }
                 }
                 catch (Exception ex)
@@ -295,13 +300,31 @@ namespace LabelEditor
                 label.Name = paper.texts[i].key;
                 label.Location = new Point(paper.texts[i].x, paper.texts[i].y);
                 label.Font = new Font(paper.texts[i].font_name, paper.texts[i].font_size, paper.texts[i].bold ? FontStyle.Bold : FontStyle.Regular);
-
+                label.Angle = PropUtil.GetIdxToAngle(paper.texts[i].rotation);
                 label.Text = label.Name;
                 label.Tag = 0;
                 label.Selected();
                 canvas1.Controls.Add(label);
                 listBoxCtrl.Items.Add(label.Name + "-Text");
                 m_labelList.Add(label );
+
+            }
+            TRACE.Log("datetimes");
+            for (int i = 0; i < paper.dateTimes.Count; i++)
+            {
+                var label = new RotatedLabel();
+                label.AutoSize = true;
+                label.Name = paper.dateTimes[i].key;
+                label.Location = new Point(paper.dateTimes[i].x, paper.dateTimes[i].y);
+                label.Font = new Font(paper.dateTimes[i].font_name, paper.dateTimes[i].font_size, paper.dateTimes[i].bold ? FontStyle.Bold : FontStyle.Regular);
+                label.Angle = PropUtil.GetIdxToAngle(paper.dateTimes[i].rotation);
+                label.Text = label.Name;
+                label.Tag = 3;
+                label.Selected();
+                label.m_dateTimeFormat = paper.dateTimes[i].datetime_type;
+                canvas1.Controls.Add(label);
+                listBoxCtrl.Items.Add(label.Name + "-DateTime");
+                m_dateTimeList.Add(label);
 
             }
             TRACE.Log("qrs");
@@ -314,7 +337,7 @@ namespace LabelEditor
                 pb.Height =  paper.qrs[i].height;
                 pb.Text = pb.Name;
                 pb.Location = new Point(paper.qrs[i].x, paper.qrs[i].y);
-
+                
                 pb.SizeMode = PictureBoxSizeMode.StretchImage;
                 pb.Tag = 1;
                 canvas1.Controls.Add(pb);
@@ -329,6 +352,7 @@ namespace LabelEditor
                     var pb = new Barcode();
                     Image img = null;
                     pb.Name = paper.barcodes[i].key;
+                    pb.Angle = paper.barcodes[i].Angle;
                     if (paper.barcodes[i].barcode39 == 0)
                     {
                         Barcode39 barcode39 = new Barcode39();
@@ -347,7 +371,7 @@ namespace LabelEditor
                     pb.Location = new Point(paper.barcodes[i].x, paper.barcodes[i].y);
                     pb.Width = paper.barcodes[i].width;
                     pb.Height = paper.barcodes[i].height;
-
+                    pb.Padding = paper.barcodes[i].Padding;
                     pb.Tag = 2;
                     canvas1.Controls.Add(pb);
                     m_barcodeList.Add(pb);
@@ -395,7 +419,7 @@ namespace LabelEditor
             {
                 m_statusBarPanel1.Text = "";
             }
-            //m_statusBarPanel1.Text = $"mm:{Math.Truncate(e.X/2.8f)},{Math.Truncate(e.Y/2.8f)}";
+       
         }
 
 
@@ -437,7 +461,14 @@ namespace LabelEditor
             RefreshPrinterList();
             
         }
-        
+        private void RefreshPrinterList()
+        {
+            listBoxPrinter.Items.Clear();
+            foreach (string it in PrinterSettings.InstalledPrinters)
+            {
+                listBoxPrinter.Items.Add(it);
+            }
+        }
         private bool IntersectRect( Point pt )
         {
             for( int i = 0; i < m_labelList.Count; i++ )
@@ -458,7 +489,7 @@ namespace LabelEditor
         private void buttonPrint_Click(object sender, EventArgs e)
         {
             PrintDocument doc = new PrintDocument();
-        
+            
             doc.PrinterSettings = new PrinterSettings();
             doc.DefaultPageSettings.PaperSize = new PaperSize("Custom", m_paper.PAPER_SIZE.Width, m_paper.PAPER_SIZE.Height);
             doc.DefaultPageSettings.Landscape = m_paper.orientation == 1 ? false : true;
@@ -470,7 +501,7 @@ namespace LabelEditor
                 }
             }
                 TRACE.Log("PrintName = " + m_selectedPrint);
-            doc.PrinterSettings.PrinterName = PrinterSettings.InstalledPrinters[0];
+            doc.PrinterSettings.PrinterName = m_selectedPrint;
 
             //doc.OriginAtMargins
             //     doc.PrinterSettings.PrintRange = PrintRange.Selection;
@@ -490,24 +521,152 @@ namespace LabelEditor
                 Initalize(m_paper);
             }
         }
+        private void DrawRotatedTextAt(Graphics gr, float angle, string txt, int x, int y, Font the_font, Brush the_brush)
+        {
+            // Save the graphics state.
+            GraphicsState state = gr.Save();
+            gr.ResetTransform();
 
+            // Rotate.
+            gr.RotateTransform(angle);
+
+            // Translate to desired position. Be sure to append
+            // the rotation so it occurs after the rotation.
+            gr.TranslateTransform(x, y, MatrixOrder.Append);
+
+            // Draw the text at the origin.
+            gr.DrawString(txt, the_font, the_brush, 0, 0);
+
+            // Restore the graphics state.
+            gr.Restore(state);
+        }
+        public static Bitmap RotateImage(Image image, PointF offset, float angle)
+        {
+            Bitmap trg = new Bitmap(image.Width, image.Height);
+            Graphics g = Graphics.FromImage(trg); // 이미지 중심을 (0,0)으로 이동
+            g.TranslateTransform(image.Width / 2, image.Height / 2); // 회전 
+            g.RotateTransform(angle); // 이미지 중심 원래 자표로 이동 
+            g.TranslateTransform(-image.Width / 2, -image.Height / 2); // 원본 이미지로 그리기 
+            g.DrawImage(image, new Point(0, 0));
+            return trg;
+        }
+        private void DrawRotatedImage(Graphics gr, Image img, float angle, string txt, int x, int y, int w, int h)
+        {
+            Bitmap trg = new Bitmap(img.Width, img.Height);
+            // Save the graphics state.
+            GraphicsState state = gr.Save();
+
+            gr.ResetTransform();
+
+            // Rotate.
+            gr.RotateTransform(angle);
+
+            // Translate to desired position. Be sure to append
+            // the rotation so it occurs after the rotation.
+            gr.TranslateTransform(x, y, MatrixOrder.Append);
+
+            // Draw the text at the origin.
+            gr.DrawImage(img, x, y, w, h);
+
+            // Restore the graphics state.
+            gr.Restore(state);
+        }
+        public string ParseStrDateTime(string text, int s, int e)
+        {
+            try
+            {
+                return text.Substring(s, e);
+            }
+            catch (Exception ex)
+            {
+                TRACE.Log(text + ", " + s + "," + e + "," + ex.ToString());
+
+            }
+            return "";
+        }
+        public string ConvertDateTime(string text, int format)
+        {
+            string year = ParseStrDateTime(text, 0, 4);
+            string month = ParseStrDateTime(text, 4, 2);
+            string day = ParseStrDateTime(text, 6, 2);
+            string hour = ParseStrDateTime(text, 8, 2);
+            string min = ParseStrDateTime(text, 10, 2);
+
+            if (format == 0)
+                return text;
+            else if (format == 1)
+            {
+                year = ParseStrDateTime(year, 2, 2);
+                if (!string.IsNullOrEmpty(hour))
+                    return $"{year}-{month}-{day} {hour}:{min}";
+                else
+                    return $"{year}-{month}-{day}";
+            }
+            else if (format == 2)
+            {
+                if (!string.IsNullOrEmpty(hour))
+                    return $"{year}-{month}-{day} {hour}:{min}";
+                else
+                    return $"{year}-{month}-{day}";
+            }
+            else if (format == 3)
+            {
+                year = ParseStrDateTime(year, 2, 2);
+                if (!string.IsNullOrEmpty(hour))
+                    return $"{year}년{month}월{day}일 {hour}시{min}분";
+                else
+                    return $"{year}년{month}월{day}일";
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(hour))
+                    return $"{year}년{month}월{day}일 {hour}시{min}분";
+                else
+                    return $"{year}년{month}월{day}일";
+            }
+        }
         private void Doc_PrintPage(object sender, PrintPageEventArgs e)
         {
             Graphics g = e.Graphics;
+
             foreach (var it in m_labelList)
             {
-
+                
                 PointF drawPoint = new PointF(it.Location.X, it.Location.Y); // 좌측 상단 시작점. // 2중 using 문 사용.
+                if (string.IsNullOrEmpty(it.Text))
+                    it.Text = it.Name;
                 TRACE.Log("Text=" + it.Text + "," + it.Location.X + "," + it.Location.Y );
                 using (Font font = new Font("맑은 고딕", it.Font.Size))
                 {
                     using (SolidBrush drawBrush = new SolidBrush(Color.Black))
                     {
-                        g.DrawString(it.Text, font, drawBrush, drawPoint);
+                        DrawRotatedTextAt(g, it.Angle, it.Text, (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
+                        //   g.DrawString(it.Text, font, drawBrush, drawPoint);
                     }
                 }
             }
-            foreach( var it in m_qrList )
+
+            foreach (var it in m_dateTimeList)
+            {
+
+                PointF drawPoint = new PointF(it.Location.X, it.Location.Y); // 좌측 상단 시작점. // 2중 using 문 사용.
+
+                using (Font font = new Font("맑은 고딕", it.Font.Size))
+                {
+                    using (SolidBrush drawBrush = new SolidBrush(Color.Black))
+                    {
+                        if (string.IsNullOrEmpty(it.Text) || !string.IsNullOrEmpty(it.Text) && it.Text.Contains("datetime"))
+                            it.Text = DateTime.Now.ToString("yyyyMMddHHmm");
+                        var str = ConvertDateTime(it.Text, it.m_dateTimeFormat);
+                        TRACE.Log($"dateTime {it.Text}, {it.Anchor}, {str}, {it.m_dateTimeFormat}");
+                        DrawRotatedTextAt(g, it.Angle, str, (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
+                        it.Text = it.Name;
+                        //g.DrawString(it.Text, font, drawBrush, 0, 0);
+
+                    }
+                }
+            }
+            foreach ( var it in m_qrList )
             {
                 ZXing.BarcodeWriter barcodeWriter = new ZXing.BarcodeWriter();
                 barcodeWriter.Format = ZXing.BarcodeFormat.QR_CODE;
@@ -519,38 +678,89 @@ namespace LabelEditor
                 if (!string.IsNullOrEmpty(strQRCode))
                 {
                     Image img = barcodeWriter.Write(strQRCode);
-                    g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
+                   // g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
                     TRACE.Log("QR=" + it.Text + "," + it.Location.X + "," + it.Location.Y + ", " + it.Width + "," + it.Height);
                     img.Dispose();
                 }
             }
-            foreach( var it in m_barcodeList )
+            PrivateFontCollection pF = new PrivateFontCollection();
+            pF.AddFontFile("font/code39.ttf");
+            pF.AddFontFile("font/code128.ttf");
+            foreach ( var it in m_barcodeList )
             {
                 try
                 {
-                    if (it.code39 == 1)
+
+                    if (it.code39 == 0)
                     {
-                        Barcode39 barcode39 = new Barcode39();
-                        barcode39.Code = it.Text;
-                        barcode39.BarHeight = it.Height;
-                        var img = barcode39.CreateDrawingImage(Color.Black, Color.White);
-                        g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
-                        TRACE.Log("barcode39=" + it.Text + "," + it.Location.X + "," + it.Location.Y + ", " + it.Width + "," + it.Height);
-                        img.Dispose();
+                        var generator = new Code39Barcode();
+                        if (string.IsNullOrEmpty(it.Text))
+                            it.Text = "12345678";
+                        var bitmap = generator.Create(it.Width, it.Text, it.Padding, false, it.Height);
+                        bitmap.Save("test.jpg");
+                        var bmp = new Bitmap("test.jpg");
+                        bmp = Utilities.RotateImage(bmp, it.Angle);
+                        bmp.Save("test2.jpg");
+                        //g.DrawImage(bmp, it.Location.X, it.Location.Y, it.Width, it.Height);
+
+                        g.DrawImage(bmp, it.Location.X, it.Location.Y, it.Width, it.Height);
+
+                        bmp.Dispose();
+
+                        //PointF drawPoint = new PointF(it.Location.X, it.Location.Y); // 좌측 상단 시작점. // 2중 using 문 사용.
+
+                        //using (Font font = new Font(pF.Families[0], it.Padding))
+                        //{
+                        //    using (SolidBrush drawBrush = new SolidBrush(Color.Black))
+                        //    {
+                        //        if (string.IsNullOrEmpty(it.Text))
+                        //            it.Text = "Empty";
+                        //     //   DrawRotatedTextAt(g, it.Angle, it.Text, (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
+                        //        TRACE.Log($"barcode39 {it.Angle},{it.Text},{drawPoint.X},{drawPoint.Y}");
+                        //        g.DrawString(it.Text, font, drawBrush,it.Location.X, it.Location.Y );
+
+                        //    }
+                        //}
+
                     }
                     else
                     {
+
+                        //PointF drawPoint = new PointF(it.Location.X, it.Location.Y); // 좌측 상단 시작점. // 2중 using 문 사용.
+
+                        //using (Font font = new Font(pF.Families[1], it.Padding))
+                        //{
+                        //    using (SolidBrush drawBrush = new SolidBrush(Color.Black))
+                        //    {
+                        //        if (string.IsNullOrEmpty(it.Text))
+                        //            it.Text = "Empty";
+                        //      //  DrawRotatedTextAt(g, it.Angle, it.Text, (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
+                        //        TRACE.Log($"barcode128 {it.Angle},{it.Text},{drawPoint.X},{drawPoint.Y}");
+                        //        g.DrawString(it.Text, font, drawBrush, it.Location.X, it.Location.Y);
+
+                        //    }
+                        //}
                         Barcode128 barcode128 = new Barcode128();
+                        if (string.IsNullOrEmpty(it.Text))
+                            it.Text = "12345678";
                         barcode128.Code = it.Text;
+
                         barcode128.BarHeight = it.Height;
+
                         var img = barcode128.CreateDrawingImage(Color.Black, Color.White);
-                        g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
-                        TRACE.Log("barcode128=" + it.Text + "," + it.Location.X + "," + it.Location.Y + ", " + it.Width + "," + it.Height);
+
+                        //           g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
+                        DrawRotatedImage(g, img, it.Angle, it.Text, it.Location.X, it.Location.Y, it.Width, it.Height);
                         img.Dispose();
 
                     }
+                    pF.Families[0].Dispose();
+                    pF.Families[1].Dispose();
+                    pF.Dispose();
+
+
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     TRACE.Log(ex.ToString());
                 }
@@ -610,6 +820,10 @@ namespace LabelEditor
                     {
                         listBoxCtrl.Items.Add(it.Name + "-Text");
                     }
+                    else if ( it.Tag.ToString() == "3" )
+                    {
+                        listBoxCtrl.Items.Add(it.Name + "-DateTime");
+                    }
                     else if (it.Tag.ToString() == "1")
                     {
                         listBoxCtrl.Items.Add(it.Name + "-QRCode");
@@ -622,129 +836,15 @@ namespace LabelEditor
             }
         }
 
-        private void comboBoxRotation_SelectedIndexChanged(object sender, EventArgs e)
-        {
-   
-        }
-
         private void buttonLabelSetting_Click(object sender, EventArgs e)
         {
             m_labelSetForm.Visible = !m_labelSetForm.Visible;
         }
 
-        private void buttonSave_Click(object sender, EventArgs e)
-        {
-            
-            var json = new JObject();
-            foreach (var it in m_labelList )
-            {
-                var text = new Text();
-                text.key = it.Name; 
-                text.font_name = it.Font.Name;
-                text.font_size = (int)it.Font.Size;
-                text.rotation = PropUtil.GetAngleToIdx( it.Angle);
-                text.x = it.Location.X;
-                text.y = it.Location.Y;
-
-                m_paper.texts.Add(text);
-            }
-            foreach( var it in m_barcodeList )
-            {
-                var barcode = new data.Barcode();
-                barcode.key = it.Name;
-                barcode.x = it.Location.X;
-                barcode.y = it.Location.Y;
-                barcode.width = it.Width;
-                barcode.height = it.Height;
-                barcode.barcode39 = it.code39;
-                m_paper.barcodes.Add(barcode);
-            }
-            foreach(var it in m_qrList )
-            {
-                var qr = new QR();
-                qr.key = it.Name;
-                qr.width = it.Width;
-                qr.height = it.Height;
-                qr.x = it.Location.X;
-                qr.y = it.Location.Y;
-                m_paper.qrs.Add(qr);
-            }
-            var jsonObject = JsonConvert.SerializeObject(m_paper);
-
-            var form = new SetFileNameForm();
-            form.OnApply = delegate (string fileName)
-            {
-                using (var sw = new StreamWriter(@"data\"+fileName + ".json"))
-                {
-                    sw.Write(jsonObject);
-                }
-            };
-
-            form.ShowDialog();
-        }
-
-        private void buttonLoad_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.InitialDirectory = Environment.CurrentDirectory;
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                var filePath = dlg.FileName;
-                using (var sr = new StreamReader(filePath))
-                {
-                    var data = sr.ReadToEnd();
-                    try
-                    {
-                        m_paper = JsonConvert.DeserializeObject<Paper>(data);
-                        Initalize(m_paper);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("불러온 데이터 파일에 형식 오류가 있습니다.", "알림");
-                    }
-                }
-            }
-
-        }
-      
-
-        private void buttonRefreshPrinter_Click(object sender, EventArgs e)
-        {
-
-            RefreshPrinterList();
-        }
-        private void RefreshPrinterList()
-        {
-            listBoxPrinter.Items.Clear();
-            foreach (string it in PrinterSettings.InstalledPrinters)
-            {
-                listBoxPrinter.Items.Add(it);
-            }
-        }
-
-        private void panel2_Scroll(object sender, ScrollEventArgs e)
-        {
-            panel2.Invalidate();
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            timer1.Stop();
-        //    if ( m_netCient != null )
-       //         m_netCient.TryCnnnect();
-         //   timer1.Start();
-        }
-
-    
         private void buttonClear_Click(object sender, EventArgs e)
         {
             canvas1.Controls.Clear();
             RefreshListBox();
-        }
-
-        private void listBoxPrinter_DoubleClick(object sender, EventArgs e)
-        {
-
         }
     }
 }

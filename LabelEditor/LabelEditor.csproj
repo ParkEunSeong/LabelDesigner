@@ -70,12 +70,14 @@
     <Compile Include="Canvas.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Code39Barcode.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="ContentData.cs" />
     <Compile Include="data\Barcode.cs" />
     <Compile Include="data\Paper.cs" />
     <Compile Include="data\QR.cs" />
     <Compile Include="data\Text.cs" />
+    <Compile Include="Deleter.cs" />
     <Compile Include="FormPrint.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +119,12 @@
     <Compile Include="PropertyBarcodeForm.Designer.cs">
       <DependentUpon>PropertyBarcodeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PropertyDateTimeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PropertyDateTimeForm.Designer.cs">
+      <DependentUpon>PropertyDateTimeForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PropertyTextForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -151,6 +159,7 @@
       <DependentUpon>TestDataForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TRACE.cs" />
+    <Compile Include="Utilities.cs" />
     <EmbeddedResource Include="FormPrint.resx">
       <DependentUpon>FormPrint.cs</DependentUpon>
     </EmbeddedResource>
@@ -178,6 +187,9 @@
     <EmbeddedResource Include="PropertyBarcodeForm.resx">
       <DependentUpon>PropertyBarcodeForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PropertyDateTimeForm.resx">
+      <DependentUpon>PropertyDateTimeForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PropertyTextForm.resx">
       <DependentUpon>PropertyTextForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -196,7 +208,9 @@
     <Content Include="config.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="font\code128.ttf" />
+    <Content Include="font\code128.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="font\code39.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

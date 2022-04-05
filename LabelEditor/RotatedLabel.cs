@@ -27,7 +27,7 @@ namespace DigitalProduction.Forms
         #region Construction
 
         private bool m_selected;
-
+        public int m_dateTimeFormat;
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -60,33 +60,33 @@ namespace DigitalProduction.Forms
         #endregion
 
         #region Properties
-
+        public int Angle;
         /// <summary>
         /// Text angle.
         /// </summary>
-        [Category("Appearance")]
-		public int Angle
-		{
-			get
-			{
-				return _angle;
-			}
+  //      [Category("Appearance")]
+		//public int Angle
+		//{
+		//	get
+		//	{
+		//		return _angle;
+		//	}
 
-			set
-			{
-				// Make sure angle is in the range of 0-360 degrees.
-				_angle		= ((value % 360) + 360) % 360;
+		//	set
+		//	{
+		//		// Make sure angle is in the range of 0-360 degrees.
+		//		_angle		= ((value % 360) + 360) % 360;
 
-				// Store radians so it is at the ready.
-				_radians = Math.PI * _angle / 180.0;
+		//		// Store radians so it is at the ready.
+		//		_radians = Math.PI * _angle / 180.0;
 
-				// Calculate the quadrant we are in.
-				CalculateQuadrant();
+		//		// Calculate the quadrant we are in.
+		//		CalculateQuadrant();
 
-				// Need to update the control.
-				Refresh();
-			}
-		}
+		//		// Need to update the control.
+		//		Refresh();
+		//	}
+		//}
 
 		/// <summary>
 		/// Text.
