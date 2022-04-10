@@ -61,6 +61,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.buttonClear = new System.Windows.Forms.Button();
             this.buttonDateTime = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -368,11 +369,21 @@
             this.buttonDateTime.UseVisualStyleBackColor = true;
             this.buttonDateTime.Click += new System.EventHandler(this.OnButtonClickedMakeControl);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(1006, 40);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(38, 12);
+            this.label4.TabIndex = 18;
+            this.label4.Text = "label4";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1298, 831);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.buttonDateTime);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.buttonRefreshPrinter);
@@ -440,6 +451,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.Button buttonDateTime;
+        private System.Windows.Forms.Label label4;
     }
 }
 

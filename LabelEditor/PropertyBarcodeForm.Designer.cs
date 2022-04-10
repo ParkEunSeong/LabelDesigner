@@ -30,7 +30,7 @@ namespace LabelEditor
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBoxFontSize = new System.Windows.Forms.TextBox();
+            this.textBoxPadding = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBoxRotation = new System.Windows.Forms.ComboBox();
@@ -53,7 +53,7 @@ namespace LabelEditor
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBoxFontSize);
+            this.groupBox2.Controls.Add(this.textBoxPadding);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.comboBoxRotation);
@@ -77,12 +77,12 @@ namespace LabelEditor
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             // 
-            // textBoxFontSize
+            // textBoxPadding
             // 
-            this.textBoxFontSize.Location = new System.Drawing.Point(113, 120);
-            this.textBoxFontSize.Name = "textBoxFontSize";
-            this.textBoxFontSize.Size = new System.Drawing.Size(80, 29);
-            this.textBoxFontSize.TabIndex = 30;
+            this.textBoxPadding.Location = new System.Drawing.Point(113, 120);
+            this.textBoxPadding.Name = "textBoxPadding";
+            this.textBoxPadding.Size = new System.Drawing.Size(80, 29);
+            this.textBoxPadding.TabIndex = 30;
             // 
             // label7
             // 
@@ -90,9 +90,9 @@ namespace LabelEditor
             this.label7.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label7.Location = new System.Drawing.Point(29, 125);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(80, 21);
+            this.label7.Size = new System.Drawing.Size(62, 21);
             this.label7.TabIndex = 29;
-            this.label7.Text = "폰트 크기";
+            this.label7.Text = "Margin";
             // 
             // label6
             // 
@@ -264,7 +264,7 @@ namespace LabelEditor
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox comboBoxRotation;
-        private System.Windows.Forms.TextBox textBoxFontSize;
+        private System.Windows.Forms.TextBox textBoxPadding;
         private System.Windows.Forms.Label label7;
     }
 }

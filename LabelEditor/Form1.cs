@@ -20,6 +20,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ZXing;
+using ZXing.Common;
 
 namespace LabelEditor
 {
@@ -258,8 +260,9 @@ namespace LabelEditor
               
                     GC.Collect();
                     canvas1.Controls.Clear();
+                    listBoxCtrl.Items.Clear();
                 }
-                listBoxCtrl.Items.Clear();
+               
 
 
                 TRACE.Log("texts");
@@ -328,6 +331,7 @@ namespace LabelEditor
                     pb.Name = paper.barcodes[i].key;
                     pb.Padding = paper.barcodes[i].Padding;
                     pb.code39 = paper.barcodes[i].barcode39;
+                  
                     if (paper.barcodes[i].barcode39 == 0)
                     {
                         Barcode39 barcode39 = new Barcode39();
@@ -469,11 +473,11 @@ namespace LabelEditor
                 var img = barcode39.CreateDrawingImage(Color.Black, Color.White);
 
                 var pb = new Barcode();
-                pb.Padding = 19;
+                pb.Padding = 5;
                 pb.Name = "barcode" + canvas1.Controls.Count;
                 pb.Location = new Point((int)(canvas1.Width * 0.5f), (int)(canvas1.Height * 0.5f));
-                pb.Width = 80;
-                pb.Height = 20;
+                pb.Width = 100;
+                pb.Height = 30;
                 pb.MouseDown += Label_MouseDown;
                 pb.MouseMove += Label_MouseMove;
                 pb.Image = img;
@@ -538,6 +542,18 @@ namespace LabelEditor
                 }
             }
         }
+        private void SelectedListBox( string name )
+        {
+            return;
+            for( int i = 0; i < listBoxCtrl.Items.Count; i++ )
+            {
+                if ( listBoxCtrl.Items[i].ToString() == name )
+                {
+                    listBoxCtrl.SelectedIndex = i;
+                    break;
+                }
+            }
+        }
         private void Label_MouseDown(object sender, MouseEventArgs e)
         {
             var ctrl = sender as Control;
@@ -548,14 +564,24 @@ namespace LabelEditor
                 if (ctrl is RotatedLabel)
                 {
                     ((RotatedLabel)ctrl).Selected();
+                    if ( ctrl.Tag.ToString() == "0")
+                    {
+                        SelectedListBox($"{ctrl.Name}-Text");
+                    }
+                    else
+                    {
+                        SelectedListBox($"{ctrl.Name}-DateTime");
+                    }
                 }
                 else if (ctrl is QRCode)
                 {
                     ((QRCode)ctrl).Selected();
+                    SelectedListBox($"{ctrl.Name}-QRCode");
                 }
                 else if (ctrl is Barcode)
                 {
                     ((Barcode)ctrl).Selected();
+                    SelectedListBox($"{ctrl.Name}-Barcode");
                 }
                 m_selectedCtrl = ctrl;
             }
@@ -730,8 +756,13 @@ namespace LabelEditor
                 Initalize(m_paper, true);
             }
         }
-        private void DrawRotatedTextAt(Graphics gr, float angle, string txt, int x, int y, Font the_font, Brush the_brush)
+        private void DrawRotatedTextAt(Graphics gr, float angle, string txt, int x, int y, Font font, Brush the_brush)
         {
+            if (angle != 0 )
+            {
+                x -= (int)font.Size;
+                y -= (int)font.Size;
+            }
             // Save the graphics state.
             GraphicsState state = gr.Save();
             gr.ResetTransform();
@@ -744,60 +775,23 @@ namespace LabelEditor
             gr.TranslateTransform(x, y, MatrixOrder.Append);
 
             // Draw the text at the origin.
-            gr.DrawString(txt, the_font, the_brush, 0, 0);
+            gr.DrawString(txt, font, the_brush,0,0);
 
             // Restore the graphics state.
             gr.Restore(state);
         }
-        private void DrawRotatedImage(Graphics gr, Image img, float angle, string txt, int x, int y, int w, int h)
+        private Bitmap RoateImage(Bitmap src, float angle)
         {
-            // Save the graphics state.
-            GraphicsState state = gr.Save();
-            gr.ResetTransform();
-
-            // Rotate.
-            gr.RotateTransform(angle);
-
-            // Translate to desired position. Be sure to append
-            // the rotation so it occurs after the rotation.
-            gr.TranslateTransform(x, y, MatrixOrder.Append);
-
-            // Draw the text at the origin.
-            gr.DrawImage(img, x, y, w, h);
-
-            // Restore the graphics state.
-            gr.Restore(state);
+            Bitmap trg = new Bitmap(src.Width, src.Height);
+            Graphics g = Graphics.FromImage(trg); // 이미지 중심을 (0,0)으로 이동
+            g.TranslateTransform(src.Width / 2, src.Height / 2); // 회전
+            g.RotateTransform(angle); // 이미지 중심 원래 자표로 이동 
+            g.TranslateTransform(-src.Width / 2, -src.Height / 2); // 원본 이미지로 그리기
+            g.DrawImage(src, new Point(0, 0));
+            return trg;
         }
-        public static Bitmap RotateImage(Image image, PointF offset, float angle)
-        {
-            if (image == null)
-                throw new ArgumentNullException("image");
 
-            //create a new empty bitmap to hold rotated image
-            Bitmap rotatedBmp = new Bitmap(image.Width, image.Height);
-            rotatedBmp.SetResolution(image.HorizontalResolution, image.VerticalResolution);
-
-            //make a graphics object from the empty bitmap
-            Graphics g = Graphics.FromImage(rotatedBmp);
-
-            //Put the rotation point in the center of the image
-            g.TranslateTransform(offset.X, offset.Y);
-
-            //rotate the image
-            g.RotateTransform(angle);
-
-            //move the image back
-            g.TranslateTransform(-offset.X, -offset.Y);
-
-            //draw passed in image onto graphics object
-            g.DrawImage(image, new PointF(0, 0));
-
-            return rotatedBmp;
-        }
-        //public static List<string> DataTimeFormat = new List<string>() { "", "yy-MM-dd HH:mm",
-        //                                                            "yyyy-MM-dd HH:mm",
-        //                                                              "yy년MM월dd일 HH시mm분",
-        //                                                              "yyyy년MM월dd일 HH시mm분"};
+       
         public string ParseStrDateTime( string text, int s, int e )
         {
             try
@@ -852,6 +846,24 @@ namespace LabelEditor
                     return $"{year}년{month}월{day}일";
             }
         }
+        public static Bitmap Generate2( BarcodeFormat format, string text, int width, int height, int padding )
+        {
+            BarcodeWriter writer = new BarcodeWriter();
+            //  ITF   ，           、     
+            //              CODE_128   
+            //writer.Format = BarcodeFormat.ITF;
+            writer.Format = format;
+            EncodingOptions options = new EncodingOptions()
+            {
+                PureBarcode = true,
+                Width = width,
+                Height = height,
+                Margin = padding
+            };
+            writer.Options = options;
+            Bitmap map = writer.Write(text);
+            return map;
+        }
         private void Doc_PrintPage(object sender, PrintPageEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -859,37 +871,34 @@ namespace LabelEditor
             {
 
                 PointF drawPoint = new PointF(it.Location.X, it.Location.Y); // 좌측 상단 시작점. // 2중 using 문 사용.
+                Font font = it.Font;
 
-                using (Font font = new Font("맑은 고딕", it.Font.Size))
+                using (SolidBrush drawBrush = new SolidBrush(Color.Black))
                 {
-                    using (SolidBrush drawBrush = new SolidBrush(Color.Black))
-                    {
-              
-                        DrawRotatedTextAt(g, it.Angle, it.Text, (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
-                        //g.DrawString(it.Text, font, drawBrush, 0, 0);
 
-                    }
+                    DrawRotatedTextAt(g, it.Angle, it.Text, (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
+                    //g.DrawString(it.Text, font, drawBrush, 0, 0);
                 }
+
             }
             foreach (var it in m_dataTimeList)
             {
 
                 PointF drawPoint = new PointF(it.Location.X, it.Location.Y); // 좌측 상단 시작점. // 2중 using 문 사용.
+                Font font = it.Font;
 
-                using (Font font = new Font("맑은 고딕", it.Font.Size))
+                using (SolidBrush drawBrush = new SolidBrush(Color.Black))
                 {
-                    using (SolidBrush drawBrush = new SolidBrush(Color.Black))
-                    {
-                        if (string.IsNullOrEmpty(it.Text) || !string.IsNullOrEmpty(it.Text) && it.Text.Contains("datetime"))
-                            it.Text = DateTime.Now.ToString("yyyyMMddHHmm");
-                        var str = ConvertDateTime(it.Text, it.m_dateTimeFormat);
-                        TRACE.Log($"dateTime {it.Text}, {it.Anchor}, {str}, {it.m_dateTimeFormat}");
-                        DrawRotatedTextAt(g, it.Angle, str, (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
-                        it.Text = it.Name;
-                        //g.DrawString(it.Text, font, drawBrush, 0, 0);
+                    if (string.IsNullOrEmpty(it.Text) || !string.IsNullOrEmpty(it.Text) && it.Text.Contains("datetime"))
+                        it.Text = DateTime.Now.ToString("yyyyMMddHHmm");
+                    var str = ConvertDateTime(it.Text, it.m_dateTimeFormat);
+                    TRACE.Log($"dateTime {it.Text}, {it.Anchor}, {str}, {it.m_dateTimeFormat}");
+                    DrawRotatedTextAt(g, it.Angle, str, (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
+                    it.Text = it.Name;
+                    //g.DrawString(it.Text, font, drawBrush, 0, 0);
 
-                    }
                 }
+
             }
             foreach (var it in m_qrList)
             {
@@ -905,72 +914,40 @@ namespace LabelEditor
                 g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
                 img.Dispose();
             }
-            PrivateFontCollection pF = new PrivateFontCollection();
-            pF.AddFontFile("font/code39.ttf");
-            pF.AddFontFile("font/code128.ttf");
+
             foreach (var it in m_barcodeList)
             {
+                var value = it.Text;
+                if (string.IsNullOrEmpty(value))
+                    value = "12345678";
+
                 if (it.code39 == 0)
                 {
-                    var generator = new Code39Barcode();
-                    if (string.IsNullOrEmpty(it.Text))
-                        it.Text = "*12345678*";
-                    var bitmap = generator.Create(it.Width, it.Text, it.Padding, false, it.Height);
-                    bitmap.Save("test.jpg");
-                    var bmp = new Bitmap("test.jpg");
-                    bmp = Utilities.RotateImage(bmp, it.Angle);
-                    bmp.Save("test2.jpg");
-                    //g.DrawImage(bmp, it.Location.X, it.Location.Y, it.Width, it.Height);
-
-                    g.DrawImage(bmp, it.Location.X, it.Location.Y, it.Width, it.Height);
-
+                    var bmp = Generate2(BarcodeFormat.CODE_39, value, it.Width, it.Height, it.Padding );
+                    if (it.Angle == 90)
+                        bmp.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    else if (it.Angle == 180)
+                        bmp.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                    else if (it.Angle == 270)
+                        bmp.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                    g.DrawImage(bmp, it.Location.X, it.Location.Y);
                     bmp.Dispose();
-
-                    //PointF drawPoint = new PointF(it.Location.X, it.Location.Y); // 좌측 상단 시작점. // 2중 using 문 사용.
-
-                    //using (Font font = new Font(pF.Families[0], it.Font.Size))
-                    //{
-                    //    using (SolidBrush drawBrush = new SolidBrush(Color.Black))
-                    //    {
-                    //        //DrawRotatedTextAt(g, it.Angle, "12345678", (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
-                    //        g.DrawString(it.Text, font, drawBrush, 0, 0);
-
-                    //    }
-                    //}
-
                 }
                 else
                 {
+                    var bmp = Generate2(BarcodeFormat.CODE_128,value, it.Width, it.Height, it.Padding);
+                  
+                    if ( it.Angle == 90 )
+                        bmp.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    else if ( it.Angle == 180 )
+                        bmp.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                    else if ( it.Angle == 270 )
+                        bmp.RotateFlip(RotateFlipType.Rotate270FlipNone);
 
-                    //PointF drawPoint = new PointF(it.Location.X, it.Location.Y); // 좌측 상단 시작점. // 2중 using 문 사용.
-
-                    //using (Font font = new Font(pF.Families[1], it.Font.Size))
-                    //{
-                    //    using (SolidBrush drawBrush = new SolidBrush(Color.Black))
-                    //    {
-                    //        DrawRotatedTextAt(g, it.Angle, "12345678", (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
-                    //        //g.DrawString(it.Text, font, drawBrush, 0, 0);
-
-                    //    }
-                    //}
-                    Barcode128 barcode128 = new Barcode128();
-                    if (string.IsNullOrEmpty(it.Text))
-                        it.Text = "*12345678*";
-                    barcode128.Code = it.Text;
-
-                    barcode128.BarHeight = it.Height;
-
-                    var img = barcode128.CreateDrawingImage(Color.Black, Color.White);
-
-                    //           g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
-                    DrawRotatedImage(g, img, it.Angle, it.Text, it.Location.X, it.Location.Y, it.Width, it.Height);
-                    img.Dispose();
-
+                    g.DrawImage(bmp, it.Location.X, it.Location.Y);
+                    bmp.Dispose();
                 }
-                pF.Families[0].Dispose();
-                pF.Families[1].Dispose();
-                pF.Dispose();
-
+          
             }
 
         }

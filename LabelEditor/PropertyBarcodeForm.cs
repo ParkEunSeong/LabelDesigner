@@ -31,7 +31,7 @@ namespace LabelEditor
             radioButton128.Checked = label.code39 == 1;
             radioButton39.Checked = label.code39 == 0;
             m_font = label.Font;
-            textBoxFontSize.Text = label.Padding.ToString();
+            textBoxPadding.Text = label.Padding.ToString();
             comboBoxRotation.Items.Add(0);
             comboBoxRotation.Items.Add(90);
             comboBoxRotation.Items.Add(180);
@@ -61,7 +61,7 @@ namespace LabelEditor
             int.TryParse(textBoxX.Text, out x);
             int.TryParse(textBoxY.Text, out y);
             int padding = 0;
-            int.TryParse(textBoxFontSize.Text, out padding);
+            int.TryParse(textBoxPadding.Text, out padding);
             m_label.Location = new Point(x, y);
             m_label.Font = m_font;
             m_label.Name = textBoxName.Text;

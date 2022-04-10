@@ -20,6 +20,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ZXing;
+using ZXing.Common;
 
 namespace LabelEditor
 {
@@ -355,6 +357,7 @@ namespace LabelEditor
                     pb.Angle = paper.barcodes[i].Angle;
                     if (paper.barcodes[i].barcode39 == 0)
                     {
+                        pb.code39 = 0;
                         Barcode39 barcode39 = new Barcode39();
                         barcode39.Code = "12345678";
                         barcode39.BarHeight = paper.barcodes[i].height;
@@ -362,11 +365,13 @@ namespace LabelEditor
                     }
                     else
                     {
+                        pb.code39 = 1;
                         Barcode128 barcode128 = new Barcode128();
                         barcode128.Code = "12345678";
                         barcode128.BarHeight = paper.barcodes[i].height;
                         img = barcode128.CreateDrawingImage(Color.Black, Color.White);
                     }
+         
                     pb.Image = img;
                     pb.Location = new Point(paper.barcodes[i].x, paper.barcodes[i].y);
                     pb.Width = paper.barcodes[i].width;
@@ -625,34 +630,47 @@ namespace LabelEditor
                     return $"{year}년{month}월{day}일";
             }
         }
+        public static Bitmap Generate2(BarcodeFormat format, string text, int width, int height, int padding)
+        {
+            BarcodeWriter writer = new BarcodeWriter();
+            writer.Format = format;
+            EncodingOptions options = new EncodingOptions()
+            {
+                PureBarcode = true,
+                Width = width,
+                Height = height,
+                Margin = padding
+            };
+            writer.Options = options;
+            Bitmap map = writer.Write(text);
+            return map;
+        }
         private void Doc_PrintPage(object sender, PrintPageEventArgs e)
         {
             Graphics g = e.Graphics;
 
             foreach (var it in m_labelList)
             {
-                
+
                 PointF drawPoint = new PointF(it.Location.X, it.Location.Y); // 좌측 상단 시작점. // 2중 using 문 사용.
                 if (string.IsNullOrEmpty(it.Text))
                     it.Text = it.Name;
-                TRACE.Log("Text=" + it.Text + "," + it.Location.X + "," + it.Location.Y );
-                using (Font font = new Font("맑은 고딕", it.Font.Size))
+                TRACE.Log("Text=" + it.Text + "," + it.Location.X + "," + it.Location.Y);
+                Font font = it.Font;
+                using (SolidBrush drawBrush = new SolidBrush(Color.Black))
                 {
-                    using (SolidBrush drawBrush = new SolidBrush(Color.Black))
-                    {
-                        DrawRotatedTextAt(g, it.Angle, it.Text, (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
-                        //   g.DrawString(it.Text, font, drawBrush, drawPoint);
-                    }
+                    DrawRotatedTextAt(g, it.Angle, it.Text, (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
+                    //   g.DrawString(it.Text, font, drawBrush, drawPoint);
                 }
+
             }
 
             foreach (var it in m_dateTimeList)
             {
 
                 PointF drawPoint = new PointF(it.Location.X, it.Location.Y); // 좌측 상단 시작점. // 2중 using 문 사용.
-
-                using (Font font = new Font("맑은 고딕", it.Font.Size))
-                {
+                Font font = it.Font;
+              
                     using (SolidBrush drawBrush = new SolidBrush(Color.Black))
                     {
                         if (string.IsNullOrEmpty(it.Text) || !string.IsNullOrEmpty(it.Text) && it.Text.Contains("datetime"))
@@ -664,7 +682,7 @@ namespace LabelEditor
                         //g.DrawString(it.Text, font, drawBrush, 0, 0);
 
                     }
-                }
+                
             }
             foreach ( var it in m_qrList )
             {
@@ -678,91 +696,42 @@ namespace LabelEditor
                 if (!string.IsNullOrEmpty(strQRCode))
                 {
                     Image img = barcodeWriter.Write(strQRCode);
-                   // g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
+                    g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
                     TRACE.Log("QR=" + it.Text + "," + it.Location.X + "," + it.Location.Y + ", " + it.Width + "," + it.Height);
                     img.Dispose();
                 }
             }
-            PrivateFontCollection pF = new PrivateFontCollection();
-            pF.AddFontFile("font/code39.ttf");
-            pF.AddFontFile("font/code128.ttf");
-            foreach ( var it in m_barcodeList )
+            foreach (var it in m_barcodeList)
             {
-                try
+                var value = it.Text;
+                if (string.IsNullOrEmpty(value))
+                    value = "12345678";
+
+                if (it.code39 == 0)
                 {
-
-                    if (it.code39 == 0)
-                    {
-                        var generator = new Code39Barcode();
-                        if (string.IsNullOrEmpty(it.Text))
-                            it.Text = "12345678";
-                        var bitmap = generator.Create(it.Width, it.Text, it.Padding, false, it.Height);
-                        bitmap.Save("test.jpg");
-                        var bmp = new Bitmap("test.jpg");
-                        bmp = Utilities.RotateImage(bmp, it.Angle);
-                        bmp.Save("test2.jpg");
-                        //g.DrawImage(bmp, it.Location.X, it.Location.Y, it.Width, it.Height);
-
-                        g.DrawImage(bmp, it.Location.X, it.Location.Y, it.Width, it.Height);
-
-                        bmp.Dispose();
-
-                        //PointF drawPoint = new PointF(it.Location.X, it.Location.Y); // 좌측 상단 시작점. // 2중 using 문 사용.
-
-                        //using (Font font = new Font(pF.Families[0], it.Padding))
-                        //{
-                        //    using (SolidBrush drawBrush = new SolidBrush(Color.Black))
-                        //    {
-                        //        if (string.IsNullOrEmpty(it.Text))
-                        //            it.Text = "Empty";
-                        //     //   DrawRotatedTextAt(g, it.Angle, it.Text, (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
-                        //        TRACE.Log($"barcode39 {it.Angle},{it.Text},{drawPoint.X},{drawPoint.Y}");
-                        //        g.DrawString(it.Text, font, drawBrush,it.Location.X, it.Location.Y );
-
-                        //    }
-                        //}
-
-                    }
-                    else
-                    {
-
-                        //PointF drawPoint = new PointF(it.Location.X, it.Location.Y); // 좌측 상단 시작점. // 2중 using 문 사용.
-
-                        //using (Font font = new Font(pF.Families[1], it.Padding))
-                        //{
-                        //    using (SolidBrush drawBrush = new SolidBrush(Color.Black))
-                        //    {
-                        //        if (string.IsNullOrEmpty(it.Text))
-                        //            it.Text = "Empty";
-                        //      //  DrawRotatedTextAt(g, it.Angle, it.Text, (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
-                        //        TRACE.Log($"barcode128 {it.Angle},{it.Text},{drawPoint.X},{drawPoint.Y}");
-                        //        g.DrawString(it.Text, font, drawBrush, it.Location.X, it.Location.Y);
-
-                        //    }
-                        //}
-                        Barcode128 barcode128 = new Barcode128();
-                        if (string.IsNullOrEmpty(it.Text))
-                            it.Text = "12345678";
-                        barcode128.Code = it.Text;
-
-                        barcode128.BarHeight = it.Height;
-
-                        var img = barcode128.CreateDrawingImage(Color.Black, Color.White);
-
-                        //           g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
-                        DrawRotatedImage(g, img, it.Angle, it.Text, it.Location.X, it.Location.Y, it.Width, it.Height);
-                        img.Dispose();
-
-                    }
-                    pF.Families[0].Dispose();
-                    pF.Families[1].Dispose();
-                    pF.Dispose();
-
-
+                    var bmp = Generate2(BarcodeFormat.CODE_39, value, it.Width, it.Height, it.Padding);
+                    if (it.Angle == 90)
+                        bmp.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    else if (it.Angle == 180)
+                        bmp.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                    else if (it.Angle == 270)
+                        bmp.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                    g.DrawImage(bmp, it.Location.X, it.Location.Y);
+                    bmp.Dispose();
                 }
-                catch (Exception ex)
+                else
                 {
-                    TRACE.Log(ex.ToString());
+                    var bmp = Generate2(BarcodeFormat.CODE_128, value, it.Width, it.Height, it.Padding);
+
+                    if (it.Angle == 90)
+                        bmp.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    else if (it.Angle == 180)
+                        bmp.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                    else if (it.Angle == 270)
+                        bmp.RotateFlip(RotateFlipType.Rotate270FlipNone);
+
+                    g.DrawImage(bmp, it.Location.X, it.Location.Y);
+                    bmp.Dispose();
                 }
 
             }
