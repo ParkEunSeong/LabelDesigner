@@ -62,6 +62,7 @@
             this.buttonClear = new System.Windows.Forms.Button();
             this.buttonDateTime = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.buttonEditJson = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -86,7 +87,7 @@
             // 
             // buttonMakeText
             // 
-            this.buttonMakeText.Location = new System.Drawing.Point(605, 27);
+            this.buttonMakeText.Location = new System.Drawing.Point(677, 27);
             this.buttonMakeText.Name = "buttonMakeText";
             this.buttonMakeText.Size = new System.Drawing.Size(75, 52);
             this.buttonMakeText.TabIndex = 1;
@@ -97,7 +98,7 @@
             // 
             // button1DBarcode
             // 
-            this.button1DBarcode.Location = new System.Drawing.Point(758, 27);
+            this.button1DBarcode.Location = new System.Drawing.Point(830, 27);
             this.button1DBarcode.Name = "button1DBarcode";
             this.button1DBarcode.Size = new System.Drawing.Size(75, 52);
             this.button1DBarcode.TabIndex = 2;
@@ -108,7 +109,7 @@
             // 
             // buttonQRCode
             // 
-            this.buttonQRCode.Location = new System.Drawing.Point(682, 27);
+            this.buttonQRCode.Location = new System.Drawing.Point(754, 27);
             this.buttonQRCode.Name = "buttonQRCode";
             this.buttonQRCode.Size = new System.Drawing.Size(75, 52);
             this.buttonQRCode.TabIndex = 3;
@@ -349,7 +350,7 @@
             // 
             // buttonClear
             // 
-            this.buttonClear.Location = new System.Drawing.Point(527, 27);
+            this.buttonClear.Location = new System.Drawing.Point(599, 27);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(75, 52);
             this.buttonClear.TabIndex = 16;
@@ -360,7 +361,7 @@
             // 
             // buttonDateTime
             // 
-            this.buttonDateTime.Location = new System.Drawing.Point(835, 27);
+            this.buttonDateTime.Location = new System.Drawing.Point(907, 27);
             this.buttonDateTime.Name = "buttonDateTime";
             this.buttonDateTime.Size = new System.Drawing.Size(75, 52);
             this.buttonDateTime.TabIndex = 17;
@@ -378,11 +379,22 @@
             this.label4.TabIndex = 18;
             this.label4.Text = "label4";
             // 
+            // buttonEditJson
+            // 
+            this.buttonEditJson.Location = new System.Drawing.Point(523, 27);
+            this.buttonEditJson.Name = "buttonEditJson";
+            this.buttonEditJson.Size = new System.Drawing.Size(75, 52);
+            this.buttonEditJson.TabIndex = 19;
+            this.buttonEditJson.Text = "파일편집";
+            this.buttonEditJson.UseVisualStyleBackColor = true;
+            this.buttonEditJson.Click += new System.EventHandler(this.buttonEditJson_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1298, 831);
+            this.Controls.Add(this.buttonEditJson);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.buttonDateTime);
             this.Controls.Add(this.buttonClear);
@@ -452,6 +464,7 @@
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.Button buttonDateTime;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button buttonEditJson;
     }
 }
 

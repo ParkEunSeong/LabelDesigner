@@ -78,6 +78,12 @@
     <Compile Include="data\QR.cs" />
     <Compile Include="data\Text.cs" />
     <Compile Include="Deleter.cs" />
+    <Compile Include="EditJsonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditJsonForm.Designer.cs">
+      <DependentUpon>EditJsonForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormPrint.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -160,6 +166,9 @@
     </Compile>
     <Compile Include="TRACE.cs" />
     <Compile Include="Utilities.cs" />
+    <EmbeddedResource Include="EditJsonForm.resx">
+      <DependentUpon>EditJsonForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormPrint.resx">
       <DependentUpon>FormPrint.cs</DependentUpon>
     </EmbeddedResource>

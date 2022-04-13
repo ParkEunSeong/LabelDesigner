@@ -1274,5 +1274,11 @@ namespace LabelEditor
         {
 
         }
+
+        private void buttonEditJson_Click(object sender, EventArgs e)
+        {
+            var editJsonForm = new EditJsonForm();
+            editJsonForm.Show();
+        }
     }
 }
