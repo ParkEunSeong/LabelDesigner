@@ -61,7 +61,7 @@ namespace LabelEditor
         private List<QRCode> m_qrList = new List<QRCode>();
         private List<string> m_printerList = new List<string>();
         private Paper m_paper;
-        private delegate void FromServerData(string json);
+        private delegate void FromServerData(string json, string dir );
         private string m_selectedPrint;
         private int CentimeterToPixel(int Centimeter)
         {
@@ -89,12 +89,12 @@ namespace LabelEditor
             }
             return "";
         }
-        public void OnFromServerData(string json)
+        public void OnFromServerData(string json, string dir )
         {
             if (InvokeRequired)
             {
                 var func = new FromServerData(OnFromServerData);
-                Invoke(func, new object[] { json });
+                Invoke(func, new object[] { json, dir });
             }
             else
             {
@@ -121,7 +121,13 @@ namespace LabelEditor
                         if (it.Name == "mdfrType")
                         {
                             TRACE.Log("mdfrType = " + fileName);
-                            var path = $"data/{fileName}.json";
+                            string path = "";
+                            if (string.IsNullOrEmpty(dir))
+                                path = $"data/{fileName}.json";
+                            else
+                                path = $"data/{dir}/{ fileName}.json";
+
+                            TRACE.Log(path);
                             if (File.Exists(path))
                             {
                                 using (var sr = new StreamReader(path))

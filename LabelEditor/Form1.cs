@@ -260,7 +260,7 @@ namespace LabelEditor
               
                     GC.Collect();
                     canvas1.Controls.Clear();
-                    listBoxCtrl.Items.Clear();
+                    listViewControl.Items.Clear();
                 }
                
 
@@ -281,7 +281,9 @@ namespace LabelEditor
                     label.Tag = 0;
                     label.Selected();
                     canvas1.Controls.Add(label);
-                    listBoxCtrl.Items.Add(label.Name + "-Text");
+                    var item = new ListViewItem(label.Name);
+                    item.SubItems.Add("Text");
+                    listViewControl.Items.Add(item);
                     m_labelList.Add(label);
                 }
                 TRACE.Log("datetimes");
@@ -300,7 +302,9 @@ namespace LabelEditor
                     label.Tag = 3;
                     label.Selected();
                     canvas1.Controls.Add(label);
-                    listBoxCtrl.Items.Add(label.Name + "-DateTime");
+                    var item = new ListViewItem(label.Name);
+                    item.SubItems.Add("DaateTime");
+                    listViewControl.Items.Add(item);
                     m_dataTimeList.Add(label);
                 }
                 TRACE.Log("qrs");
@@ -321,7 +325,9 @@ namespace LabelEditor
                     pb.Tag = 1;
                     canvas1.Controls.Add(pb);
                     m_qrList.Add(pb);
-                    listBoxCtrl.Items.Add(pb.Name + "-QRCode");
+                    var item = new ListViewItem(pb.Name);
+                    item.SubItems.Add("QRCode");
+                    listViewControl.Items.Add(item);
                 }
                 TRACE.Log("barcodes");
                 for (int i = 0; i < paper.barcodes.Count; i++)
@@ -356,7 +362,9 @@ namespace LabelEditor
                     pb.Tag = 2;
                     canvas1.Controls.Add(pb);
                     m_barcodeList.Add(pb);
-                    listBoxCtrl.Items.Add(pb.Name + "-Barcode");
+                    var item = new ListViewItem(pb.Name);
+                    item.SubItems.Add("Barcode");
+                    listViewControl.Items.Add(item);
                 }
             }
             catch (Exception ex)
@@ -405,6 +413,7 @@ namespace LabelEditor
         private void OnButtonClickedMakeControl(object sender, EventArgs e)
         {
             var tag = (sender as Control).Tag;
+            ListViewItem item = null; 
             if (tag.ToString() == "0")
             {
                 var label = new DigitalProduction.Forms.RotatedLabel();
@@ -417,11 +426,14 @@ namespace LabelEditor
                 label.MouseDown += Label_MouseDown;
                 label.MouseMove += Label_MouseMove;
                 label.MouseUp += Label_MouseUp;
-
+                var ran = new Random();
+                label.Id = ran.Next(0, 10000);
                 label.Tag = 0;
                 canvas1.Controls.Add(label);
                 m_labelList.Add(label);
-                listBoxCtrl.Items.Add(label.Name + "-Text");
+                item = new ListViewItem(label.Name);
+                item.SubItems.Add("Text");
+                item.Tag = label.Id;
                 label.Selected();
 
             }
@@ -438,10 +450,14 @@ namespace LabelEditor
                 pb.MouseMove += Label_MouseMove;
                 pb.MouseUp += Label_MouseUp;
                 pb.SizeMode = PictureBoxSizeMode.StretchImage;
+                var ran = new Random();
+                pb.Id = ran.Next(10000, 20000);
                 pb.Tag = 1;
                 canvas1.Controls.Add(pb);
                 m_qrList.Add(pb);
-                listBoxCtrl.Items.Add(pb.Name + "-QRCode");
+                item = new ListViewItem(pb.Name);
+                item.SubItems.Add("QRCode");
+                item.Tag = pb.Id;
                 pb.Selected();
 
             }
@@ -457,11 +473,14 @@ namespace LabelEditor
                 label.MouseDown += Label_MouseDown;
                 label.MouseMove += Label_MouseMove;
                 label.MouseUp += Label_MouseUp;
-
+                var ran = new Random();
+                label.Id = ran.Next(20000, 30000);
                 label.Tag = 3;
                 canvas1.Controls.Add(label);
                 m_dataTimeList.Add(label);
-                listBoxCtrl.Items.Add(label.Name + "-DateTime");
+                item = new ListViewItem(label.Name);
+                item.SubItems.Add("DateTime");
+                item.Tag = label.Id;
                 label.Selected();
             }
             else
@@ -469,11 +488,13 @@ namespace LabelEditor
                 Barcode39 barcode39 = new Barcode39();
                 barcode39.Code = "12345678";
                 barcode39.BarHeight = 30;
-             
+
                 var img = barcode39.CreateDrawingImage(Color.Black, Color.White);
 
                 var pb = new Barcode();
                 pb.Padding = 5;
+                var ran = new Random();
+                pb.Id = ran.Next(30000, 40000);
                 pb.Name = "barcode" + canvas1.Controls.Count;
                 pb.Location = new Point((int)(canvas1.Width * 0.5f), (int)(canvas1.Height * 0.5f));
                 pb.Width = 100;
@@ -485,8 +506,14 @@ namespace LabelEditor
                 pb.Tag = 2;
                 canvas1.Controls.Add(pb);
                 m_barcodeList.Add(pb);
-                listBoxCtrl.Items.Add(pb.Name + "-Barcode");
+                item = new ListViewItem(pb.Name);
+                item.SubItems.Add("Barcode");
+                item.Tag = pb.Id;
                 pb.Selected();
+            }
+            if ( item != null )
+            {
+                listViewControl.Items.Add(item);
             }
 
         }
@@ -532,12 +559,14 @@ namespace LabelEditor
         }
         private void RemoveControl(string name, string strType)
         {
-            foreach (string it in listBoxCtrl.Items)
+            foreach ( ListViewItem it in listViewControl.Items)
             {
-                var split = it.Split('-');
-                if (split[0] == name && strType == split[1])
+                var itemName = it.SubItems[0].Text;
+                var itemType = it.SubItems[1].Text;
+              
+                if (itemName == name && strType == itemType)
                 {
-                    listBoxCtrl.Items.Remove(it);
+                    listViewControl.Items.Remove(it);
                     break;
                 }
             }
@@ -545,14 +574,7 @@ namespace LabelEditor
         private void SelectedListBox( string name )
         {
             return;
-            for( int i = 0; i < listBoxCtrl.Items.Count; i++ )
-            {
-                if ( listBoxCtrl.Items[i].ToString() == name )
-                {
-                    listBoxCtrl.SelectedIndex = i;
-                    break;
-                }
-            }
+        
         }
         private void Label_MouseDown(object sender, MouseEventArgs e)
         {
@@ -1014,26 +1036,38 @@ namespace LabelEditor
         
         public void RefreshListBox()
         {
-            listBoxCtrl.Items.Clear();
+            listViewControl.Items.Clear();
             foreach( Control it in canvas1.Controls )
             {
                 if (it.Tag != null)
                 {
                     if (it.Tag.ToString() == "0")
                     {
-                        listBoxCtrl.Items.Add(it.Name + "-Text");
+                        var item = new ListViewItem(it.Name);
+                        item.SubItems.Add("Text");
+                        item.Tag = ((RotatedLabel)it).Id;
+                        listViewControl.Items.Add(item);
                     }
                     else if (it.Tag.ToString() == "1")
                     {
-                        listBoxCtrl.Items.Add(it.Name + "-QRCode");
+                        var item = new ListViewItem(it.Name);
+                        item.SubItems.Add("QRCode");
+                        item.Tag = ((QRCode)it).Id;
+                        listViewControl.Items.Add(item);
                     }
                     else if ( it.Tag.ToString() == "3" )
                     {
-                        listBoxCtrl.Items.Add(it.Name + "-DateTime");
+                        var item = new ListViewItem(it.Name);
+                        item.SubItems.Add("DateTime");
+                        item.Tag = ((RotatedLabel)it).Id;
+                        listViewControl.Items.Add(item);
                     }
                     else
                     {
-                        listBoxCtrl.Items.Add(it.Name + "-Barcode");
+                        var item = new ListViewItem(it.Name);
+                        item.SubItems.Add("Barcode");
+                        item.Tag = ((Barcode)it).Id;
+                        listViewControl.Items.Add(item);
                     }
                 }
             }
@@ -1066,13 +1100,14 @@ namespace LabelEditor
                 text.rotation = PropUtil.GetAngleToIdx( it.Angle);
                 text.x = it.Location.X;
                 text.y = it.Location.Y;
-
+                text.Id = it.Id;
                 m_paper.texts.Add(text);
             }
             foreach (var it in m_dataTimeList)
             {
                 var text = new Text();
                 text.key = it.Name;
+                text.Id = it.Id;
                 text.font_name = it.Font.Name;
                 text.font_size = (int)it.Font.Size;
                 text.rotation = PropUtil.GetAngleToIdx(it.Angle);
@@ -1085,6 +1120,7 @@ namespace LabelEditor
             {
                 var barcode = new data.Barcode();
                 barcode.key = it.Name;
+                barcode.Id = it.Id;
                 barcode.x = it.Location.X;
                 barcode.y = it.Location.Y;
                 barcode.width = it.Width;
@@ -1103,7 +1139,7 @@ namespace LabelEditor
                 qr.height = it.Height;
                 qr.x = it.Location.X;
                 qr.y = it.Location.Y;
-
+                qr.Id = it.Id;
                 m_paper.qrs.Add(qr);
             }
 
@@ -1114,6 +1150,7 @@ namespace LabelEditor
             {
                 if (!Directory.Exists("data"))
                     Directory.CreateDirectory("data");
+   
                 if (File.Exists(@"data\" + fileName + ".json"))
                     File.Delete(@"data\" + fileName + ".json");
                 using (var sw = new StreamWriter(@"data\"+fileName + ".json"))
@@ -1222,46 +1259,6 @@ namespace LabelEditor
 
         private void listBoxCtrl_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBoxCtrl.SelectedItem == null)
-                return;
-            var selectedName = listBoxCtrl.SelectedItem.ToString();
-            var split = selectedName.Split('-');
-            
-            foreach ( Control it in canvas1.Controls )
-            {
-                if ( split[0] == it.Name && it.Tag.ToString() == "0" && split[1] == "Text" )
-                {
-                    var form = new PropertyTextForm();
-                    form.SetLabel(it as RotatedLabel);
-                    form.StartPosition = FormStartPosition.CenterScreen;
-                    form.FormClosed += Form_FormClosed;
-                    form.Show();
-                }
-                else if (split[0] == it.Name && it.Tag.ToString() == "1" && split[1] == "QRCode")
-                {
-                    var form = new PropertyQRForm();
-                    form.SetQR(it as QRCode);
-                    form.FormClosed += Form_FormClosed;
-                    form.Show();
-                }
-                else if ( split[0] == it.Name && it.Tag.ToString() == "2" && split[1] == "Barcode")
-                {
-
-                    var form = new PropertyBarcodeForm();
-                    form.SetLabel(it as Barcode);
-                    form.StartPosition = FormStartPosition.CenterScreen;
-                    form.FormClosed += Form_FormClosed;
-                    form.Show();
-                }
-                else if (split[0] == it.Name && it.Tag.ToString() == "3" && split[1] == "DateTime")
-                {
-                    var form = new PropertyDateTimeForm();
-                    form.SetLabel(it as RotatedLabel);
-                    form.StartPosition = FormStartPosition.CenterScreen;
-                    form.FormClosed += Form_FormClosed;
-                    form.Show();
-                }
-            }
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
@@ -1273,6 +1270,50 @@ namespace LabelEditor
         private void listBoxPrinter_DoubleClick(object sender, EventArgs e)
         {
 
+        }
+
+        private void listViewControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listViewControl.SelectedItems.Count <= 0)
+                return;
+            var selectedName = listViewControl.SelectedItems[0].SubItems[0].Text;
+            var type = listViewControl.SelectedItems[0].SubItems[1].Text;
+            var tag = listViewControl.SelectedItems[0].Tag.ToString();
+            foreach (Control it in canvas1.Controls)
+            {
+                if (type == "Text" &&  it is RotatedLabel && ((RotatedLabel)it).Id.ToString() == tag )
+                {
+                    var form = new PropertyTextForm();
+                    form.SetLabel(it as RotatedLabel);
+                    form.StartPosition = FormStartPosition.CenterScreen;
+                    form.FormClosed += Form_FormClosed;
+                    form.Show();
+                }
+                else if (type == "QRCode" && it is QRCode && ((QRCode)it).Id.ToString() == tag )
+                {
+                    var form = new PropertyQRForm();
+                    form.SetQR(it as QRCode);
+                    form.FormClosed += Form_FormClosed;
+                    form.Show();
+                }
+                else if (type == "Barcode" && it is Barcode && ((Barcode)it).Id.ToString() == tag )
+                {
+
+                    var form = new PropertyBarcodeForm();
+                    form.SetLabel(it as Barcode);
+                    form.StartPosition = FormStartPosition.CenterScreen;
+                    form.FormClosed += Form_FormClosed;
+                    form.Show();
+                }
+                else if (type == "DateTime" &&  it is RotatedLabel && ((RotatedLabel)it).Id.ToString() == tag )
+                {
+                    var form = new PropertyDateTimeForm();
+                    form.SetLabel(it as RotatedLabel);
+                    form.StartPosition = FormStartPosition.CenterScreen;
+                    form.FormClosed += Form_FormClosed;
+                    form.Show();
+                }
+            }
         }
 
         private void buttonEditJson_Click(object sender, EventArgs e)

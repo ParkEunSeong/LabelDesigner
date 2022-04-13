@@ -65,10 +65,12 @@ namespace LabelEditor
             int y = 0;
             int.TryParse(textBoxX.Text, out x);
             int.TryParse(textBoxY.Text, out y);
+            float font = 0;
+            float.TryParse(textBoxFontSize.Text, out font);
             m_label.Name = textBoxName.Text;
             m_label.Text = m_label.Name;
             m_label.Location = new Point(x, y);
-            m_label.Font = m_label.Font = new Font(m_font.FontFamily, m_font.Size, checkBoxBold.Checked ? FontStyle.Bold : FontStyle.Regular);
+            m_label.Font = m_label.Font = new Font(textBoxFontName.Text, font, checkBoxBold.Checked ? FontStyle.Bold : FontStyle.Regular);
             m_label.Angle = PropUtil.GetIdxToAngle(comboBoxRotation.SelectedIndex);
             m_label.Width = (int)(m_label.Text.Length * m_label.Font.Size);
             m_label.Height = (int)m_label.Font.Size * 2 ;
@@ -76,15 +78,7 @@ namespace LabelEditor
         }
         private void textBoxFontSize_Click(object sender, EventArgs e)
         {
-            if ( fontDialog1.ShowDialog() == DialogResult.OK )
-            {
-                var font = fontDialog1.Font;
-                m_font = font;
-                textBoxFontSize.Text = font.Size.ToString();
-                textBoxFontName.Text = font.Name;
-                checkBoxBold.Checked = font.Bold;
-                
-            }
+           
         }
     }
 }

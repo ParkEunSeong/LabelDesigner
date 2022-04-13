@@ -30,12 +30,14 @@ namespace DigitalProduction.Forms
         #endregion
 
         #region Construction
+        public int Id { get; set; }
         private bool m_selected;
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
 		public QRCode()
 		{
+            
             this.Text = "rotatedLabel";
 			InitializeComponent();
             DoubleBuffered = true;

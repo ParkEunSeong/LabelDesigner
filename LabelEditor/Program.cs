@@ -35,13 +35,25 @@ namespace LabelEditor
             TRACE.Log("프로그램 실행");
             TRACE.Log(Environment.CurrentDirectory);
             var text = "";
+            if (!Directory.Exists("data"))
+                Directory.CreateDirectory("data");
+            if (!Directory.Exists("data/spcm"))
+                Directory.CreateDirectory("data/spcm");
+            if (!Directory.Exists("data/brcl"))
+                Directory.CreateDirectory("data/brcl");
+            if (!Directory.Exists("data/card"))
+                Directory.CreateDirectory("data/card");
+            if (!Directory.Exists("data/etc"))
+                Directory.CreateDirectory("data/etc");
+
             //if (false)
             //{
             if (args != null && args.Length > 0)
             {
                 TRACE.Log(args[0]);
+                var split = args[0].Split('^');
                 var form = new FormPrint();
-                form.OnFromServerData(args[0]);
+                form.OnFromServerData(split[0], split[1]);
                 //  Application.Run(form);
             }
             else

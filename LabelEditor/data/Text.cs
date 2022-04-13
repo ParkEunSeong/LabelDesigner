@@ -16,7 +16,7 @@ namespace LabelEditor.data
         public bool bold { get; set; }
         public int rotation { get; set; }
         public int datetime_type { get; set; }
-
+        public int Id { get; set; }
         public static List<string> DataTimeFormat = new List<string>() { "", "yy-MM-dd HH:mm",
                                                                     "yyyy-MM-dd HH:mm",
                                                                       "yy년MM월dd일 HH시mm분",
