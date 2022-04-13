@@ -34,7 +34,6 @@
             this.buttonMakeText = new System.Windows.Forms.Button();
             this.button1DBarcode = new System.Windows.Forms.Button();
             this.buttonQRCode = new System.Windows.Forms.Button();
-            this.listBoxCtrl = new System.Windows.Forms.ListBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.파일ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.새파일ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,6 +61,9 @@
             this.buttonClear = new System.Windows.Forms.Button();
             this.buttonDateTime = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.listViewControl = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -116,17 +118,6 @@
             this.buttonQRCode.Text = "QRCode";
             this.buttonQRCode.UseVisualStyleBackColor = true;
             this.buttonQRCode.Click += new System.EventHandler(this.OnButtonClickedMakeControl);
-            // 
-            // listBoxCtrl
-            // 
-            this.listBoxCtrl.FormattingEnabled = true;
-            this.listBoxCtrl.ItemHeight = 12;
-            this.listBoxCtrl.Location = new System.Drawing.Point(22, 289);
-            this.listBoxCtrl.Name = "listBoxCtrl";
-            this.listBoxCtrl.Size = new System.Drawing.Size(157, 268);
-            this.listBoxCtrl.TabIndex = 4;
-            this.listBoxCtrl.SelectedIndexChanged += new System.EventHandler(this.listBoxCtrl_SelectedIndexChanged);
-            this.listBoxCtrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listBoxCtrl_MouseDown);
             // 
             // menuStrip1
             // 
@@ -378,11 +369,36 @@
             this.label4.TabIndex = 18;
             this.label4.Text = "label4";
             // 
+            // listViewControl
+            // 
+            this.listViewControl.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.listViewControl.HideSelection = false;
+            this.listViewControl.Location = new System.Drawing.Point(21, 287);
+            this.listViewControl.Name = "listViewControl";
+            this.listViewControl.Size = new System.Drawing.Size(177, 276);
+            this.listViewControl.TabIndex = 19;
+            this.listViewControl.UseCompatibleStateImageBehavior = false;
+            this.listViewControl.View = System.Windows.Forms.View.Details;
+            this.listViewControl.SelectedIndexChanged += new System.EventHandler(this.listViewControl_SelectedIndexChanged);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Name";
+            this.columnHeader1.Width = 80;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Type";
+            this.columnHeader2.Width = 80;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1298, 831);
+            this.Controls.Add(this.listViewControl);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.buttonDateTime);
             this.Controls.Add(this.buttonClear);
@@ -396,7 +412,6 @@
             this.Controls.Add(this.buttonPrint);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.listBoxCtrl);
             this.Controls.Add(this.buttonQRCode);
             this.Controls.Add(this.button1DBarcode);
             this.Controls.Add(this.buttonMakeText);
@@ -423,7 +438,6 @@
         private System.Windows.Forms.Button buttonMakeText;
         private System.Windows.Forms.Button button1DBarcode;
         private System.Windows.Forms.Button buttonQRCode;
-        private System.Windows.Forms.ListBox listBoxCtrl;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 파일ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 새파일ToolStripMenuItem;
@@ -452,6 +466,9 @@
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.Button buttonDateTime;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ListView listViewControl;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
     }
 }
 
