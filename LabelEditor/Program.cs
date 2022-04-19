@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -50,10 +51,14 @@ namespace LabelEditor
             //{
             if (args != null && args.Length > 0)
             {
+                
                 TRACE.Log(args[0]);
                 var split = args[0].Split('^');
+                byte[] orgBytes = Convert.FromBase64String(split[0]);
+                string data = Encoding.Default.GetString(orgBytes);
                 var form = new FormPrint();
-                form.OnFromServerData(split[0], split[1]);
+                TRACE.Log("data= " + data );
+                form.OnFromServerData(data, split[1]);
                 //  Application.Run(form);
             }
             else
