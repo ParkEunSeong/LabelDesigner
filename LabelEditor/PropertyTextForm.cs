@@ -1,4 +1,5 @@
 ﻿using DigitalProduction.Forms;
+using LabelEditor.data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,7 +32,7 @@ namespace LabelEditor
             textBoxX.Text = label.Location.X.ToString();
             textBoxY.Text = label.Location.Y.ToString();
             textBoxFontSize.Text = label.Font.Size.ToString();
-
+            checkBoxFix.Checked = label.Fix;
             textBoxFontName.Text = label.Font.Name;
             checkBoxBold.Checked = label.Font.Bold;
             m_font = label.Font;
@@ -51,6 +52,22 @@ namespace LabelEditor
             {
                 comboBoxRotation.SelectedIndex = 3;
             }
+
+            checkBoxMultiple.Checked = label.Multiple;
+            textBoxMultiple1.Text = label.m_multple[0].key;
+            checkBoxFix1.Checked = label.m_multple[0].Fix;
+
+            textBoxMultiple2.Text = label.m_multple[1].key;
+            checkBoxFix2.Checked = label.m_multple[1].Fix;
+
+            textBoxMultiple3.Text = label.m_multple[2].key;
+            checkBoxFix3.Checked = label.m_multple[2].Fix;
+
+            textBoxMultiple4.Text = label.m_multple[3].key;
+            checkBoxFix4.Checked = label.m_multple[3].Fix;
+
+            textBoxMultiple5.Text = label.m_multple[4].key;
+            checkBoxFix5.Checked = label.m_multple[4].Fix;
 
         }
 
@@ -74,11 +91,35 @@ namespace LabelEditor
             m_label.Angle = PropUtil.GetIdxToAngle(comboBoxRotation.SelectedIndex);
             m_label.Width = (int)(m_label.Text.Length * m_label.Font.Size);
             m_label.Height = (int)m_label.Font.Size * 2 ;
+            m_label.Fix = checkBoxFix.Checked;
+            m_label.Multiple = checkBoxMultiple.Checked;
+            if ( checkBoxMultiple.Checked )
+            {
+                var list = new List<Text>();
+                list.Add(new data.Text(textBoxMultiple1.Text, checkBoxFix1.Checked));
+                list.Add(new data.Text(textBoxMultiple2.Text, checkBoxFix2.Checked));
+                list.Add(new data.Text(textBoxMultiple3.Text, checkBoxFix3.Checked));
+                list.Add(new data.Text(textBoxMultiple4.Text, checkBoxFix4.Checked));
+                list.Add(new data.Text(textBoxMultiple5.Text, checkBoxFix5.Checked));
+                m_label.m_multple = list;
+            }
             Close();
         }
         private void textBoxFontSize_Click(object sender, EventArgs e)
         {
            
+        }
+
+        private void checkBoxMultiple_CheckedChanged(object sender, EventArgs e)
+        {
+            if ( checkBoxMultiple.Checked )
+            {
+                Size = new Size(453, 308);
+            }
+            else
+            {
+                Size = new Size(260, 308);
+            }
         }
     }
 }

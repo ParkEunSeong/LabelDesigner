@@ -30,6 +30,7 @@ namespace LabelEditor
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.comboBoxFormat = new System.Windows.Forms.ComboBox();
             this.buttonSave = new System.Windows.Forms.Button();
             this.comboBoxRotation = new System.Windows.Forms.ComboBox();
             this.checkBoxBold = new System.Windows.Forms.CheckBox();
@@ -44,7 +45,6 @@ namespace LabelEditor
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
-            this.comboBoxFormat = new System.Windows.Forms.ComboBox();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,6 +71,15 @@ namespace LabelEditor
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "DateTime";
+            // 
+            // comboBoxFormat
+            // 
+            this.comboBoxFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFormat.FormattingEnabled = true;
+            this.comboBoxFormat.Location = new System.Drawing.Point(6, 151);
+            this.comboBoxFormat.Name = "comboBoxFormat";
+            this.comboBoxFormat.Size = new System.Drawing.Size(191, 29);
+            this.comboBoxFormat.TabIndex = 18;
             // 
             // buttonSave
             // 
@@ -193,15 +202,6 @@ namespace LabelEditor
             this.label4.TabIndex = 1;
             this.label4.Text = "키";
             // 
-            // comboBoxFormat
-            // 
-            this.comboBoxFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxFormat.FormattingEnabled = true;
-            this.comboBoxFormat.Location = new System.Drawing.Point(6, 151);
-            this.comboBoxFormat.Name = "comboBoxFormat";
-            this.comboBoxFormat.Size = new System.Drawing.Size(191, 29);
-            this.comboBoxFormat.TabIndex = 18;
-            // 
             // PropertyDateTimeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -210,6 +210,7 @@ namespace LabelEditor
             this.Controls.Add(this.groupBox2);
             this.Name = "PropertyDateTimeForm";
             this.Text = "DateTime Property";
+            this.TopMost = true;
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);

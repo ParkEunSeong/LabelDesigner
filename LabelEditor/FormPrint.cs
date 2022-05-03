@@ -101,7 +101,7 @@ namespace LabelEditor
                 try
                 {
                     var j = JObject.Parse(json);
-                    TRACE.Log(j.ToString());
+                    TRACE.Log(j.ToString());    
                     m_selectedPrint = GetJsonStringValue(ref j, "prntNm");
                     var fileName = GetJsonStringValue(ref j, "mdfrType");
                     if ( string.IsNullOrEmpty(m_selectedPrint))
@@ -141,19 +141,51 @@ namespace LabelEditor
                                             Initalize(m_paper);
                                             foreach (var jt in m_labelList)
                                             {
-                                                jt.Text = GetJsonStringValue(ref j, jt.Name);
-                                                if (jt.Name == "spcmCnnr")
+                                                if (jt.Multiple)
                                                 {
-                                                    var jarr = j["spcmCnnr"].ToArray();
                                                     jt.Text = "";
-                                                    foreach(var kt in jarr )
+                                                    foreach (var kt in jt.m_multple )
                                                     {
-                                                        jt.Text += kt;
+                                                        if (kt.Fix)
+                                                            kt.content = kt.key;
+                                                        else
+                                                            kt.content = GetJsonStringValue(ref j, kt.key);
+                                                        TRACE.Log("kt.content = " + kt.content);
+                                                        jt.Text += kt.content;
                                                     }
-                                                    
                                                 }
+                                                else
+                                                {
+                                                    if (jt.Fix == false)
+                                                    {
+                                                        jt.Text = GetJsonStringValue(ref j, jt.Name);
+                                                        if (jt.Name == "spcmCnnr")
+                                                        {
+                                                            try
+                                                            {
+                                                                var jarr = j["spcmCnnr"].ToArray();
+                                                                jt.Text = " ";
+                                                                foreach (var kt in jarr)
+                                                                {
+                                                                   jt.Text += kt;
+                                                                }
+                                                         
+                                                                if (jt.Text.Length > 1 && jt.Text[jt.Text.Length - 1] == '/')
+                                                                {
+                                                                    jt.Text = jt.Text.Substring(0, jt.Text.Length - 1);
+                                                                }
+                                                            }
+                                                            catch(Exception ex)
+                                                            {
+                                                                TRACE.Log(ex.ToString());
+                                                            }
+                                                            
 
-                                                TRACE.Log("text name = " + jt.Name + ", text = " + jt.Text);
+                                                        }
+                                                    }
+                                                }
+                                                TRACE.Log("text name = " + jt.Name + ", text = " + jt.Text + ", fix = " + jt.Fix );
+
                                             }
                                             foreach (var jt in m_dateTimeList)
                                             {
@@ -195,6 +227,7 @@ namespace LabelEditor
                 {
                     TRACE.Log(ex.ToString());
                 }
+                TRACE.Log("print");
                 Print();
             }
         }
@@ -311,6 +344,12 @@ namespace LabelEditor
                 label.Angle = PropUtil.GetIdxToAngle(paper.texts[i].rotation);
                 label.Text = label.Name;
                 label.Tag = 0;
+                label.Fix = paper.texts[i].Fix;
+                label.Multiple = paper.texts[i].Multile;
+                foreach(var it in paper.texts[i].m_multiple )
+                {
+                    label.m_multple.Add(new data.Text(it.key, it.Fix));
+                }
                 label.Selected();
                 canvas1.Controls.Add(label);
                 listBoxCtrl.Items.Add(label.Name + "-Text");
@@ -659,8 +698,10 @@ namespace LabelEditor
             {
 
                 PointF drawPoint = new PointF(it.Location.X, it.Location.Y); // 좌측 상단 시작점. // 2중 using 문 사용.
-                if (string.IsNullOrEmpty(it.Text))
+                if (it.Fix)
                     it.Text = it.Name;
+                else if (string.IsNullOrEmpty(it.Text))
+                    continue;
                 TRACE.Log("Text=" + it.Text + "," + it.Location.X + "," + it.Location.Y);
                 Font font = it.Font;
                 using (SolidBrush drawBrush = new SolidBrush(Color.Black))
@@ -673,14 +714,15 @@ namespace LabelEditor
 
             foreach (var it in m_dateTimeList)
             {
-
+                if (string.IsNullOrEmpty(it.Text))
+                    continue;
                 PointF drawPoint = new PointF(it.Location.X, it.Location.Y); // 좌측 상단 시작점. // 2중 using 문 사용.
                 Font font = it.Font;
               
                     using (SolidBrush drawBrush = new SolidBrush(Color.Black))
                     {
-                        if (string.IsNullOrEmpty(it.Text) || !string.IsNullOrEmpty(it.Text) && it.Text.Contains("datetime"))
-                            it.Text = DateTime.Now.ToString("yyyyMMddHHmm");
+                        //if (string.IsNullOrEmpty(it.Text) || !string.IsNullOrEmpty(it.Text) && it.Text.Contains("datetime"))
+                       //     it.Text = DateTime.Now.ToString("yyyyMMddHHmm");
                         var str = ConvertDateTime(it.Text, it.m_dateTimeFormat);
                         TRACE.Log($"dateTime {it.Text}, {it.Anchor}, {str}, {it.m_dateTimeFormat}");
                         DrawRotatedTextAt(g, it.Angle, str, (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
@@ -692,15 +734,16 @@ namespace LabelEditor
             }
             foreach ( var it in m_qrList )
             {
-                ZXing.BarcodeWriter barcodeWriter = new ZXing.BarcodeWriter();
-                barcodeWriter.Format = ZXing.BarcodeFormat.QR_CODE;
-
-                barcodeWriter.Options.Width = it.Width;
-                barcodeWriter.Options.Height = it.Height;
-
                 string strQRCode = it.Text;
                 if (!string.IsNullOrEmpty(strQRCode))
                 {
+                    ZXing.BarcodeWriter barcodeWriter = new ZXing.BarcodeWriter();
+                    barcodeWriter.Format = ZXing.BarcodeFormat.QR_CODE;
+
+                    barcodeWriter.Options.Width = it.Width;
+                    barcodeWriter.Options.Height = it.Height;
+
+
                     Image img = barcodeWriter.Write(strQRCode);
                     g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
                     TRACE.Log("QR=" + it.Text + "," + it.Location.X + "," + it.Location.Y + ", " + it.Width + "," + it.Height);
@@ -711,8 +754,7 @@ namespace LabelEditor
             {
                 var value = it.Text;
                 if (string.IsNullOrEmpty(value))
-                    value = "12345678";
-
+                    continue;
                 if (it.code39 == 0)
                 {
                     var bmp = Generate2(BarcodeFormat.CODE_39, value, it.Width, it.Height, it.Padding);

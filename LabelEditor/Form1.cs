@@ -276,10 +276,14 @@ namespace LabelEditor
                     label.MouseDown += Label_MouseDown;
                     label.MouseMove += Label_MouseMove;
                     label.MouseUp += Label_MouseUp;
-
+                    label.Fix = paper.texts[i].Fix;
                     label.Text = label.Name;
                     label.Tag = 0;
                     label.Selected();
+                    for (int j = 0; j < 5; j++)
+                    {
+                        label.m_multple.Add(new data.Text(paper.texts[i].m_multiple[j].key, paper.texts[i].m_multiple[j].Fix));
+                    }
                     canvas1.Controls.Add(label);
                     var item = new ListViewItem(label.Name);
                     item.SubItems.Add("Text");
@@ -301,6 +305,7 @@ namespace LabelEditor
                     label.Text = label.Name;
                     label.Tag = 3;
                     label.Selected();
+ 
                     canvas1.Controls.Add(label);
                     var item = new ListViewItem(label.Name);
                     item.SubItems.Add("DaateTime");
@@ -426,6 +431,10 @@ namespace LabelEditor
                 label.MouseDown += Label_MouseDown;
                 label.MouseMove += Label_MouseMove;
                 label.MouseUp += Label_MouseUp;
+                for (int j = 0; j < 5; j++)
+                {
+                    label.m_multple.Add(new data.Text());
+                }
                 var ran = new Random();
                 label.Id = ran.Next(0, 10000);
                 label.Tag = 0;
@@ -648,29 +657,6 @@ namespace LabelEditor
                 {
                     TRACE.Log(ex.ToString());
                 }
-                //if (ctrl is RotatedLabel)
-                //{
-                //    var form = new PropertyTextForm();
-                //    form.SetLabel(ctrl as RotatedLabel);
-                //    form.StartPosition = FormStartPosition.CenterScreen;
-                //    form.FormClosed += Form_FormClosed;
-                //    form.Show();
-                //}
-                //else if (ctrl is Barcode)
-                //{
-                //    var form = new PropertyBarcodeForm();
-                //    form.SetLabel(ctrl as Barcode);
-                //    form.StartPosition = FormStartPosition.CenterScreen;
-                //    form.FormClosed += Form_FormClosed;
-                //    form.Show();
-                //}
-                //else if (ctrl is QRCode)
-                //{
-                //    var form = new PropertyQRForm();
-                //    form.SetQR(ctrl as QRCode);
-                //    form.FormClosed += Form_FormClosed;
-                //    form.Show();
-                //}
 
             }
 
@@ -680,6 +666,22 @@ namespace LabelEditor
 
         private void Form_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if ( sender is PropertyTextForm)
+            {
+                m_textForm = null;
+            }
+            else if (sender is PropertyDateTimeForm)
+            {
+                m_dateTimeForm = null;
+            }
+            else if ( sender is PropertyBarcodeForm)
+            {
+                m_barcodeForm = null;
+            }
+            else if ( sender is PropertyQRForm)
+            {
+                m_qrForm = null;
+            }
             RefreshListBox();
         }
 
@@ -894,11 +896,22 @@ namespace LabelEditor
 
                 PointF drawPoint = new PointF(it.Location.X, it.Location.Y); // 좌측 상단 시작점. // 2중 using 문 사용.
                 Font font = it.Font;
-
+                string text = it.Text;
+                if ( it.Multiple )
+                {
+                    text = "";
+                    foreach (var jt in it.m_multple)
+                    {
+                        if (string.IsNullOrEmpty(jt.content))
+                            text += jt.key;
+                        else
+                            text += jt.content;
+                    }
+                }
                 using (SolidBrush drawBrush = new SolidBrush(Color.Black))
                 {
 
-                    DrawRotatedTextAt(g, it.Angle, it.Text, (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
+                    DrawRotatedTextAt(g, it.Angle, text, (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
                     //g.DrawString(it.Text, font, drawBrush, 0, 0);
                 }
 
@@ -1101,6 +1114,9 @@ namespace LabelEditor
                 text.x = it.Location.X;
                 text.y = it.Location.Y;
                 text.Id = it.Id;
+                text.Fix = it.Fix;
+                text.Multile = it.Multiple;
+                text.m_multiple = it.m_multple;
                 m_paper.texts.Add(text);
             }
             foreach (var it in m_dataTimeList)
@@ -1210,52 +1226,7 @@ namespace LabelEditor
         private void timer1_Tick(object sender, EventArgs e)
         {
         }
-
-        private void listBoxCtrl_MouseDown(object sender, MouseEventArgs e)
-        {
-            if ( m_selectedCtrl != null )
-            {
-                if ( e.Button == MouseButtons.Right )
-                {
-                    if (m_selectedCtrl is RotatedLabel)
-                    {
-                        if (m_selectedCtrl.Tag.ToString() == "0")
-                        {
-                            var form = new PropertyTextForm();
-                            form.SetLabel(m_selectedCtrl as RotatedLabel);
-                            form.StartPosition = FormStartPosition.CenterScreen;
-                            form.FormClosed += Form_FormClosed;
-                            form.Show();
-                        }
-                        else
-                        {
-                            var form = new PropertyDateTimeForm();
-                            form.SetLabel(m_selectedCtrl as RotatedLabel);
-                            form.StartPosition = FormStartPosition.CenterScreen;
-                            form.FormClosed += Form_FormClosed;
-
-                            form.Show();
-                        }
-                    }
-                    else if (m_selectedCtrl is Barcode)
-                    {
-                        var form = new PropertyBarcodeForm();
-                        form.SetLabel(m_selectedCtrl as Barcode);
-                        form.StartPosition = FormStartPosition.CenterScreen;
-                        form.FormClosed += Form_FormClosed;
-                        form.Show();
-                    }
-                    else if (m_selectedCtrl is QRCode)
-                    {
-                        var form = new PropertyQRForm();
-                        form.SetQR(m_selectedCtrl as QRCode);
-                        form.FormClosed += Form_FormClosed;
-                        form.StartPosition = FormStartPosition.CenterScreen;
-                        form.Show();
-                    }
-                }
-            }
-        }
+    
 
         private void listBoxCtrl_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1271,6 +1242,10 @@ namespace LabelEditor
         {
 
         }
+        private PropertyTextForm m_textForm;
+        private PropertyDateTimeForm m_dateTimeForm;
+        private PropertyBarcodeForm m_barcodeForm;
+        private PropertyQRForm m_qrForm;
 
         private void listViewControl_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1283,35 +1258,46 @@ namespace LabelEditor
             {
                 if (type == "Text" &&  it is RotatedLabel && ((RotatedLabel)it).Id.ToString() == tag )
                 {
-                    var form = new PropertyTextForm();
-                    form.SetLabel(it as RotatedLabel);
-                    form.StartPosition = FormStartPosition.CenterScreen;
-                    form.FormClosed += Form_FormClosed;
-                    form.Show();
+                    if (m_textForm == null)
+                    {
+                        m_textForm = new PropertyTextForm();
+                        m_textForm.SetLabel(it as RotatedLabel);
+                        m_textForm.StartPosition = FormStartPosition.CenterScreen;
+                        m_textForm.FormClosed += Form_FormClosed;
+                        m_textForm.Show();
+                    }
                 }
                 else if (type == "QRCode" && it is QRCode && ((QRCode)it).Id.ToString() == tag )
                 {
-                    var form = new PropertyQRForm();
-                    form.SetQR(it as QRCode);
-                    form.FormClosed += Form_FormClosed;
-                    form.Show();
+                    if (m_qrForm == null)
+                    {
+                        m_qrForm = new PropertyQRForm();
+                        m_qrForm.SetQR(it as QRCode);
+                        m_qrForm.FormClosed += Form_FormClosed;
+                        m_qrForm.Show();
+                    }
                 }
                 else if (type == "Barcode" && it is Barcode && ((Barcode)it).Id.ToString() == tag )
                 {
-
-                    var form = new PropertyBarcodeForm();
-                    form.SetLabel(it as Barcode);
-                    form.StartPosition = FormStartPosition.CenterScreen;
-                    form.FormClosed += Form_FormClosed;
-                    form.Show();
+                    if (m_barcodeForm == null)
+                    {
+                        m_barcodeForm = new PropertyBarcodeForm();
+                        m_barcodeForm.SetLabel(it as Barcode);
+                        m_barcodeForm.StartPosition = FormStartPosition.CenterScreen;
+                        m_barcodeForm.FormClosed += Form_FormClosed;
+                        m_barcodeForm.Show();
+                    }
                 }
                 else if (type == "DateTime" &&  it is RotatedLabel && ((RotatedLabel)it).Id.ToString() == tag )
                 {
-                    var form = new PropertyDateTimeForm();
-                    form.SetLabel(it as RotatedLabel);
-                    form.StartPosition = FormStartPosition.CenterScreen;
-                    form.FormClosed += Form_FormClosed;
-                    form.Show();
+                    if (m_dateTimeForm == null)
+                    {
+                        m_dateTimeForm = new PropertyDateTimeForm();
+                        m_dateTimeForm.SetLabel(it as RotatedLabel);
+                        m_dateTimeForm.StartPosition = FormStartPosition.CenterScreen;
+                        m_dateTimeForm.FormClosed += Form_FormClosed;
+                        m_dateTimeForm.Show();
+                    }
                 }
             }
         }
@@ -1320,6 +1306,11 @@ namespace LabelEditor
         {
             var editJsonForm = new EditJsonForm();
             editJsonForm.Show();
+        }
+
+        private void buttonFixText_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -169,7 +169,7 @@ public class HTTPConnection
             var request = (HttpWebRequest)WebRequest.Create(m_url);
             request.Headers = m_header;
             request.Method = "POST";
-            request.ContentType = "application/json";
+            request.ContentType = "text/plain";
 
 
 

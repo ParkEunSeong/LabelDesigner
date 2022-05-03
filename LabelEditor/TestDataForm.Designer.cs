@@ -30,6 +30,7 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
             this.textBox_0_url = new System.Windows.Forms.TextBox();
             this.textBox_0_room = new System.Windows.Forms.TextBox();
             this.label66 = new System.Windows.Forms.Label();
@@ -200,6 +201,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.textBox_0_url);
             this.tabPage1.Controls.Add(this.textBox_0_room);
             this.tabPage1.Controls.Add(this.label66);
@@ -245,6 +247,17 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "환자팔찌";
             this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(227, 467);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(67, 23);
+            this.button2.TabIndex = 76;
+            this.button2.Text = "전송";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // textBox_0_url
             // 
@@ -1802,5 +1815,6 @@
         private System.Windows.Forms.Label label68;
         private System.Windows.Forms.Label label69;
         private System.Windows.Forms.TextBox textBox_3_prntNm;
+        private System.Windows.Forms.Button button2;
     }
 }

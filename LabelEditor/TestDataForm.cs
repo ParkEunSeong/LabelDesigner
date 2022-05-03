@@ -177,12 +177,25 @@ namespace LabelEditor
 
             var text = File.ReadAllText("card.json");
             var res = (new HTTPConnection.Builder())
-  .SetURL(textBox_2_url.Text)
+              .SetURL(textBox_2_url.Text)
               .SetMethod(HTTPConnection.Method.POST)
               .Build().PostJson(text);
         }
 
         private void textBox_1_spcmNo_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var res = (new HTTPConnection.Builder())
+.SetURL("http://localhost:9950/hello")
+  .SetMethod(HTTPConnection.Method.POST)
+  .Build().Get();
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
         {
 
         }

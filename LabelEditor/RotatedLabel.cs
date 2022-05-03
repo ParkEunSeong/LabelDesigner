@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LabelEditor.data;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -25,7 +27,9 @@ namespace DigitalProduction.Forms
         #endregion
 
         #region Construction
-
+        public bool Fix { get; set; }
+        public bool Multiple { get; set; }
+        public List<Text> m_multple = new List<Text>();
         private bool m_selected;
         public int m_dateTimeFormat;
         public int Id { get; set; }
