@@ -48,11 +48,13 @@ namespace LabelEditor
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
+            this.checkBoxFont = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.checkBoxFont);
             this.groupBox2.Controls.Add(this.textBoxPadding);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label6);
@@ -79,7 +81,7 @@ namespace LabelEditor
             // 
             // textBoxPadding
             // 
-            this.textBoxPadding.Location = new System.Drawing.Point(113, 120);
+            this.textBoxPadding.Location = new System.Drawing.Point(111, 153);
             this.textBoxPadding.Name = "textBoxPadding";
             this.textBoxPadding.Size = new System.Drawing.Size(80, 29);
             this.textBoxPadding.TabIndex = 30;
@@ -88,7 +90,7 @@ namespace LabelEditor
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label7.Location = new System.Drawing.Point(29, 125);
+            this.label7.Location = new System.Drawing.Point(27, 158);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(62, 21);
             this.label7.TabIndex = 29;
@@ -98,7 +100,7 @@ namespace LabelEditor
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label6.Location = new System.Drawing.Point(28, 233);
+            this.label6.Location = new System.Drawing.Point(26, 266);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(73, 21);
             this.label6.TabIndex = 28;
@@ -108,14 +110,14 @@ namespace LabelEditor
             // 
             this.comboBoxRotation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxRotation.FormattingEnabled = true;
-            this.comboBoxRotation.Location = new System.Drawing.Point(113, 228);
+            this.comboBoxRotation.Location = new System.Drawing.Point(111, 261);
             this.comboBoxRotation.Name = "comboBoxRotation";
             this.comboBoxRotation.Size = new System.Drawing.Size(83, 29);
             this.comboBoxRotation.TabIndex = 27;
             // 
             // textBoxHeight
             // 
-            this.textBoxHeight.Location = new System.Drawing.Point(113, 190);
+            this.textBoxHeight.Location = new System.Drawing.Point(111, 223);
             this.textBoxHeight.Name = "textBoxHeight";
             this.textBoxHeight.Size = new System.Drawing.Size(80, 29);
             this.textBoxHeight.TabIndex = 26;
@@ -124,7 +126,7 @@ namespace LabelEditor
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.Location = new System.Drawing.Point(29, 195);
+            this.label1.Location = new System.Drawing.Point(27, 228);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(60, 21);
             this.label1.TabIndex = 25;
@@ -132,7 +134,7 @@ namespace LabelEditor
             // 
             // textBoxWidth
             // 
-            this.textBoxWidth.Location = new System.Drawing.Point(113, 155);
+            this.textBoxWidth.Location = new System.Drawing.Point(111, 188);
             this.textBoxWidth.Name = "textBoxWidth";
             this.textBoxWidth.Size = new System.Drawing.Size(80, 29);
             this.textBoxWidth.TabIndex = 24;
@@ -141,7 +143,7 @@ namespace LabelEditor
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label5.Location = new System.Drawing.Point(29, 160);
+            this.label5.Location = new System.Drawing.Point(27, 193);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(54, 21);
             this.label5.TabIndex = 23;
@@ -150,7 +152,7 @@ namespace LabelEditor
             // radioButton128
             // 
             this.radioButton128.AutoSize = true;
-            this.radioButton128.Location = new System.Drawing.Point(111, 90);
+            this.radioButton128.Location = new System.Drawing.Point(111, 121);
             this.radioButton128.Name = "radioButton128";
             this.radioButton128.Size = new System.Drawing.Size(94, 25);
             this.radioButton128.TabIndex = 19;
@@ -161,7 +163,7 @@ namespace LabelEditor
             // radioButton39
             // 
             this.radioButton39.AutoSize = true;
-            this.radioButton39.Location = new System.Drawing.Point(10, 90);
+            this.radioButton39.Location = new System.Drawing.Point(10, 121);
             this.radioButton39.Name = "radioButton39";
             this.radioButton39.Size = new System.Drawing.Size(85, 25);
             this.radioButton39.TabIndex = 18;
@@ -231,6 +233,16 @@ namespace LabelEditor
             this.label4.TabIndex = 1;
             this.label4.Text = "Name";
             // 
+            // checkBoxFont
+            // 
+            this.checkBoxFont.AutoSize = true;
+            this.checkBoxFont.Location = new System.Drawing.Point(6, 90);
+            this.checkBoxFont.Name = "checkBoxFont";
+            this.checkBoxFont.Size = new System.Drawing.Size(62, 25);
+            this.checkBoxFont.TabIndex = 31;
+            this.checkBoxFont.Text = "Font";
+            this.checkBoxFont.UseVisualStyleBackColor = true;
+            // 
             // PropertyBarcodeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -267,5 +279,6 @@ namespace LabelEditor
         private System.Windows.Forms.ComboBox comboBoxRotation;
         private System.Windows.Forms.TextBox textBoxPadding;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox checkBoxFont;
     }
 }

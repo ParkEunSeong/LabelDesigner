@@ -36,6 +36,8 @@ namespace LabelEditor
             comboBoxRotation.Items.Add(90);
             comboBoxRotation.Items.Add(180);
             comboBoxRotation.Items.Add(270);
+            checkBoxFont.Checked = label.font ? true : false;
+        
             if (label.Angle == 0)
             {
                 comboBoxRotation.SelectedIndex = 0;
@@ -78,7 +80,7 @@ namespace LabelEditor
             m_label.Height = value;
             m_label.Angle = PropUtil.GetIdxToAngle(comboBoxRotation.SelectedIndex);
 
-
+            m_label.font = checkBoxFont.Checked ? true : false;
 
             Close();
         }

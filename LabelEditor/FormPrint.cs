@@ -159,15 +159,15 @@ namespace LabelEditor
                                                     if (jt.Fix == false)
                                                     {
                                                         jt.Text = GetJsonStringValue(ref j, jt.Name);
-                                                        if (jt.Name == "spcmCnnr")
+                                                        if (jt.Name == "spcmCnnr"  || jt.Name.Contains("Arr") )
                                                         {
                                                             try
                                                             {
-                                                                var jarr = j["spcmCnnr"].ToArray();
+                                                                var jarr = j[jt.Name].ToArray();
                                                                 jt.Text = " ";
                                                                 foreach (var kt in jarr)
                                                                 {
-                                                                   jt.Text += kt;
+                                                                   jt.Text += kt + "/";
                                                                 }
                                                          
                                                                 if (jt.Text.Length > 1 && jt.Text[jt.Text.Length - 1] == '/')
@@ -416,7 +416,7 @@ namespace LabelEditor
                         barcode128.BarHeight = paper.barcodes[i].height;
                         img = barcode128.CreateDrawingImage(Color.Black, Color.White);
                     }
-         
+                    pb.font = paper.barcodes[i].font;
                     pb.Image = img;
                     pb.Location = new Point(paper.barcodes[i].x, paper.barcodes[i].y);
                     pb.Width = paper.barcodes[i].width;
@@ -752,34 +752,65 @@ namespace LabelEditor
             }
             foreach (var it in m_barcodeList)
             {
-                var value = it.Text;
-                if (string.IsNullOrEmpty(value))
-                    continue;
-                if (it.code39 == 0)
+                if (it.font)
                 {
-                    var bmp = Generate2(BarcodeFormat.CODE_39, value, it.Width, it.Height, it.Padding);
-                    if (it.Angle == 90)
-                        bmp.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                    else if (it.Angle == 180)
-                        bmp.RotateFlip(RotateFlipType.Rotate180FlipNone);
-                    else if (it.Angle == 270)
-                        bmp.RotateFlip(RotateFlipType.Rotate270FlipNone);
-                    g.DrawImage(bmp, it.Location.X, it.Location.Y);
-                    bmp.Dispose();
+                    PrivateFontCollection privateFont = new PrivateFontCollection();
+                    PointF drawPoint = new PointF(it.Location.X, it.Location.Y); // 좌측 상단 시작점. // 2중 using 문 사용.
+                    if (string.IsNullOrEmpty(it.Text))
+                        it.Text = "12345678";
+                 
+                    if (it.code39 == 0)
+                    {
+                        it.Text = "*" + it.Text + "*";
+                        privateFont.AddFontFile(Environment.CurrentDirectory + @"\font\code39.ttf");
+                    }
+                    else
+                    {
+                        privateFont.AddFontFile(Environment.CurrentDirectory + @"\font\code128.ttf");
+                    }
+                    TRACE.Log("Barcode Text=" + it.Text + "," + it.Location.X + "," + it.Location.Y);
+                    using (Font font = new Font(privateFont.Families[0], it.Height))
+                    {
+                        using (SolidBrush drawBrush = new SolidBrush(Color.Black))
+                        {
+                            // DrawRotatedTextAt(g, it.Angle, it.Text, (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
+                            g.DrawString(it.Text, font, drawBrush, drawPoint);
+                        }
+                    }
+                    privateFont.Families[0].Dispose();
+                    privateFont.Dispose();
                 }
                 else
                 {
-                    var bmp = Generate2(BarcodeFormat.CODE_128, value, it.Width, it.Height, it.Padding);
+                    var value = it.Text;
+                    if (string.IsNullOrEmpty(value))
+                        continue;
+                    if (it.code39 == 0)
+                    {
+                        var bmp = Generate2(BarcodeFormat.CODE_39, value, it.Width, it.Height, it.Padding);
+                        if (it.Angle == 90)
+                            bmp.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                        else if (it.Angle == 180)
+                            bmp.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                        else if (it.Angle == 270)
+                            bmp.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                        g.DrawImage(bmp, it.Location.X, it.Location.Y);
+                        bmp.Dispose();
+                    }
+                    else
+                    {
+                        var bmp = Generate2(BarcodeFormat.CODE_128, value, it.Width, it.Height, it.Padding);
 
-                    if (it.Angle == 90)
-                        bmp.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                    else if (it.Angle == 180)
-                        bmp.RotateFlip(RotateFlipType.Rotate180FlipNone);
-                    else if (it.Angle == 270)
-                        bmp.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                        if (it.Angle == 90)
+                            bmp.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                        else if (it.Angle == 180)
+                            bmp.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                        else if (it.Angle == 270)
+                            bmp.RotateFlip(RotateFlipType.Rotate270FlipNone);
 
-                    g.DrawImage(bmp, it.Location.X, it.Location.Y);
-                    bmp.Dispose();
+                        g.DrawImage(bmp, it.Location.X, it.Location.Y);
+                        bmp.Dispose();
+                    }
                 }
 
             }

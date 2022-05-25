@@ -949,38 +949,80 @@ namespace LabelEditor
                 g.DrawImage(img, it.Location.X, it.Location.Y, it.Width, it.Height);
                 img.Dispose();
             }
-
+            PrivateFontCollection privateFont = new PrivateFontCollection();
+         
+          
             foreach (var it in m_barcodeList)
             {
-                var value = it.Text;
-                if (string.IsNullOrEmpty(value))
-                    value = "12345678";
-
-                if (it.code39 == 0)
+                if (it.font)
                 {
-                    var bmp = Generate2(BarcodeFormat.CODE_39, value, it.Width, it.Height, it.Padding );
-                    if (it.Angle == 90)
-                        bmp.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                    else if (it.Angle == 180)
-                        bmp.RotateFlip(RotateFlipType.Rotate180FlipNone);
-                    else if (it.Angle == 270)
-                        bmp.RotateFlip(RotateFlipType.Rotate270FlipNone);
-                    g.DrawImage(bmp, it.Location.X, it.Location.Y);
-                    bmp.Dispose();
+                    PointF drawPoint = new PointF(it.Location.X, it.Location.Y); // 좌측 상단 시작점. // 2중 using 문 사용.
+                    if (string.IsNullOrEmpty(it.Text))
+                        it.Text = "12345678";
+                    TRACE.Log("Barcode Text=" + it.Text + "," + it.Location.X + "," + it.Location.Y);
+                    if ( it.code39 ==0)
+                    {
+      
+                        privateFont.AddFontFile(Environment.CurrentDirectory + @"\font\code39.ttf");
+                        using (Font font = new Font(privateFont.Families[0], it.Height))
+                        {
+                            using (SolidBrush drawBrush = new SolidBrush(Color.Black))
+                            {
+                                // DrawRotatedTextAt(g, it.Angle, it.Text, (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
+                                TRACE.Log("Font39 Barcode = " + it.Text);
+                                g.DrawString("*" + it.Text + "*", font, drawBrush, drawPoint);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        privateFont.AddFontFile(Environment.CurrentDirectory + @"\font\code128.ttf");
+                        using (Font font = new Font(privateFont.Families[0], it.Height))
+                        {
+                            using (SolidBrush drawBrush = new SolidBrush(Color.Black))
+                            {
+                                // DrawRotatedTextAt(g, it.Angle, it.Text, (int)drawPoint.X, (int)drawPoint.Y, font, drawBrush);
+                                TRACE.Log("Font128 Barcode = " + it.Text);
+                                g.DrawString(it.Text, font, drawBrush, drawPoint);
+                            }
+                        }
+                    }
+                   
+                    privateFont.Families[0].Dispose();
+                    privateFont.Dispose();
                 }
                 else
                 {
-                    var bmp = Generate2(BarcodeFormat.CODE_128,value, it.Width, it.Height, it.Padding);
-                  
-                    if ( it.Angle == 90 )
-                        bmp.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                    else if ( it.Angle == 180 )
-                        bmp.RotateFlip(RotateFlipType.Rotate180FlipNone);
-                    else if ( it.Angle == 270 )
-                        bmp.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                    var value = it.Text;
+                    if (string.IsNullOrEmpty(value))
+                        value = "12345678";
 
-                    g.DrawImage(bmp, it.Location.X, it.Location.Y);
-                    bmp.Dispose();
+                    if (it.code39 == 0)
+                    {
+                        var bmp = Generate2(BarcodeFormat.CODE_39, value, it.Width, it.Height, it.Padding);
+                        if (it.Angle == 90)
+                            bmp.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                        else if (it.Angle == 180)
+                            bmp.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                        else if (it.Angle == 270)
+                            bmp.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                        g.DrawImage(bmp, it.Location.X, it.Location.Y);
+                        bmp.Dispose();
+                    }
+                    else
+                    {
+                        var bmp = Generate2(BarcodeFormat.CODE_128, value, it.Width, it.Height, it.Padding);
+
+                        if (it.Angle == 90)
+                            bmp.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                        else if (it.Angle == 180)
+                            bmp.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                        else if (it.Angle == 270)
+                            bmp.RotateFlip(RotateFlipType.Rotate270FlipNone);
+
+                        g.DrawImage(bmp, it.Location.X, it.Location.Y);
+                        bmp.Dispose();
+                    }
                 }
           
             }
@@ -1144,7 +1186,7 @@ namespace LabelEditor
                 barcode.barcode39 = it.code39;
                 barcode.Angle = it.Angle;
                 barcode.Padding = it.Padding;
-
+                barcode.font = it.font;
                 m_paper.barcodes.Add(barcode);
             }
             foreach(var it in m_qrList )

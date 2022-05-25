@@ -18,6 +18,7 @@ namespace LabelEditor
         public int Angle { get; set; }
         public int Padding { get; set; }
        public int Id { get; set; }
+        public bool font { get; set; }
         public Barcode()
         {
             Paint += delegate (object sender, PaintEventArgs e)
