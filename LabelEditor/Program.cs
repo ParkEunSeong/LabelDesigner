@@ -46,7 +46,7 @@ namespace LabelEditor
                 Directory.CreateDirectory("data/card");
             if (!Directory.Exists("data/etc"))
                 Directory.CreateDirectory("data/etc");
-
+            LoadConfig();
             //if (false)
             //{
             if (args != null && args.Length > 0)
@@ -94,6 +94,33 @@ namespace LabelEditor
             //    Application.Run(form);
             //}
 
+        }
+        public static void LoadConfig()
+        {
+            try
+            {
+                using (var sr = new StreamReader(Environment.CurrentDirectory + @"\config.ini"))
+                {
+                    
+                        string line = "";
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            if (line.Contains("ARRAY_SEPARATOR"))
+                            {
+                                var split = line.Split('=');
+                                if (split != null && split.Length >= 2)
+                                {
+                                    Config.ARRAY_SEPARATOR = split[1];
+                                }
+                            }
+
+                        }
+                    }
+            }
+            catch(Exception ex)
+            {
+                TRACE.Log(ex.ToString());
+            }
         }
     }
 }

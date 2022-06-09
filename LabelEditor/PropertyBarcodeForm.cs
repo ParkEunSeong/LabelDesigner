@@ -19,6 +19,10 @@ namespace LabelEditor
         public PropertyBarcodeForm()
         {
             InitializeComponent();
+            for ( int i = 0; i <= 20; i++ )
+            {
+                comboBoxFill.Items.Add(i);
+            }
         }
         public void SetLabel(Barcode label )
         {
@@ -37,7 +41,7 @@ namespace LabelEditor
             comboBoxRotation.Items.Add(180);
             comboBoxRotation.Items.Add(270);
             checkBoxFont.Checked = label.font ? true : false;
-        
+            comboBoxFill.SelectedIndex = label.Length;
             if (label.Angle == 0)
             {
                 comboBoxRotation.SelectedIndex = 0;
@@ -81,7 +85,7 @@ namespace LabelEditor
             m_label.Angle = PropUtil.GetIdxToAngle(comboBoxRotation.SelectedIndex);
 
             m_label.font = checkBoxFont.Checked ? true : false;
-
+            m_label.Length = comboBoxFill.SelectedIndex;
             Close();
         }
        

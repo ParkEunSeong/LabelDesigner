@@ -30,6 +30,7 @@ namespace LabelEditor
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBoxFont = new System.Windows.Forms.CheckBox();
             this.textBoxPadding = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -48,12 +49,15 @@ namespace LabelEditor
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
-            this.checkBoxFont = new System.Windows.Forms.CheckBox();
+            this.comboBoxFill = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.comboBoxFill);
             this.groupBox2.Controls.Add(this.checkBoxFont);
             this.groupBox2.Controls.Add(this.textBoxPadding);
             this.groupBox2.Controls.Add(this.label7);
@@ -78,6 +82,16 @@ namespace LabelEditor
             this.groupBox2.Size = new System.Drawing.Size(219, 355);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
+            // 
+            // checkBoxFont
+            // 
+            this.checkBoxFont.AutoSize = true;
+            this.checkBoxFont.Location = new System.Drawing.Point(6, 90);
+            this.checkBoxFont.Name = "checkBoxFont";
+            this.checkBoxFont.Size = new System.Drawing.Size(62, 25);
+            this.checkBoxFont.TabIndex = 31;
+            this.checkBoxFont.Text = "Font";
+            this.checkBoxFont.UseVisualStyleBackColor = true;
             // 
             // textBoxPadding
             // 
@@ -233,15 +247,23 @@ namespace LabelEditor
             this.label4.TabIndex = 1;
             this.label4.Text = "Name";
             // 
-            // checkBoxFont
+            // comboBoxFill
             // 
-            this.checkBoxFont.AutoSize = true;
-            this.checkBoxFont.Location = new System.Drawing.Point(6, 90);
-            this.checkBoxFont.Name = "checkBoxFont";
-            this.checkBoxFont.Size = new System.Drawing.Size(62, 25);
-            this.checkBoxFont.TabIndex = 31;
-            this.checkBoxFont.Text = "Font";
-            this.checkBoxFont.UseVisualStyleBackColor = true;
+            this.comboBoxFill.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFill.FormattingEnabled = true;
+            this.comboBoxFill.Location = new System.Drawing.Point(159, 89);
+            this.comboBoxFill.Name = "comboBoxFill";
+            this.comboBoxFill.Size = new System.Drawing.Size(54, 29);
+            this.comboBoxFill.TabIndex = 32;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(92, 92);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(61, 21);
+            this.label8.TabIndex = 33;
+            this.label8.Text = "Length";
             // 
             // PropertyBarcodeForm
             // 
@@ -280,5 +302,7 @@ namespace LabelEditor
         private System.Windows.Forms.TextBox textBoxPadding;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.CheckBox checkBoxFont;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox comboBoxFill;
     }
 }

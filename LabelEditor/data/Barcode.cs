@@ -16,6 +16,7 @@ namespace LabelEditor.data
         public int Angle { get; set; }
         public int Padding { get; set; }
         public int Id { get; set; }
+        public int Length { get; set; }
         /// <summary>
         /// 0 : 39, 1 : 128
         /// </summary>

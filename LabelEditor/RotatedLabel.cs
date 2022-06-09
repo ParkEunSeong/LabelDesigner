@@ -33,6 +33,8 @@ namespace DigitalProduction.Forms
         private bool m_selected;
         public int m_dateTimeFormat;
         public int Id { get; set; }
+        public bool IsArray { get; set; }
+        public string Separator { get; set; }
         /// <summary>
         /// Default constructor.
         /// </summary>

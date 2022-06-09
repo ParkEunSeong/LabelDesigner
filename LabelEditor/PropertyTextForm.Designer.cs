@@ -56,11 +56,17 @@ namespace LabelEditor
             this.textBoxMultiple4 = new System.Windows.Forms.TextBox();
             this.checkBoxFix5 = new System.Windows.Forms.CheckBox();
             this.textBoxMultiple5 = new System.Windows.Forms.TextBox();
+            this.checkBoxArray = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxSeparator = new System.Windows.Forms.TextBox();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.textBoxSeparator);
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.checkBoxArray);
             this.groupBox2.Controls.Add(this.checkBoxMultiple);
             this.groupBox2.Controls.Add(this.checkBoxFix);
             this.groupBox2.Controls.Add(this.buttonSave);
@@ -79,7 +85,7 @@ namespace LabelEditor
             this.groupBox2.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.groupBox2.Location = new System.Drawing.Point(12, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(219, 264);
+            this.groupBox2.Size = new System.Drawing.Size(219, 309);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Text";
@@ -108,7 +114,7 @@ namespace LabelEditor
             // buttonSave
             // 
             this.buttonSave.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.buttonSave.Location = new System.Drawing.Point(59, 220);
+            this.buttonSave.Location = new System.Drawing.Point(59, 262);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 38);
             this.buttonSave.TabIndex = 9;
@@ -321,11 +327,39 @@ namespace LabelEditor
             this.textBoxMultiple5.Size = new System.Drawing.Size(132, 29);
             this.textBoxMultiple5.TabIndex = 28;
             // 
+            // checkBoxArray
+            // 
+            this.checkBoxArray.AutoSize = true;
+            this.checkBoxArray.Location = new System.Drawing.Point(9, 218);
+            this.checkBoxArray.Name = "checkBoxArray";
+            this.checkBoxArray.Size = new System.Drawing.Size(68, 25);
+            this.checkBoxArray.TabIndex = 20;
+            this.checkBoxArray.Text = "Array";
+            this.checkBoxArray.UseVisualStyleBackColor = true;
+            this.checkBoxArray.CheckedChanged += new System.EventHandler(this.checkBoxArray_CheckedChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.Location = new System.Drawing.Point(72, 220);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(58, 21);
+            this.label1.TabIndex = 21;
+            this.label1.Text = "구분자";
+            // 
+            // textBoxSeparator
+            // 
+            this.textBoxSeparator.Location = new System.Drawing.Point(135, 217);
+            this.textBoxSeparator.Name = "textBoxSeparator";
+            this.textBoxSeparator.Size = new System.Drawing.Size(47, 29);
+            this.textBoxSeparator.TabIndex = 22;
+            // 
             // PropertyTextForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(231, 269);
+            this.ClientSize = new System.Drawing.Size(231, 314);
             this.Controls.Add(this.checkBoxFix5);
             this.Controls.Add(this.textBoxMultiple5);
             this.Controls.Add(this.checkBoxFix4);
@@ -376,5 +410,8 @@ namespace LabelEditor
         private System.Windows.Forms.TextBox textBoxMultiple4;
         private System.Windows.Forms.CheckBox checkBoxFix5;
         private System.Windows.Forms.TextBox textBoxMultiple5;
+        private System.Windows.Forms.TextBox textBoxSeparator;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox checkBoxArray;
     }
 }

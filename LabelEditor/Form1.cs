@@ -897,7 +897,7 @@ namespace LabelEditor
                 PointF drawPoint = new PointF(it.Location.X, it.Location.Y); // 좌측 상단 시작점. // 2중 using 문 사용.
                 Font font = it.Font;
                 string text = it.Text;
-                if ( it.Multiple )
+                if (it.Multiple)
                 {
                     text = "";
                     foreach (var jt in it.m_multple)
@@ -906,6 +906,35 @@ namespace LabelEditor
                             text += jt.key;
                         else
                             text += jt.content;
+                    }
+                }
+                else if (it.IsArray)
+                {
+                    if (it.Fix == false)
+                    {
+                    
+           
+                            try
+                            {
+                            var j = new JArray();
+                            j.Add("1111");
+                            j.Add("Luna");
+                            j.Add("1234");
+                            var jarr = j;
+                             text = " ";
+                                foreach (var kt in jarr)
+                                {
+                                text += kt + it.Separator;
+                                }
+                                if (text.Length > 0)
+                                text = text.Substring(0, text.Length - 1);
+
+                            }
+                            catch (Exception ex)
+                            {
+                                TRACE.Log(ex.ToString());
+                            }
+                        
                     }
                 }
                 using (SolidBrush drawBrush = new SolidBrush(Color.Black))
@@ -1187,6 +1216,7 @@ namespace LabelEditor
                 barcode.Angle = it.Angle;
                 barcode.Padding = it.Padding;
                 barcode.font = it.font;
+                barcode.Length = it.Length;
                 m_paper.barcodes.Add(barcode);
             }
             foreach(var it in m_qrList )

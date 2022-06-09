@@ -174,6 +174,7 @@ namespace LabelEditor
                                                                 {
                                                                     jt.Text = jt.Text.Substring(0, jt.Text.Length - 1);
                                                                 }
+
                                                             }
                                                             catch(Exception ex)
                                                             {
@@ -181,6 +182,25 @@ namespace LabelEditor
                                                             }
                                                             
 
+                                                        }
+                                                        else if ( jt.IsArray )
+                                                        {
+                                                            try
+                                                            {
+                                                                var jarr = j[jt.Name].ToArray();
+                                                                jt.Text = " ";
+                                                                foreach (var kt in jarr)
+                                                                {
+                                                                    jt.Text += kt + jt.Separator;
+                                                                }
+                                                                if ( jt.Text.Length > 0 )
+                                                                    jt.Text = jt.Text.Substring(0, jt.Text.Length - 1);
+                                                                
+                                                            }
+                                                            catch (Exception ex)
+                                                            {
+                                                                TRACE.Log(ex.ToString());
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -422,6 +442,7 @@ namespace LabelEditor
                     pb.Width = paper.barcodes[i].width;
                     pb.Height = paper.barcodes[i].height;
                     pb.Padding = paper.barcodes[i].Padding;
+                    pb.Length = paper.barcodes[i].Length;
                     pb.Tag = 2;
                     canvas1.Controls.Add(pb);
                     m_barcodeList.Add(pb);
@@ -752,13 +773,17 @@ namespace LabelEditor
             }
             foreach (var it in m_barcodeList)
             {
+                if (string.IsNullOrEmpty(it.Text))
+                    continue;
+
+                if (it.Length > 0)
+                    it.Text = it.Text.PadLeft(it.Length, '0');
+                TRACE.Log("length = " + it.Length);
                 if (it.font)
                 {
                     PrivateFontCollection privateFont = new PrivateFontCollection();
                     PointF drawPoint = new PointF(it.Location.X, it.Location.Y); // 좌측 상단 시작점. // 2중 using 문 사용.
-                    if (string.IsNullOrEmpty(it.Text))
-                        it.Text = "12345678";
-                 
+
                     if (it.code39 == 0)
                     {
                         it.Text = "*" + it.Text + "*";
@@ -783,8 +808,7 @@ namespace LabelEditor
                 else
                 {
                     var value = it.Text;
-                    if (string.IsNullOrEmpty(value))
-                        continue;
+                 
                     if (it.code39 == 0)
                     {
                         var bmp = Generate2(BarcodeFormat.CODE_39, value, it.Width, it.Height, it.Padding);

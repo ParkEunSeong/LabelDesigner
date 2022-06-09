@@ -29,6 +29,8 @@ namespace LabelEditor.data
         public bool Fix { get; set; }
         public bool Multile { get; set; }
         public string content { get; set; }
+        public bool IsArray { get; set; }
+        public string Separator { get; set; }
         public List<Text> m_multiple = new List<Text>();
         public static List<string> DataTimeFormat = new List<string>() { "", "yy-MM-dd HH:mm",
                                                                     "yyyy-MM-dd HH:mm",

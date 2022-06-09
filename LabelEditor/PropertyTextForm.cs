@@ -93,6 +93,8 @@ namespace LabelEditor
             m_label.Height = (int)m_label.Font.Size * 2 ;
             m_label.Fix = checkBoxFix.Checked;
             m_label.Multiple = checkBoxMultiple.Checked;
+            m_label.IsArray = checkBoxArray.Checked;
+            m_label.Separator = textBoxSeparator.Text;
             if ( checkBoxMultiple.Checked )
             {
                 var list = new List<Text>();
@@ -120,6 +122,14 @@ namespace LabelEditor
             {
                 Size = new Size(260, 308);
             }
+        }
+
+        private void checkBoxArray_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxArray.Checked)
+                textBoxSeparator.Enabled = true;
+            else
+                textBoxSeparator.Enabled = false;
         }
     }
 }
