@@ -184,7 +184,7 @@ namespace LabelEditor
 
         private void textBox_1_spcmNo_TextChanged(object sender, EventArgs e)
         {
-
+          
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -198,6 +198,74 @@ namespace LabelEditor
         private void tabPage1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            JObject j = new JObject();
+            j.Add("hsptId", textBox_4_hsptId.Text);
+            j.Add("patId", textBox_4_patId.Text);
+            j.Add("patNm", textBox_4_patNm.Text);
+            j.Add("jobType", textBox_4_jobType.Text);
+            j.Add("execDvsn", textBox_4_execDvsn.Text);
+            j.Add("recpNo", textBox_4_recpNo.Text);
+            j.Add("rcptSqno", textBox_4_rcptSqno.Text);
+            j.Add("recpDt", textBox_4_recpDt.Text);
+            j.Add("deptCd", textBox_4_deptCd.Text);
+            j.Add("deptNm", textBox_4_deptNm.Text);
+            j.Add("drCd", textBox_4_drCd.Text);
+            j.Add("drNm", textBox_4_drNm.Text);
+            j.Add("rcptUserId", textBox_4_rcptUserId.Text);
+            j.Add("rcptUserNm", textBox_4_rcptUserNm.Text);
+            j.Add("mccsAmt", textBox_4_mccsAmt.Text);
+            j.Add("aschAmt", textBox_4_aschAmt.Text);
+            j.Add("uschAmt", textBox_4_uschAmt.Text);
+            j.Add("cutAmt", textBox_4_cutAmt.Text);
+            j.Add("prpyAmt", textBox_4_prpyAmt.Text);
+            j.Add("rnexAmt", textBox_4_mexAmt.Text);
+            j.Add("pfanAmt", textBox_4_pfanAmt.Text);
+            j.Add("hllfAmt", textBox_4_hllfAmt.Text);
+            j.Add("unclAmt", textBox_4_unclAmt.Text);
+            j.Add("rnexNm", textBox_4_mexNm.Text);
+            j.Add("pfanNm", textBox_4_pfan.Text);
+            j.Add("unclNm", textBox_4_unclNm.Text);
+            j.Add("hsotMdctNo", textBox_4_hsotMdctNo.Text);
+            j.Add("hsinMdctNo", textBox_4_hsimMdctNo.Text);
+            j.Add("url", textBox_4_waiturl.Text);
+            var json = j.ToString();
+            using (var sw = new StreamWriter("dspl.json"))
+            {
+                sw.Write(json);
+            }
+            JObject jObject;
+            using (var sr = new StreamReader("dspl.json"))
+            {
+                jObject = JObject.Parse(sr.ReadToEnd());
+            }
+            var res = (new HTTPConnection.Builder())
+           .SetURL(textBox_4_url.Text)
+           .SetMethod(HTTPConnection.Method.POST)
+           .Build().PostJson(jObject.ToString());
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            JObject j = new JObject();
+            j.Add("url", textBox_5_waiturl.Text);
+            var json = j.ToString();
+            using (var sw = new StreamWriter("wait.json"))
+            {
+                sw.Write(json);
+            }
+            JObject jObject;
+            using (var sr = new StreamReader("wait.json"))
+            {
+                jObject = JObject.Parse(sr.ReadToEnd());
+            }
+            var res = (new HTTPConnection.Builder())
+              .SetURL(textBox_5_url.Text)
+              .SetMethod(HTTPConnection.Method.POST)
+              .Build().PostJson(jObject.ToString());
         }
     }
 }

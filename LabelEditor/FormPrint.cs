@@ -89,6 +89,28 @@ namespace LabelEditor
             }
             return "";
         }
+        private int GetJsonIntValue(ref JObject jobj, string key)
+        {
+            try
+            {
+                return int.Parse(jobj[key].ToString());
+            }
+            catch (Exception ex)
+            {
+                TRACE.Log("key=" + key + "," + ex.ToString());
+            }
+            return 0;
+        }
+        private  Paper LoadPaper( string json )
+        {
+            var ret = new Paper();
+            var j = JObject.Parse(json);
+            ret.mm_width = GetJsonIntValue(ref j, "mm_width");
+            ret.mm_height = GetJsonIntValue(ref j, "mm_height");
+            ret.orientation = GetJsonIntValue(ref j, "orientation");
+            ret.MM_SIZE =
+            var mmSize = GetJsonIntValue()
+        }
         public void OnFromServerData(string json, string dir )
         {
             if (InvokeRequired)
@@ -159,39 +181,24 @@ namespace LabelEditor
                                                     if (jt.Fix == false)
                                                     {
                                                         jt.Text = GetJsonStringValue(ref j, jt.Name);
-                                                        if (jt.Name == "spcmCnnr"  || jt.Name.Contains("Arr") )
+                                                        if ( jt.IsArray )
                                                         {
+                                                          
                                                             try
                                                             {
                                                                 var jarr = j[jt.Name].ToArray();
                                                                 jt.Text = " ";
                                                                 foreach (var kt in jarr)
                                                                 {
-                                                                   jt.Text += kt + "/";
-                                                                }
-                                                         
-                                                                if (jt.Text.Length > 1 && jt.Text[jt.Text.Length - 1] == '/')
-                                                                {
-                                                                    jt.Text = jt.Text.Substring(0, jt.Text.Length - 1);
-                                                                }
-
-                                                            }
-                                                            catch(Exception ex)
-                                                            {
-                                                                TRACE.Log(ex.ToString());
-                                                            }
-                                                            
-
-                                                        }
-                                                        else if ( jt.IsArray )
-                                                        {
-                                                            try
-                                                            {
-                                                                var jarr = j[jt.Name].ToArray();
-                                                                jt.Text = " ";
-                                                                foreach (var kt in jarr)
-                                                                {
-                                                                    jt.Text += kt + jt.Separator;
+                                                                    if ( jt.Separator.Contains("\n"))
+                                                                    {
+                                                                        jt.Text += kt + Environment.NewLine;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        jt.Text += kt + jt.Separator;
+                                                                    }
+                                                                
                                                                 }
                                                                 if ( jt.Text.Length > 0 )
                                                                     jt.Text = jt.Text.Substring(0, jt.Text.Length - 1);
@@ -204,7 +211,7 @@ namespace LabelEditor
                                                         }
                                                     }
                                                 }
-                                                TRACE.Log("text name = " + jt.Name + ", text = " + jt.Text + ", fix = " + jt.Fix );
+                                                TRACE.Log("text name = " + jt.Name + ", text = " + jt.Text + ", fix = " + jt.Fix  + ", array = " + jt.IsArray + ", gubun = " + jt.Separator );
 
                                             }
                                             foreach (var jt in m_dateTimeList)
@@ -366,6 +373,8 @@ namespace LabelEditor
                 label.Tag = 0;
                 label.Fix = paper.texts[i].Fix;
                 label.Multiple = paper.texts[i].Multile;
+                label.IsArray = paper.texts[i].IsArray;
+                label.Separator = paper.texts[i].Separator;
                 foreach(var it in paper.texts[i].m_multiple )
                 {
                     label.m_multple.Add(new data.Text(it.key, it.Fix));

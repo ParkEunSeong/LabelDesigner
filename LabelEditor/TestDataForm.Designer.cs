@@ -180,11 +180,81 @@
             this.label33 = new System.Windows.Forms.Label();
             this.textBox_3_hsptId = new System.Windows.Forms.TextBox();
             this.label34 = new System.Windows.Forms.Label();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.textBox_4_url = new System.Windows.Forms.TextBox();
+            this.textBox_4_rcptSqno = new System.Windows.Forms.TextBox();
+            this.label70 = new System.Windows.Forms.Label();
+            this.textBox_4_jobType = new System.Windows.Forms.TextBox();
+            this.label71 = new System.Windows.Forms.Label();
+            this.textBox_4_recpNo = new System.Windows.Forms.TextBox();
+            this.label72 = new System.Windows.Forms.Label();
+            this.textBox_4_execDvsn = new System.Windows.Forms.TextBox();
+            this.label73 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.textBox_4_aschAmt = new System.Windows.Forms.TextBox();
+            this.label74 = new System.Windows.Forms.Label();
+            this.label75 = new System.Windows.Forms.Label();
+            this.textBox_4_uschAmt = new System.Windows.Forms.TextBox();
+            this.textBox_4_mccsAmt = new System.Windows.Forms.TextBox();
+            this.label76 = new System.Windows.Forms.Label();
+            this.textBox_4_rcptUserNm = new System.Windows.Forms.TextBox();
+            this.label77 = new System.Windows.Forms.Label();
+            this.textBox_4_rcptUserId = new System.Windows.Forms.TextBox();
+            this.label_4_rcptUserId = new System.Windows.Forms.Label();
+            this.textBox_4_drNm = new System.Windows.Forms.TextBox();
+            this.label79 = new System.Windows.Forms.Label();
+            this.textBox_4_drCd = new System.Windows.Forms.TextBox();
+            this.label80 = new System.Windows.Forms.Label();
+            this.textBox_4_deptNm = new System.Windows.Forms.TextBox();
+            this.label81 = new System.Windows.Forms.Label();
+            this.textBox_4_deptCd = new System.Windows.Forms.TextBox();
+            this.label82 = new System.Windows.Forms.Label();
+            this.textBox_4_recpDt = new System.Windows.Forms.TextBox();
+            this.label83 = new System.Windows.Forms.Label();
+            this.textBox_4_patDtbr = new System.Windows.Forms.TextBox();
+            this.label84 = new System.Windows.Forms.Label();
+            this.textBox_4_patNm = new System.Windows.Forms.TextBox();
+            this.label85 = new System.Windows.Forms.Label();
+            this.textBox_4_patId = new System.Windows.Forms.TextBox();
+            this.label86 = new System.Windows.Forms.Label();
+            this.textBox_4_hsptId = new System.Windows.Forms.TextBox();
+            this.label87 = new System.Windows.Forms.Label();
+            this.textBox_5_url = new System.Windows.Forms.TextBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.textBox_4_pfanAmt = new System.Windows.Forms.TextBox();
+            this.label88 = new System.Windows.Forms.Label();
+            this.textBox_4_cutAmt = new System.Windows.Forms.TextBox();
+            this.label89 = new System.Windows.Forms.Label();
+            this.textBox_4_mexAmt = new System.Windows.Forms.TextBox();
+            this.label90 = new System.Windows.Forms.Label();
+            this.textBox_4_prpyAmt = new System.Windows.Forms.TextBox();
+            this.label91 = new System.Windows.Forms.Label();
+            this.textBox_4_pfan = new System.Windows.Forms.TextBox();
+            this.label_4_pfan = new System.Windows.Forms.Label();
+            this.textBox_4_hllfAmt = new System.Windows.Forms.TextBox();
+            this.label93 = new System.Windows.Forms.Label();
+            this.textBox_4_mexNm = new System.Windows.Forms.TextBox();
+            this.label94 = new System.Windows.Forms.Label();
+            this.textBox_4_unclAmt = new System.Windows.Forms.TextBox();
+            this.label95 = new System.Windows.Forms.Label();
+            this.textBox_4_unclNm = new System.Windows.Forms.TextBox();
+            this.label96 = new System.Windows.Forms.Label();
+            this.textBox_4_hsimMdctNo = new System.Windows.Forms.TextBox();
+            this.label97 = new System.Windows.Forms.Label();
+            this.textBox_4_hsotMdctNo = new System.Windows.Forms.TextBox();
+            this.label98 = new System.Windows.Forms.Label();
+            this.textBox_5_waiturl = new System.Windows.Forms.TextBox();
+            this.label99 = new System.Windows.Forms.Label();
+            this.label78 = new System.Windows.Forms.Label();
+            this.textBox_4_waiturl = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -193,6 +263,8 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -1641,6 +1713,653 @@
             this.label34.TabIndex = 12;
             this.label34.Text = "hsptId(병원구분)";
             // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.label78);
+            this.tabPage5.Controls.Add(this.textBox_4_waiturl);
+            this.tabPage5.Controls.Add(this.textBox_4_hsimMdctNo);
+            this.tabPage5.Controls.Add(this.label97);
+            this.tabPage5.Controls.Add(this.textBox_4_hsotMdctNo);
+            this.tabPage5.Controls.Add(this.label98);
+            this.tabPage5.Controls.Add(this.textBox_4_unclNm);
+            this.tabPage5.Controls.Add(this.label96);
+            this.tabPage5.Controls.Add(this.textBox_4_pfan);
+            this.tabPage5.Controls.Add(this.label_4_pfan);
+            this.tabPage5.Controls.Add(this.textBox_4_hllfAmt);
+            this.tabPage5.Controls.Add(this.label93);
+            this.tabPage5.Controls.Add(this.textBox_4_mexNm);
+            this.tabPage5.Controls.Add(this.label94);
+            this.tabPage5.Controls.Add(this.textBox_4_unclAmt);
+            this.tabPage5.Controls.Add(this.label95);
+            this.tabPage5.Controls.Add(this.textBox_4_pfanAmt);
+            this.tabPage5.Controls.Add(this.label88);
+            this.tabPage5.Controls.Add(this.textBox_4_cutAmt);
+            this.tabPage5.Controls.Add(this.label89);
+            this.tabPage5.Controls.Add(this.textBox_4_mexAmt);
+            this.tabPage5.Controls.Add(this.label90);
+            this.tabPage5.Controls.Add(this.textBox_4_prpyAmt);
+            this.tabPage5.Controls.Add(this.label91);
+            this.tabPage5.Controls.Add(this.textBox_4_url);
+            this.tabPage5.Controls.Add(this.textBox_4_rcptSqno);
+            this.tabPage5.Controls.Add(this.label70);
+            this.tabPage5.Controls.Add(this.textBox_4_jobType);
+            this.tabPage5.Controls.Add(this.label71);
+            this.tabPage5.Controls.Add(this.textBox_4_recpNo);
+            this.tabPage5.Controls.Add(this.label72);
+            this.tabPage5.Controls.Add(this.textBox_4_execDvsn);
+            this.tabPage5.Controls.Add(this.label73);
+            this.tabPage5.Controls.Add(this.button3);
+            this.tabPage5.Controls.Add(this.textBox_4_aschAmt);
+            this.tabPage5.Controls.Add(this.label74);
+            this.tabPage5.Controls.Add(this.label75);
+            this.tabPage5.Controls.Add(this.textBox_4_uschAmt);
+            this.tabPage5.Controls.Add(this.textBox_4_mccsAmt);
+            this.tabPage5.Controls.Add(this.label76);
+            this.tabPage5.Controls.Add(this.textBox_4_rcptUserNm);
+            this.tabPage5.Controls.Add(this.label77);
+            this.tabPage5.Controls.Add(this.textBox_4_rcptUserId);
+            this.tabPage5.Controls.Add(this.label_4_rcptUserId);
+            this.tabPage5.Controls.Add(this.textBox_4_drNm);
+            this.tabPage5.Controls.Add(this.label79);
+            this.tabPage5.Controls.Add(this.textBox_4_drCd);
+            this.tabPage5.Controls.Add(this.label80);
+            this.tabPage5.Controls.Add(this.textBox_4_deptNm);
+            this.tabPage5.Controls.Add(this.label81);
+            this.tabPage5.Controls.Add(this.textBox_4_deptCd);
+            this.tabPage5.Controls.Add(this.label82);
+            this.tabPage5.Controls.Add(this.textBox_4_recpDt);
+            this.tabPage5.Controls.Add(this.label83);
+            this.tabPage5.Controls.Add(this.textBox_4_patDtbr);
+            this.tabPage5.Controls.Add(this.label84);
+            this.tabPage5.Controls.Add(this.textBox_4_patNm);
+            this.tabPage5.Controls.Add(this.label85);
+            this.tabPage5.Controls.Add(this.textBox_4_patId);
+            this.tabPage5.Controls.Add(this.label86);
+            this.tabPage5.Controls.Add(this.textBox_4_hsptId);
+            this.tabPage5.Controls.Add(this.label87);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(491, 531);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "금액표시데이터";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.label99);
+            this.tabPage6.Controls.Add(this.textBox_5_waiturl);
+            this.tabPage6.Controls.Add(this.textBox_5_url);
+            this.tabPage6.Controls.Add(this.button4);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(491, 531);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "금액표시대기";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // textBox_4_url
+            // 
+            this.textBox_4_url.Location = new System.Drawing.Point(83, 490);
+            this.textBox_4_url.Name = "textBox_4_url";
+            this.textBox_4_url.Size = new System.Drawing.Size(184, 21);
+            this.textBox_4_url.TabIndex = 113;
+            this.textBox_4_url.Text = "http://localhost:9950/api/dspl_rcpt";
+            // 
+            // textBox_4_rcptSqno
+            // 
+            this.textBox_4_rcptSqno.Location = new System.Drawing.Point(367, 101);
+            this.textBox_4_rcptSqno.Name = "textBox_4_rcptSqno";
+            this.textBox_4_rcptSqno.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_rcptSqno.TabIndex = 112;
+            this.textBox_4_rcptSqno.Text = "정형외과";
+            // 
+            // label70
+            // 
+            this.label70.AutoSize = true;
+            this.label70.Location = new System.Drawing.Point(236, 106);
+            this.label70.Name = "label70";
+            this.label70.Size = new System.Drawing.Size(125, 12);
+            this.label70.TabIndex = 111;
+            this.label70.Text = "rcptSqno(영수증횟수)";
+            // 
+            // textBox_4_jobType
+            // 
+            this.textBox_4_jobType.Location = new System.Drawing.Point(370, 16);
+            this.textBox_4_jobType.Name = "textBox_4_jobType";
+            this.textBox_4_jobType.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_jobType.TabIndex = 110;
+            this.textBox_4_jobType.Text = "M";
+            // 
+            // label71
+            // 
+            this.label71.AutoSize = true;
+            this.label71.Location = new System.Drawing.Point(252, 20);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(109, 12);
+            this.label71.TabIndex = 109;
+            this.label71.Text = "jobType(작업구분)";
+            // 
+            // textBox_4_recpNo
+            // 
+            this.textBox_4_recpNo.Location = new System.Drawing.Point(370, 74);
+            this.textBox_4_recpNo.Name = "textBox_4_recpNo";
+            this.textBox_4_recpNo.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_recpNo.TabIndex = 108;
+            this.textBox_4_recpNo.Text = "병동";
+            // 
+            // label72
+            // 
+            this.label72.AutoSize = true;
+            this.label72.Location = new System.Drawing.Point(234, 79);
+            this.label72.Name = "label72";
+            this.label72.Size = new System.Drawing.Size(104, 12);
+            this.label72.TabIndex = 107;
+            this.label72.Text = "recpNo(접수번호)";
+            // 
+            // textBox_4_execDvsn
+            // 
+            this.textBox_4_execDvsn.Location = new System.Drawing.Point(370, 43);
+            this.textBox_4_execDvsn.Name = "textBox_4_execDvsn";
+            this.textBox_4_execDvsn.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_execDvsn.TabIndex = 106;
+            this.textBox_4_execDvsn.Text = "WR";
+            // 
+            // label73
+            // 
+            this.label73.AutoSize = true;
+            this.label73.Location = new System.Drawing.Point(234, 48);
+            this.label73.Name = "label73";
+            this.label73.Size = new System.Drawing.Size(119, 12);
+            this.label73.TabIndex = 105;
+            this.label73.Text = "execDvsn(화면구분)";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(273, 488);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(67, 23);
+            this.button3.TabIndex = 104;
+            this.button3.Text = "전송";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // textBox_4_aschAmt
+            // 
+            this.textBox_4_aschAmt.Location = new System.Drawing.Point(149, 339);
+            this.textBox_4_aschAmt.Name = "textBox_4_aschAmt";
+            this.textBox_4_aschAmt.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_aschAmt.TabIndex = 101;
+            this.textBox_4_aschAmt.Text = "test";
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Location = new System.Drawing.Point(26, 344);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(125, 12);
+            this.label74.TabIndex = 100;
+            this.label74.Text = "aschAmt(조합부담금)";
+            // 
+            // label75
+            // 
+            this.label75.AutoSize = true;
+            this.label75.Location = new System.Drawing.Point(26, 371);
+            this.label75.Name = "label75";
+            this.label75.Size = new System.Drawing.Size(125, 12);
+            this.label75.TabIndex = 102;
+            this.label75.Text = "uschAmt(본인부담금)";
+            // 
+            // textBox_4_uschAmt
+            // 
+            this.textBox_4_uschAmt.Location = new System.Drawing.Point(157, 366);
+            this.textBox_4_uschAmt.Name = "textBox_4_uschAmt";
+            this.textBox_4_uschAmt.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_uschAmt.TabIndex = 103;
+            this.textBox_4_uschAmt.Text = "Microsoft Print to PDF";
+            // 
+            // textBox_4_mccsAmt
+            // 
+            this.textBox_4_mccsAmt.Location = new System.Drawing.Point(149, 312);
+            this.textBox_4_mccsAmt.Name = "textBox_4_mccsAmt";
+            this.textBox_4_mccsAmt.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_mccsAmt.TabIndex = 99;
+            this.textBox_4_mccsAmt.Text = "ER";
+            // 
+            // label76
+            // 
+            this.label76.AutoSize = true;
+            this.label76.Location = new System.Drawing.Point(27, 317);
+            this.label76.Name = "label76";
+            this.label76.Size = new System.Drawing.Size(105, 12);
+            this.label76.TabIndex = 98;
+            this.label76.Text = "mccsAmt(진료비)";
+            // 
+            // textBox_4_rcptUserNm
+            // 
+            this.textBox_4_rcptUserNm.Location = new System.Drawing.Point(157, 285);
+            this.textBox_4_rcptUserNm.Name = "textBox_4_rcptUserNm";
+            this.textBox_4_rcptUserNm.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_rcptUserNm.TabIndex = 97;
+            this.textBox_4_rcptUserNm.Text = "Y";
+            // 
+            // label77
+            // 
+            this.label77.AutoSize = true;
+            this.label77.Location = new System.Drawing.Point(27, 290);
+            this.label77.Name = "label77";
+            this.label77.Size = new System.Drawing.Size(130, 12);
+            this.label77.TabIndex = 96;
+            this.label77.Text = "rcptUserNm(수납자명)";
+            // 
+            // textBox_4_rcptUserId
+            // 
+            this.textBox_4_rcptUserId.Location = new System.Drawing.Point(157, 258);
+            this.textBox_4_rcptUserId.Name = "textBox_4_rcptUserId";
+            this.textBox_4_rcptUserId.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_rcptUserId.TabIndex = 95;
+            this.textBox_4_rcptUserId.Text = "Y";
+            // 
+            // label_4_rcptUserId
+            // 
+            this.label_4_rcptUserId.AutoSize = true;
+            this.label_4_rcptUserId.Location = new System.Drawing.Point(27, 263);
+            this.label_4_rcptUserId.Name = "label_4_rcptUserId";
+            this.label_4_rcptUserId.Size = new System.Drawing.Size(132, 12);
+            this.label_4_rcptUserId.TabIndex = 94;
+            this.label_4_rcptUserId.Text = "rcptUserId(수납자코드)";
+            // 
+            // textBox_4_drNm
+            // 
+            this.textBox_4_drNm.Location = new System.Drawing.Point(129, 233);
+            this.textBox_4_drNm.Name = "textBox_4_drNm";
+            this.textBox_4_drNm.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_drNm.TabIndex = 93;
+            this.textBox_4_drNm.Text = "C";
+            // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.Location = new System.Drawing.Point(27, 236);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(82, 12);
+            this.label79.TabIndex = 92;
+            this.label79.Text = "drNm(의사명)";
+            // 
+            // textBox_4_drCd
+            // 
+            this.textBox_4_drCd.Location = new System.Drawing.Point(129, 204);
+            this.textBox_4_drCd.Name = "textBox_4_drCd";
+            this.textBox_4_drCd.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_drCd.TabIndex = 91;
+            this.textBox_4_drCd.Text = "70";
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = true;
+            this.label80.Location = new System.Drawing.Point(27, 209);
+            this.label80.Name = "label80";
+            this.label80.Size = new System.Drawing.Size(90, 12);
+            this.label80.TabIndex = 90;
+            this.label80.Text = "drCd(의사코드)";
+            // 
+            // textBox_4_deptNm
+            // 
+            this.textBox_4_deptNm.Location = new System.Drawing.Point(129, 177);
+            this.textBox_4_deptNm.Name = "textBox_4_deptNm";
+            this.textBox_4_deptNm.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_deptNm.TabIndex = 89;
+            this.textBox_4_deptNm.Text = "정형외과";
+            // 
+            // label81
+            // 
+            this.label81.AutoSize = true;
+            this.label81.Location = new System.Drawing.Point(27, 182);
+            this.label81.Name = "label81";
+            this.label81.Size = new System.Drawing.Size(83, 12);
+            this.label81.TabIndex = 88;
+            this.label81.Text = "deptNm(과명)";
+            // 
+            // textBox_4_deptCd
+            // 
+            this.textBox_4_deptCd.Location = new System.Drawing.Point(129, 150);
+            this.textBox_4_deptCd.Name = "textBox_4_deptCd";
+            this.textBox_4_deptCd.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_deptCd.TabIndex = 87;
+            this.textBox_4_deptCd.Text = "DNC";
+            // 
+            // label82
+            // 
+            this.label82.AutoSize = true;
+            this.label82.Location = new System.Drawing.Point(27, 155);
+            this.label82.Name = "label82";
+            this.label82.Size = new System.Drawing.Size(91, 12);
+            this.label82.TabIndex = 86;
+            this.label82.Text = "deptCd(과코드)";
+            // 
+            // textBox_4_recpDt
+            // 
+            this.textBox_4_recpDt.Location = new System.Drawing.Point(129, 124);
+            this.textBox_4_recpDt.Name = "textBox_4_recpDt";
+            this.textBox_4_recpDt.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_recpDt.TabIndex = 85;
+            this.textBox_4_recpDt.Text = "29";
+            // 
+            // label83
+            // 
+            this.label83.AutoSize = true;
+            this.label83.Location = new System.Drawing.Point(27, 128);
+            this.label83.Name = "label83";
+            this.label83.Size = new System.Drawing.Size(99, 12);
+            this.label83.TabIndex = 84;
+            this.label83.Text = "recpDt(접수일자)";
+            // 
+            // textBox_4_patDtbr
+            // 
+            this.textBox_4_patDtbr.Location = new System.Drawing.Point(129, 101);
+            this.textBox_4_patDtbr.Name = "textBox_4_patDtbr";
+            this.textBox_4_patDtbr.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_patDtbr.TabIndex = 83;
+            this.textBox_4_patDtbr.Text = "19930828";
+            // 
+            // label84
+            // 
+            this.label84.AutoSize = true;
+            this.label84.Location = new System.Drawing.Point(27, 106);
+            this.label84.Name = "label84";
+            this.label84.Size = new System.Drawing.Size(102, 12);
+            this.label84.TabIndex = 82;
+            this.label84.Text = "patDtbr(생년월일)";
+            // 
+            // textBox_4_patNm
+            // 
+            this.textBox_4_patNm.Location = new System.Drawing.Point(129, 74);
+            this.textBox_4_patNm.Name = "textBox_4_patNm";
+            this.textBox_4_patNm.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_patNm.TabIndex = 81;
+            this.textBox_4_patNm.Text = "나환자";
+            // 
+            // label85
+            // 
+            this.label85.AutoSize = true;
+            this.label85.Location = new System.Drawing.Point(27, 79);
+            this.label85.Name = "label85";
+            this.label85.Size = new System.Drawing.Size(76, 12);
+            this.label85.TabIndex = 80;
+            this.label85.Text = "patNm(성명)";
+            // 
+            // textBox_4_patId
+            // 
+            this.textBox_4_patId.Location = new System.Drawing.Point(129, 47);
+            this.textBox_4_patId.Name = "textBox_4_patId";
+            this.textBox_4_patId.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_patId.TabIndex = 79;
+            this.textBox_4_patId.Text = "12345678";
+            // 
+            // label86
+            // 
+            this.label86.AutoSize = true;
+            this.label86.Location = new System.Drawing.Point(27, 52);
+            this.label86.Name = "label86";
+            this.label86.Size = new System.Drawing.Size(90, 12);
+            this.label86.TabIndex = 78;
+            this.label86.Text = "patId(병록번호)";
+            // 
+            // textBox_4_hsptId
+            // 
+            this.textBox_4_hsptId.Location = new System.Drawing.Point(129, 20);
+            this.textBox_4_hsptId.Name = "textBox_4_hsptId";
+            this.textBox_4_hsptId.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_hsptId.TabIndex = 77;
+            this.textBox_4_hsptId.Text = "31100015";
+            // 
+            // label87
+            // 
+            this.label87.AutoSize = true;
+            this.label87.Location = new System.Drawing.Point(27, 25);
+            this.label87.Name = "label87";
+            this.label87.Size = new System.Drawing.Size(97, 12);
+            this.label87.TabIndex = 76;
+            this.label87.Text = "hsptId(병원구분)";
+            // 
+            // textBox_5_url
+            // 
+            this.textBox_5_url.Location = new System.Drawing.Point(112, 106);
+            this.textBox_5_url.Name = "textBox_5_url";
+            this.textBox_5_url.Size = new System.Drawing.Size(184, 21);
+            this.textBox_5_url.TabIndex = 115;
+            this.textBox_5_url.Text = "http://localhost:9950/api/mmview";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(302, 104);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(67, 23);
+            this.button4.TabIndex = 114;
+            this.button4.Text = "전송";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // textBox_4_pfanAmt
+            // 
+            this.textBox_4_pfanAmt.Location = new System.Drawing.Point(364, 213);
+            this.textBox_4_pfanAmt.Name = "textBox_4_pfanAmt";
+            this.textBox_4_pfanAmt.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_pfanAmt.TabIndex = 121;
+            this.textBox_4_pfanAmt.Text = "200";
+            // 
+            // label88
+            // 
+            this.label88.AutoSize = true;
+            this.label88.Location = new System.Drawing.Point(234, 209);
+            this.label88.Name = "label88";
+            this.label88.Size = new System.Drawing.Size(109, 12);
+            this.label88.TabIndex = 120;
+            this.label88.Text = "pfanAmt(대불금액)";
+            // 
+            // textBox_4_cutAmt
+            // 
+            this.textBox_4_cutAmt.Location = new System.Drawing.Point(367, 128);
+            this.textBox_4_cutAmt.Name = "textBox_4_cutAmt";
+            this.textBox_4_cutAmt.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_cutAmt.TabIndex = 119;
+            this.textBox_4_cutAmt.Text = "1000";
+            // 
+            // label89
+            // 
+            this.label89.AutoSize = true;
+            this.label89.Location = new System.Drawing.Point(249, 132);
+            this.label89.Name = "label89";
+            this.label89.Size = new System.Drawing.Size(102, 12);
+            this.label89.TabIndex = 118;
+            this.label89.Text = "cutAmt(절사금액)";
+            // 
+            // textBox_4_mexAmt
+            // 
+            this.textBox_4_mexAmt.Location = new System.Drawing.Point(367, 186);
+            this.textBox_4_mexAmt.Name = "textBox_4_mexAmt";
+            this.textBox_4_mexAmt.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_mexAmt.TabIndex = 117;
+            this.textBox_4_mexAmt.Text = "50";
+            // 
+            // label90
+            // 
+            this.label90.AutoSize = true;
+            this.label90.Location = new System.Drawing.Point(247, 186);
+            this.label90.Name = "label90";
+            this.label90.Size = new System.Drawing.Size(110, 12);
+            this.label90.TabIndex = 116;
+            this.label90.Text = "mexAmt(감면금액)";
+            // 
+            // textBox_4_prpyAmt
+            // 
+            this.textBox_4_prpyAmt.Location = new System.Drawing.Point(367, 155);
+            this.textBox_4_prpyAmt.Name = "textBox_4_prpyAmt";
+            this.textBox_4_prpyAmt.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_prpyAmt.TabIndex = 115;
+            this.textBox_4_prpyAmt.Text = "0";
+            // 
+            // label91
+            // 
+            this.label91.AutoSize = true;
+            this.label91.Location = new System.Drawing.Point(243, 159);
+            this.label91.Name = "label91";
+            this.label91.Size = new System.Drawing.Size(110, 12);
+            this.label91.TabIndex = 114;
+            this.label91.Text = "prpyAmt(선납금액)";
+            // 
+            // textBox_4_pfan
+            // 
+            this.textBox_4_pfan.Location = new System.Drawing.Point(383, 343);
+            this.textBox_4_pfan.Name = "textBox_4_pfan";
+            this.textBox_4_pfan.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_pfan.TabIndex = 129;
+            this.textBox_4_pfan.Text = "정형외과";
+            // 
+            // label_4_pfan
+            // 
+            this.label_4_pfan.AutoSize = true;
+            this.label_4_pfan.Location = new System.Drawing.Point(276, 346);
+            this.label_4_pfan.Name = "label_4_pfan";
+            this.label_4_pfan.Size = new System.Drawing.Size(75, 12);
+            this.label_4_pfan.TabIndex = 128;
+            this.label_4_pfan.Text = "pfan(대물명)";
+            // 
+            // textBox_4_hllfAmt
+            // 
+            this.textBox_4_hllfAmt.Location = new System.Drawing.Point(386, 258);
+            this.textBox_4_hllfAmt.Name = "textBox_4_hllfAmt";
+            this.textBox_4_hllfAmt.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_hllfAmt.TabIndex = 127;
+            this.textBox_4_hllfAmt.Text = "M";
+            // 
+            // label93
+            // 
+            this.label93.AutoSize = true;
+            this.label93.Location = new System.Drawing.Point(268, 262);
+            this.label93.Name = "label93";
+            this.label93.Size = new System.Drawing.Size(125, 12);
+            this.label93.TabIndex = 126;
+            this.label93.Text = "hllfAmt(건강생활금액)";
+            // 
+            // textBox_4_mexNm
+            // 
+            this.textBox_4_mexNm.Location = new System.Drawing.Point(386, 316);
+            this.textBox_4_mexNm.Name = "textBox_4_mexNm";
+            this.textBox_4_mexNm.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_mexNm.TabIndex = 125;
+            this.textBox_4_mexNm.Text = "병동";
+            // 
+            // label94
+            // 
+            this.label94.AutoSize = true;
+            this.label94.Location = new System.Drawing.Point(266, 316);
+            this.label94.Name = "label94";
+            this.label94.Size = new System.Drawing.Size(96, 12);
+            this.label94.TabIndex = 124;
+            this.label94.Text = "mexNm(감면명)";
+            // 
+            // textBox_4_unclAmt
+            // 
+            this.textBox_4_unclAmt.Location = new System.Drawing.Point(386, 285);
+            this.textBox_4_unclAmt.Name = "textBox_4_unclAmt";
+            this.textBox_4_unclAmt.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_unclAmt.TabIndex = 123;
+            this.textBox_4_unclAmt.Text = "100";
+            // 
+            // label95
+            // 
+            this.label95.AutoSize = true;
+            this.label95.Location = new System.Drawing.Point(262, 289);
+            this.label95.Name = "label95";
+            this.label95.Size = new System.Drawing.Size(109, 12);
+            this.label95.TabIndex = 122;
+            this.label95.Text = "unclAmt(미수금액)";
+            // 
+            // textBox_4_unclNm
+            // 
+            this.textBox_4_unclNm.Location = new System.Drawing.Point(383, 370);
+            this.textBox_4_unclNm.Name = "textBox_4_unclNm";
+            this.textBox_4_unclNm.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_unclNm.TabIndex = 131;
+            this.textBox_4_unclNm.Text = "정형외과";
+            // 
+            // label96
+            // 
+            this.label96.AutoSize = true;
+            this.label96.Location = new System.Drawing.Point(276, 373);
+            this.label96.Name = "label96";
+            this.label96.Size = new System.Drawing.Size(95, 12);
+            this.label96.TabIndex = 130;
+            this.label96.Text = "unclNm(미수명)";
+            // 
+            // textBox_4_hsimMdctNo
+            // 
+            this.textBox_4_hsimMdctNo.Location = new System.Drawing.Point(383, 424);
+            this.textBox_4_hsimMdctNo.Name = "textBox_4_hsimMdctNo";
+            this.textBox_4_hsimMdctNo.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_hsimMdctNo.TabIndex = 135;
+            this.textBox_4_hsimMdctNo.Text = "2020";
+            // 
+            // label97
+            // 
+            this.label97.AutoSize = true;
+            this.label97.Location = new System.Drawing.Point(203, 433);
+            this.label97.Name = "label97";
+            this.label97.Size = new System.Drawing.Size(159, 12);
+            this.label97.TabIndex = 134;
+            this.label97.Text = "hsimMdctNo(원내투약번호)";
+            // 
+            // textBox_4_hsotMdctNo
+            // 
+            this.textBox_4_hsotMdctNo.Location = new System.Drawing.Point(383, 397);
+            this.textBox_4_hsotMdctNo.Name = "textBox_4_hsotMdctNo";
+            this.textBox_4_hsotMdctNo.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_hsotMdctNo.TabIndex = 133;
+            this.textBox_4_hsotMdctNo.Text = "2021";
+            // 
+            // label98
+            // 
+            this.label98.AutoSize = true;
+            this.label98.Location = new System.Drawing.Point(216, 400);
+            this.label98.Name = "label98";
+            this.label98.Size = new System.Drawing.Size(155, 12);
+            this.label98.TabIndex = 132;
+            this.label98.Text = "hsotMdctNo(원외투약번호)";
+            // 
+            // textBox_5_waiturl
+            // 
+            this.textBox_5_waiturl.Location = new System.Drawing.Point(112, 63);
+            this.textBox_5_waiturl.Name = "textBox_5_waiturl";
+            this.textBox_5_waiturl.Size = new System.Drawing.Size(184, 21);
+            this.textBox_5_waiturl.TabIndex = 116;
+            this.textBox_5_waiturl.Text = "https://zeroit28web.cafe24.com/public/out_1.html";
+            // 
+            // label99
+            // 
+            this.label99.AutoSize = true;
+            this.label99.Location = new System.Drawing.Point(51, 66);
+            this.label99.Name = "label99";
+            this.label99.Size = new System.Drawing.Size(43, 12);
+            this.label99.TabIndex = 117;
+            this.label99.Text = "대기url";
+            // 
+            // label78
+            // 
+            this.label78.AutoSize = true;
+            this.label78.Location = new System.Drawing.Point(18, 468);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(43, 12);
+            this.label78.TabIndex = 136;
+            this.label78.Text = "화면url";
+            // 
+            // textBox_4_waiturl
+            // 
+            this.textBox_4_waiturl.Location = new System.Drawing.Point(67, 463);
+            this.textBox_4_waiturl.Name = "textBox_4_waiturl";
+            this.textBox_4_waiturl.Size = new System.Drawing.Size(182, 21);
+            this.textBox_4_waiturl.TabIndex = 137;
+            this.textBox_4_waiturl.Text = "https://zeroit28web.cafe24.com/public/notice.html";
+            // 
             // TestDataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -1658,6 +2377,10 @@
             this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
+            this.tabPage6.ResumeLayout(false);
+            this.tabPage6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1816,5 +2539,73 @@
         private System.Windows.Forms.Label label69;
         private System.Windows.Forms.TextBox textBox_3_prntNm;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TextBox textBox_4_hsimMdctNo;
+        private System.Windows.Forms.Label label97;
+        private System.Windows.Forms.TextBox textBox_4_hsotMdctNo;
+        private System.Windows.Forms.Label label98;
+        private System.Windows.Forms.TextBox textBox_4_unclNm;
+        private System.Windows.Forms.Label label96;
+        private System.Windows.Forms.TextBox textBox_4_pfan;
+        private System.Windows.Forms.Label label_4_pfan;
+        private System.Windows.Forms.TextBox textBox_4_hllfAmt;
+        private System.Windows.Forms.Label label93;
+        private System.Windows.Forms.TextBox textBox_4_mexNm;
+        private System.Windows.Forms.Label label94;
+        private System.Windows.Forms.TextBox textBox_4_unclAmt;
+        private System.Windows.Forms.Label label95;
+        private System.Windows.Forms.TextBox textBox_4_pfanAmt;
+        private System.Windows.Forms.Label label88;
+        private System.Windows.Forms.TextBox textBox_4_cutAmt;
+        private System.Windows.Forms.Label label89;
+        private System.Windows.Forms.TextBox textBox_4_mexAmt;
+        private System.Windows.Forms.Label label90;
+        private System.Windows.Forms.TextBox textBox_4_prpyAmt;
+        private System.Windows.Forms.Label label91;
+        private System.Windows.Forms.TextBox textBox_4_url;
+        private System.Windows.Forms.TextBox textBox_4_rcptSqno;
+        private System.Windows.Forms.Label label70;
+        private System.Windows.Forms.TextBox textBox_4_jobType;
+        private System.Windows.Forms.Label label71;
+        private System.Windows.Forms.TextBox textBox_4_recpNo;
+        private System.Windows.Forms.Label label72;
+        private System.Windows.Forms.TextBox textBox_4_execDvsn;
+        private System.Windows.Forms.Label label73;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TextBox textBox_4_aschAmt;
+        private System.Windows.Forms.Label label74;
+        private System.Windows.Forms.Label label75;
+        private System.Windows.Forms.TextBox textBox_4_uschAmt;
+        private System.Windows.Forms.TextBox textBox_4_mccsAmt;
+        private System.Windows.Forms.Label label76;
+        private System.Windows.Forms.TextBox textBox_4_rcptUserNm;
+        private System.Windows.Forms.Label label77;
+        private System.Windows.Forms.TextBox textBox_4_rcptUserId;
+        private System.Windows.Forms.Label label_4_rcptUserId;
+        private System.Windows.Forms.TextBox textBox_4_drNm;
+        private System.Windows.Forms.Label label79;
+        private System.Windows.Forms.TextBox textBox_4_drCd;
+        private System.Windows.Forms.Label label80;
+        private System.Windows.Forms.TextBox textBox_4_deptNm;
+        private System.Windows.Forms.Label label81;
+        private System.Windows.Forms.TextBox textBox_4_deptCd;
+        private System.Windows.Forms.Label label82;
+        private System.Windows.Forms.TextBox textBox_4_recpDt;
+        private System.Windows.Forms.Label label83;
+        private System.Windows.Forms.TextBox textBox_4_patDtbr;
+        private System.Windows.Forms.Label label84;
+        private System.Windows.Forms.TextBox textBox_4_patNm;
+        private System.Windows.Forms.Label label85;
+        private System.Windows.Forms.TextBox textBox_4_patId;
+        private System.Windows.Forms.Label label86;
+        private System.Windows.Forms.TextBox textBox_4_hsptId;
+        private System.Windows.Forms.Label label87;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.Label label99;
+        private System.Windows.Forms.TextBox textBox_5_waiturl;
+        private System.Windows.Forms.TextBox textBox_5_url;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label label78;
+        private System.Windows.Forms.TextBox textBox_4_waiturl;
     }
 }

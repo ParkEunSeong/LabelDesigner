@@ -1188,6 +1188,8 @@ namespace LabelEditor
                 text.Fix = it.Fix;
                 text.Multile = it.Multiple;
                 text.m_multiple = it.m_multple;
+                text.IsArray = it.IsArray;
+                text.Separator = it.Separator;
                 m_paper.texts.Add(text);
             }
             foreach (var it in m_dataTimeList)
@@ -1201,6 +1203,7 @@ namespace LabelEditor
                 text.datetime_type = it.m_dateTimeFormat;
                 text.x = it.Location.X;
                 text.y = it.Location.Y;
+           
                 m_paper.dateTimes.Add(text);
             }
             foreach ( var it in m_barcodeList )

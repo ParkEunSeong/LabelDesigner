@@ -35,6 +35,8 @@ namespace LabelEditor
             checkBoxFix.Checked = label.Fix;
             textBoxFontName.Text = label.Font.Name;
             checkBoxBold.Checked = label.Font.Bold;
+            checkBoxArray.Checked = label.IsArray;
+            textBoxSeparator.Text = label.Separator;
             m_font = label.Font;
             if ( label.Angle == 0 )
             {
