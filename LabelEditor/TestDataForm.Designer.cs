@@ -181,7 +181,30 @@
             this.textBox_3_hsptId = new System.Windows.Forms.TextBox();
             this.label34 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.label78 = new System.Windows.Forms.Label();
+            this.textBox_4_waiturl = new System.Windows.Forms.TextBox();
+            this.textBox_4_hsimMdctNo = new System.Windows.Forms.TextBox();
+            this.label97 = new System.Windows.Forms.Label();
+            this.textBox_4_hsotMdctNo = new System.Windows.Forms.TextBox();
+            this.label98 = new System.Windows.Forms.Label();
+            this.textBox_4_unclNm = new System.Windows.Forms.TextBox();
+            this.label96 = new System.Windows.Forms.Label();
+            this.textBox_4_pfan = new System.Windows.Forms.TextBox();
+            this.label_4_pfan = new System.Windows.Forms.Label();
+            this.textBox_4_hllfAmt = new System.Windows.Forms.TextBox();
+            this.label93 = new System.Windows.Forms.Label();
+            this.textBox_4_mexNm = new System.Windows.Forms.TextBox();
+            this.label94 = new System.Windows.Forms.Label();
+            this.textBox_4_unclAmt = new System.Windows.Forms.TextBox();
+            this.label95 = new System.Windows.Forms.Label();
+            this.textBox_4_pfanAmt = new System.Windows.Forms.TextBox();
+            this.label88 = new System.Windows.Forms.Label();
+            this.textBox_4_cutAmt = new System.Windows.Forms.TextBox();
+            this.label89 = new System.Windows.Forms.Label();
+            this.textBox_4_mexAmt = new System.Windows.Forms.TextBox();
+            this.label90 = new System.Windows.Forms.Label();
+            this.textBox_4_prpyAmt = new System.Windows.Forms.TextBox();
+            this.label91 = new System.Windows.Forms.Label();
             this.textBox_4_url = new System.Windows.Forms.TextBox();
             this.textBox_4_rcptSqno = new System.Windows.Forms.TextBox();
             this.label70 = new System.Windows.Forms.Label();
@@ -220,34 +243,15 @@
             this.label86 = new System.Windows.Forms.Label();
             this.textBox_4_hsptId = new System.Windows.Forms.TextBox();
             this.label87 = new System.Windows.Forms.Label();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.label99 = new System.Windows.Forms.Label();
             this.textBox_5_url = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
-            this.textBox_4_pfanAmt = new System.Windows.Forms.TextBox();
-            this.label88 = new System.Windows.Forms.Label();
-            this.textBox_4_cutAmt = new System.Windows.Forms.TextBox();
-            this.label89 = new System.Windows.Forms.Label();
-            this.textBox_4_mexAmt = new System.Windows.Forms.TextBox();
-            this.label90 = new System.Windows.Forms.Label();
-            this.textBox_4_prpyAmt = new System.Windows.Forms.TextBox();
-            this.label91 = new System.Windows.Forms.Label();
-            this.textBox_4_pfan = new System.Windows.Forms.TextBox();
-            this.label_4_pfan = new System.Windows.Forms.Label();
-            this.textBox_4_hllfAmt = new System.Windows.Forms.TextBox();
-            this.label93 = new System.Windows.Forms.Label();
-            this.textBox_4_mexNm = new System.Windows.Forms.TextBox();
-            this.label94 = new System.Windows.Forms.Label();
-            this.textBox_4_unclAmt = new System.Windows.Forms.TextBox();
-            this.label95 = new System.Windows.Forms.Label();
-            this.textBox_4_unclNm = new System.Windows.Forms.TextBox();
-            this.label96 = new System.Windows.Forms.Label();
-            this.textBox_4_hsimMdctNo = new System.Windows.Forms.TextBox();
-            this.label97 = new System.Windows.Forms.Label();
-            this.textBox_4_hsotMdctNo = new System.Windows.Forms.TextBox();
-            this.label98 = new System.Windows.Forms.Label();
-            this.textBox_5_waiturl = new System.Windows.Forms.TextBox();
-            this.label99 = new System.Windows.Forms.Label();
-            this.label78 = new System.Windows.Forms.Label();
-            this.textBox_4_waiturl = new System.Windows.Forms.TextBox();
+            this.label92 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button5 = new System.Windows.Forms.Button();
+            this.label100 = new System.Windows.Forms.Label();
+            this.textBox_4_dsplAmt = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -1715,6 +1719,8 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.label100);
+            this.tabPage5.Controls.Add(this.textBox_4_dsplAmt);
             this.tabPage5.Controls.Add(this.label78);
             this.tabPage5.Controls.Add(this.textBox_4_waiturl);
             this.tabPage5.Controls.Add(this.textBox_4_hsimMdctNo);
@@ -1784,18 +1790,209 @@
             this.tabPage5.Text = "금액표시데이터";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // tabPage6
+            // label78
             // 
-            this.tabPage6.Controls.Add(this.label99);
-            this.tabPage6.Controls.Add(this.textBox_5_waiturl);
-            this.tabPage6.Controls.Add(this.textBox_5_url);
-            this.tabPage6.Controls.Add(this.button4);
-            this.tabPage6.Location = new System.Drawing.Point(4, 22);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(491, 531);
-            this.tabPage6.TabIndex = 5;
-            this.tabPage6.Text = "금액표시대기";
-            this.tabPage6.UseVisualStyleBackColor = true;
+            this.label78.AutoSize = true;
+            this.label78.Location = new System.Drawing.Point(18, 468);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(43, 12);
+            this.label78.TabIndex = 136;
+            this.label78.Text = "화면url";
+            // 
+            // textBox_4_waiturl
+            // 
+            this.textBox_4_waiturl.Location = new System.Drawing.Point(67, 463);
+            this.textBox_4_waiturl.Name = "textBox_4_waiturl";
+            this.textBox_4_waiturl.Size = new System.Drawing.Size(182, 21);
+            this.textBox_4_waiturl.TabIndex = 137;
+            this.textBox_4_waiturl.Text = "https://zeroit28web.cafe24.com/public/notice.html";
+            // 
+            // textBox_4_hsimMdctNo
+            // 
+            this.textBox_4_hsimMdctNo.Location = new System.Drawing.Point(383, 424);
+            this.textBox_4_hsimMdctNo.Name = "textBox_4_hsimMdctNo";
+            this.textBox_4_hsimMdctNo.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_hsimMdctNo.TabIndex = 135;
+            this.textBox_4_hsimMdctNo.Text = "2020";
+            // 
+            // label97
+            // 
+            this.label97.AutoSize = true;
+            this.label97.Location = new System.Drawing.Point(203, 433);
+            this.label97.Name = "label97";
+            this.label97.Size = new System.Drawing.Size(159, 12);
+            this.label97.TabIndex = 134;
+            this.label97.Text = "hsimMdctNo(원내투약번호)";
+            // 
+            // textBox_4_hsotMdctNo
+            // 
+            this.textBox_4_hsotMdctNo.Location = new System.Drawing.Point(383, 397);
+            this.textBox_4_hsotMdctNo.Name = "textBox_4_hsotMdctNo";
+            this.textBox_4_hsotMdctNo.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_hsotMdctNo.TabIndex = 133;
+            this.textBox_4_hsotMdctNo.Text = "2021";
+            // 
+            // label98
+            // 
+            this.label98.AutoSize = true;
+            this.label98.Location = new System.Drawing.Point(216, 400);
+            this.label98.Name = "label98";
+            this.label98.Size = new System.Drawing.Size(155, 12);
+            this.label98.TabIndex = 132;
+            this.label98.Text = "hsotMdctNo(원외투약번호)";
+            // 
+            // textBox_4_unclNm
+            // 
+            this.textBox_4_unclNm.Location = new System.Drawing.Point(383, 370);
+            this.textBox_4_unclNm.Name = "textBox_4_unclNm";
+            this.textBox_4_unclNm.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_unclNm.TabIndex = 131;
+            this.textBox_4_unclNm.Text = "정형외과";
+            // 
+            // label96
+            // 
+            this.label96.AutoSize = true;
+            this.label96.Location = new System.Drawing.Point(276, 373);
+            this.label96.Name = "label96";
+            this.label96.Size = new System.Drawing.Size(95, 12);
+            this.label96.TabIndex = 130;
+            this.label96.Text = "unclNm(미수명)";
+            // 
+            // textBox_4_pfan
+            // 
+            this.textBox_4_pfan.Location = new System.Drawing.Point(383, 343);
+            this.textBox_4_pfan.Name = "textBox_4_pfan";
+            this.textBox_4_pfan.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_pfan.TabIndex = 129;
+            this.textBox_4_pfan.Text = "정형외과";
+            // 
+            // label_4_pfan
+            // 
+            this.label_4_pfan.AutoSize = true;
+            this.label_4_pfan.Location = new System.Drawing.Point(276, 346);
+            this.label_4_pfan.Name = "label_4_pfan";
+            this.label_4_pfan.Size = new System.Drawing.Size(75, 12);
+            this.label_4_pfan.TabIndex = 128;
+            this.label_4_pfan.Text = "pfan(대물명)";
+            // 
+            // textBox_4_hllfAmt
+            // 
+            this.textBox_4_hllfAmt.Location = new System.Drawing.Point(386, 258);
+            this.textBox_4_hllfAmt.Name = "textBox_4_hllfAmt";
+            this.textBox_4_hllfAmt.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_hllfAmt.TabIndex = 127;
+            this.textBox_4_hllfAmt.Text = "M";
+            // 
+            // label93
+            // 
+            this.label93.AutoSize = true;
+            this.label93.Location = new System.Drawing.Point(268, 262);
+            this.label93.Name = "label93";
+            this.label93.Size = new System.Drawing.Size(125, 12);
+            this.label93.TabIndex = 126;
+            this.label93.Text = "hllfAmt(건강생활금액)";
+            // 
+            // textBox_4_mexNm
+            // 
+            this.textBox_4_mexNm.Location = new System.Drawing.Point(386, 316);
+            this.textBox_4_mexNm.Name = "textBox_4_mexNm";
+            this.textBox_4_mexNm.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_mexNm.TabIndex = 125;
+            this.textBox_4_mexNm.Text = "병동";
+            // 
+            // label94
+            // 
+            this.label94.AutoSize = true;
+            this.label94.Location = new System.Drawing.Point(266, 316);
+            this.label94.Name = "label94";
+            this.label94.Size = new System.Drawing.Size(96, 12);
+            this.label94.TabIndex = 124;
+            this.label94.Text = "mexNm(감면명)";
+            // 
+            // textBox_4_unclAmt
+            // 
+            this.textBox_4_unclAmt.Location = new System.Drawing.Point(386, 285);
+            this.textBox_4_unclAmt.Name = "textBox_4_unclAmt";
+            this.textBox_4_unclAmt.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_unclAmt.TabIndex = 123;
+            this.textBox_4_unclAmt.Text = "100";
+            // 
+            // label95
+            // 
+            this.label95.AutoSize = true;
+            this.label95.Location = new System.Drawing.Point(262, 289);
+            this.label95.Name = "label95";
+            this.label95.Size = new System.Drawing.Size(109, 12);
+            this.label95.TabIndex = 122;
+            this.label95.Text = "unclAmt(미수금액)";
+            // 
+            // textBox_4_pfanAmt
+            // 
+            this.textBox_4_pfanAmt.Location = new System.Drawing.Point(364, 213);
+            this.textBox_4_pfanAmt.Name = "textBox_4_pfanAmt";
+            this.textBox_4_pfanAmt.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_pfanAmt.TabIndex = 121;
+            this.textBox_4_pfanAmt.Text = "200";
+            // 
+            // label88
+            // 
+            this.label88.AutoSize = true;
+            this.label88.Location = new System.Drawing.Point(234, 209);
+            this.label88.Name = "label88";
+            this.label88.Size = new System.Drawing.Size(109, 12);
+            this.label88.TabIndex = 120;
+            this.label88.Text = "pfanAmt(대불금액)";
+            // 
+            // textBox_4_cutAmt
+            // 
+            this.textBox_4_cutAmt.Location = new System.Drawing.Point(367, 128);
+            this.textBox_4_cutAmt.Name = "textBox_4_cutAmt";
+            this.textBox_4_cutAmt.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_cutAmt.TabIndex = 119;
+            this.textBox_4_cutAmt.Text = "1000";
+            // 
+            // label89
+            // 
+            this.label89.AutoSize = true;
+            this.label89.Location = new System.Drawing.Point(249, 132);
+            this.label89.Name = "label89";
+            this.label89.Size = new System.Drawing.Size(102, 12);
+            this.label89.TabIndex = 118;
+            this.label89.Text = "cutAmt(절사금액)";
+            // 
+            // textBox_4_mexAmt
+            // 
+            this.textBox_4_mexAmt.Location = new System.Drawing.Point(367, 186);
+            this.textBox_4_mexAmt.Name = "textBox_4_mexAmt";
+            this.textBox_4_mexAmt.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_mexAmt.TabIndex = 117;
+            this.textBox_4_mexAmt.Text = "50";
+            // 
+            // label90
+            // 
+            this.label90.AutoSize = true;
+            this.label90.Location = new System.Drawing.Point(247, 186);
+            this.label90.Name = "label90";
+            this.label90.Size = new System.Drawing.Size(110, 12);
+            this.label90.TabIndex = 116;
+            this.label90.Text = "mexAmt(감면금액)";
+            // 
+            // textBox_4_prpyAmt
+            // 
+            this.textBox_4_prpyAmt.Location = new System.Drawing.Point(367, 155);
+            this.textBox_4_prpyAmt.Name = "textBox_4_prpyAmt";
+            this.textBox_4_prpyAmt.Size = new System.Drawing.Size(100, 21);
+            this.textBox_4_prpyAmt.TabIndex = 115;
+            this.textBox_4_prpyAmt.Text = "0";
+            // 
+            // label91
+            // 
+            this.label91.AutoSize = true;
+            this.label91.Location = new System.Drawing.Point(243, 159);
+            this.label91.Name = "label91";
+            this.label91.Size = new System.Drawing.Size(110, 12);
+            this.label91.TabIndex = 114;
+            this.label91.Text = "prpyAmt(선납금액)";
             // 
             // textBox_4_url
             // 
@@ -2121,17 +2318,41 @@
             this.label87.TabIndex = 76;
             this.label87.Text = "hsptId(병원구분)";
             // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.label92);
+            this.tabPage6.Controls.Add(this.textBox1);
+            this.tabPage6.Controls.Add(this.button5);
+            this.tabPage6.Controls.Add(this.label99);
+            this.tabPage6.Controls.Add(this.textBox_5_url);
+            this.tabPage6.Controls.Add(this.button4);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(491, 531);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "금액표시대기";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // label99
+            // 
+            this.label99.AutoSize = true;
+            this.label99.Location = new System.Drawing.Point(51, 66);
+            this.label99.Name = "label99";
+            this.label99.Size = new System.Drawing.Size(77, 12);
+            this.label99.TabIndex = 117;
+            this.label99.Text = "대기화면표시";
+            // 
             // textBox_5_url
             // 
-            this.textBox_5_url.Location = new System.Drawing.Point(112, 106);
+            this.textBox_5_url.Location = new System.Drawing.Point(134, 57);
             this.textBox_5_url.Name = "textBox_5_url";
             this.textBox_5_url.Size = new System.Drawing.Size(184, 21);
             this.textBox_5_url.TabIndex = 115;
-            this.textBox_5_url.Text = "http://localhost:9950/api/mmview";
+            this.textBox_5_url.Text = "http://localhost:9950/api/dspl_rcpt";
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(302, 104);
+            this.button4.Location = new System.Drawing.Point(324, 55);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(67, 23);
             this.button4.TabIndex = 114;
@@ -2139,226 +2360,49 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // textBox_4_pfanAmt
+            // label92
             // 
-            this.textBox_4_pfanAmt.Location = new System.Drawing.Point(364, 213);
-            this.textBox_4_pfanAmt.Name = "textBox_4_pfanAmt";
-            this.textBox_4_pfanAmt.Size = new System.Drawing.Size(100, 21);
-            this.textBox_4_pfanAmt.TabIndex = 121;
-            this.textBox_4_pfanAmt.Text = "200";
+            this.label92.AutoSize = true;
+            this.label92.Location = new System.Drawing.Point(51, 105);
+            this.label92.Name = "label92";
+            this.label92.Size = new System.Drawing.Size(77, 12);
+            this.label92.TabIndex = 120;
+            this.label92.Text = "안내화면표시";
             // 
-            // label88
+            // textBox1
             // 
-            this.label88.AutoSize = true;
-            this.label88.Location = new System.Drawing.Point(234, 209);
-            this.label88.Name = "label88";
-            this.label88.Size = new System.Drawing.Size(109, 12);
-            this.label88.TabIndex = 120;
-            this.label88.Text = "pfanAmt(대불금액)";
+            this.textBox1.Location = new System.Drawing.Point(134, 96);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(184, 21);
+            this.textBox1.TabIndex = 119;
+            this.textBox1.Text = "http://localhost:9950/api/dspl_rcpt";
             // 
-            // textBox_4_cutAmt
+            // button5
             // 
-            this.textBox_4_cutAmt.Location = new System.Drawing.Point(367, 128);
-            this.textBox_4_cutAmt.Name = "textBox_4_cutAmt";
-            this.textBox_4_cutAmt.Size = new System.Drawing.Size(100, 21);
-            this.textBox_4_cutAmt.TabIndex = 119;
-            this.textBox_4_cutAmt.Text = "1000";
+            this.button5.Location = new System.Drawing.Point(324, 94);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(67, 23);
+            this.button5.TabIndex = 118;
+            this.button5.Text = "전송";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
-            // label89
+            // label100
             // 
-            this.label89.AutoSize = true;
-            this.label89.Location = new System.Drawing.Point(249, 132);
-            this.label89.Name = "label89";
-            this.label89.Size = new System.Drawing.Size(102, 12);
-            this.label89.TabIndex = 118;
-            this.label89.Text = "cutAmt(절사금액)";
+            this.label100.AutoSize = true;
+            this.label100.Location = new System.Drawing.Point(15, 400);
+            this.label100.Name = "label100";
+            this.label100.Size = new System.Drawing.Size(109, 12);
+            this.label100.TabIndex = 138;
+            this.label100.Text = "dsplAmt(표시금액)";
             // 
-            // textBox_4_mexAmt
+            // textBox_4_dsplAmt
             // 
-            this.textBox_4_mexAmt.Location = new System.Drawing.Point(367, 186);
-            this.textBox_4_mexAmt.Name = "textBox_4_mexAmt";
-            this.textBox_4_mexAmt.Size = new System.Drawing.Size(100, 21);
-            this.textBox_4_mexAmt.TabIndex = 117;
-            this.textBox_4_mexAmt.Text = "50";
-            // 
-            // label90
-            // 
-            this.label90.AutoSize = true;
-            this.label90.Location = new System.Drawing.Point(247, 186);
-            this.label90.Name = "label90";
-            this.label90.Size = new System.Drawing.Size(110, 12);
-            this.label90.TabIndex = 116;
-            this.label90.Text = "mexAmt(감면금액)";
-            // 
-            // textBox_4_prpyAmt
-            // 
-            this.textBox_4_prpyAmt.Location = new System.Drawing.Point(367, 155);
-            this.textBox_4_prpyAmt.Name = "textBox_4_prpyAmt";
-            this.textBox_4_prpyAmt.Size = new System.Drawing.Size(100, 21);
-            this.textBox_4_prpyAmt.TabIndex = 115;
-            this.textBox_4_prpyAmt.Text = "0";
-            // 
-            // label91
-            // 
-            this.label91.AutoSize = true;
-            this.label91.Location = new System.Drawing.Point(243, 159);
-            this.label91.Name = "label91";
-            this.label91.Size = new System.Drawing.Size(110, 12);
-            this.label91.TabIndex = 114;
-            this.label91.Text = "prpyAmt(선납금액)";
-            // 
-            // textBox_4_pfan
-            // 
-            this.textBox_4_pfan.Location = new System.Drawing.Point(383, 343);
-            this.textBox_4_pfan.Name = "textBox_4_pfan";
-            this.textBox_4_pfan.Size = new System.Drawing.Size(100, 21);
-            this.textBox_4_pfan.TabIndex = 129;
-            this.textBox_4_pfan.Text = "정형외과";
-            // 
-            // label_4_pfan
-            // 
-            this.label_4_pfan.AutoSize = true;
-            this.label_4_pfan.Location = new System.Drawing.Point(276, 346);
-            this.label_4_pfan.Name = "label_4_pfan";
-            this.label_4_pfan.Size = new System.Drawing.Size(75, 12);
-            this.label_4_pfan.TabIndex = 128;
-            this.label_4_pfan.Text = "pfan(대물명)";
-            // 
-            // textBox_4_hllfAmt
-            // 
-            this.textBox_4_hllfAmt.Location = new System.Drawing.Point(386, 258);
-            this.textBox_4_hllfAmt.Name = "textBox_4_hllfAmt";
-            this.textBox_4_hllfAmt.Size = new System.Drawing.Size(100, 21);
-            this.textBox_4_hllfAmt.TabIndex = 127;
-            this.textBox_4_hllfAmt.Text = "M";
-            // 
-            // label93
-            // 
-            this.label93.AutoSize = true;
-            this.label93.Location = new System.Drawing.Point(268, 262);
-            this.label93.Name = "label93";
-            this.label93.Size = new System.Drawing.Size(125, 12);
-            this.label93.TabIndex = 126;
-            this.label93.Text = "hllfAmt(건강생활금액)";
-            // 
-            // textBox_4_mexNm
-            // 
-            this.textBox_4_mexNm.Location = new System.Drawing.Point(386, 316);
-            this.textBox_4_mexNm.Name = "textBox_4_mexNm";
-            this.textBox_4_mexNm.Size = new System.Drawing.Size(100, 21);
-            this.textBox_4_mexNm.TabIndex = 125;
-            this.textBox_4_mexNm.Text = "병동";
-            // 
-            // label94
-            // 
-            this.label94.AutoSize = true;
-            this.label94.Location = new System.Drawing.Point(266, 316);
-            this.label94.Name = "label94";
-            this.label94.Size = new System.Drawing.Size(96, 12);
-            this.label94.TabIndex = 124;
-            this.label94.Text = "mexNm(감면명)";
-            // 
-            // textBox_4_unclAmt
-            // 
-            this.textBox_4_unclAmt.Location = new System.Drawing.Point(386, 285);
-            this.textBox_4_unclAmt.Name = "textBox_4_unclAmt";
-            this.textBox_4_unclAmt.Size = new System.Drawing.Size(100, 21);
-            this.textBox_4_unclAmt.TabIndex = 123;
-            this.textBox_4_unclAmt.Text = "100";
-            // 
-            // label95
-            // 
-            this.label95.AutoSize = true;
-            this.label95.Location = new System.Drawing.Point(262, 289);
-            this.label95.Name = "label95";
-            this.label95.Size = new System.Drawing.Size(109, 12);
-            this.label95.TabIndex = 122;
-            this.label95.Text = "unclAmt(미수금액)";
-            // 
-            // textBox_4_unclNm
-            // 
-            this.textBox_4_unclNm.Location = new System.Drawing.Point(383, 370);
-            this.textBox_4_unclNm.Name = "textBox_4_unclNm";
-            this.textBox_4_unclNm.Size = new System.Drawing.Size(100, 21);
-            this.textBox_4_unclNm.TabIndex = 131;
-            this.textBox_4_unclNm.Text = "정형외과";
-            // 
-            // label96
-            // 
-            this.label96.AutoSize = true;
-            this.label96.Location = new System.Drawing.Point(276, 373);
-            this.label96.Name = "label96";
-            this.label96.Size = new System.Drawing.Size(95, 12);
-            this.label96.TabIndex = 130;
-            this.label96.Text = "unclNm(미수명)";
-            // 
-            // textBox_4_hsimMdctNo
-            // 
-            this.textBox_4_hsimMdctNo.Location = new System.Drawing.Point(383, 424);
-            this.textBox_4_hsimMdctNo.Name = "textBox_4_hsimMdctNo";
-            this.textBox_4_hsimMdctNo.Size = new System.Drawing.Size(100, 21);
-            this.textBox_4_hsimMdctNo.TabIndex = 135;
-            this.textBox_4_hsimMdctNo.Text = "2020";
-            // 
-            // label97
-            // 
-            this.label97.AutoSize = true;
-            this.label97.Location = new System.Drawing.Point(203, 433);
-            this.label97.Name = "label97";
-            this.label97.Size = new System.Drawing.Size(159, 12);
-            this.label97.TabIndex = 134;
-            this.label97.Text = "hsimMdctNo(원내투약번호)";
-            // 
-            // textBox_4_hsotMdctNo
-            // 
-            this.textBox_4_hsotMdctNo.Location = new System.Drawing.Point(383, 397);
-            this.textBox_4_hsotMdctNo.Name = "textBox_4_hsotMdctNo";
-            this.textBox_4_hsotMdctNo.Size = new System.Drawing.Size(100, 21);
-            this.textBox_4_hsotMdctNo.TabIndex = 133;
-            this.textBox_4_hsotMdctNo.Text = "2021";
-            // 
-            // label98
-            // 
-            this.label98.AutoSize = true;
-            this.label98.Location = new System.Drawing.Point(216, 400);
-            this.label98.Name = "label98";
-            this.label98.Size = new System.Drawing.Size(155, 12);
-            this.label98.TabIndex = 132;
-            this.label98.Text = "hsotMdctNo(원외투약번호)";
-            // 
-            // textBox_5_waiturl
-            // 
-            this.textBox_5_waiturl.Location = new System.Drawing.Point(112, 63);
-            this.textBox_5_waiturl.Name = "textBox_5_waiturl";
-            this.textBox_5_waiturl.Size = new System.Drawing.Size(184, 21);
-            this.textBox_5_waiturl.TabIndex = 116;
-            this.textBox_5_waiturl.Text = "https://zeroit28web.cafe24.com/public/out_1.html";
-            // 
-            // label99
-            // 
-            this.label99.AutoSize = true;
-            this.label99.Location = new System.Drawing.Point(51, 66);
-            this.label99.Name = "label99";
-            this.label99.Size = new System.Drawing.Size(43, 12);
-            this.label99.TabIndex = 117;
-            this.label99.Text = "대기url";
-            // 
-            // label78
-            // 
-            this.label78.AutoSize = true;
-            this.label78.Location = new System.Drawing.Point(18, 468);
-            this.label78.Name = "label78";
-            this.label78.Size = new System.Drawing.Size(43, 12);
-            this.label78.TabIndex = 136;
-            this.label78.Text = "화면url";
-            // 
-            // textBox_4_waiturl
-            // 
-            this.textBox_4_waiturl.Location = new System.Drawing.Point(67, 463);
-            this.textBox_4_waiturl.Name = "textBox_4_waiturl";
-            this.textBox_4_waiturl.Size = new System.Drawing.Size(182, 21);
-            this.textBox_4_waiturl.TabIndex = 137;
-            this.textBox_4_waiturl.Text = "https://zeroit28web.cafe24.com/public/notice.html";
+            this.textBox_4_dsplAmt.Location = new System.Drawing.Point(129, 397);
+            this.textBox_4_dsplAmt.Name = "textBox_4_dsplAmt";
+            this.textBox_4_dsplAmt.Size = new System.Drawing.Size(81, 21);
+            this.textBox_4_dsplAmt.TabIndex = 139;
+            this.textBox_4_dsplAmt.Text = "30000";
             // 
             // TestDataForm
             // 
@@ -2602,10 +2646,14 @@
         private System.Windows.Forms.Label label87;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.Label label99;
-        private System.Windows.Forms.TextBox textBox_5_waiturl;
         private System.Windows.Forms.TextBox textBox_5_url;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label label78;
         private System.Windows.Forms.TextBox textBox_4_waiturl;
+        private System.Windows.Forms.Label label92;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Label label100;
+        private System.Windows.Forms.TextBox textBox_4_dsplAmt;
     }
 }

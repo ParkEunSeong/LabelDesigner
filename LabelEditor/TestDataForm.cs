@@ -231,7 +231,7 @@ namespace LabelEditor
             j.Add("unclNm", textBox_4_unclNm.Text);
             j.Add("hsotMdctNo", textBox_4_hsotMdctNo.Text);
             j.Add("hsinMdctNo", textBox_4_hsimMdctNo.Text);
-            j.Add("url", textBox_4_waiturl.Text);
+            j.Add("dsplAmt", textBox_4_dsplAmt.Text);
             var json = j.ToString();
             using (var sw = new StreamWriter("dspl.json"))
             {
@@ -251,7 +251,27 @@ namespace LabelEditor
         private void button4_Click(object sender, EventArgs e)
         {
             JObject j = new JObject();
-            j.Add("url", textBox_5_waiturl.Text);
+            j.Add("execDvsn", "10");
+            var json = j.ToString();
+            using (var sw = new StreamWriter("wait.json"))
+            {
+                sw.Write(json);
+            }
+            JObject jObject;
+            using (var sr = new StreamReader("wait.json"))
+            {
+                jObject = JObject.Parse(sr.ReadToEnd());
+            }
+            var res = (new HTTPConnection.Builder())
+              .SetURL(textBox_5_url.Text)
+              .SetMethod(HTTPConnection.Method.POST)
+              .Build().PostJson(jObject.ToString());
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            JObject j = new JObject();
+            j.Add("execDvsn", "11");
             var json = j.ToString();
             using (var sw = new StreamWriter("wait.json"))
             {

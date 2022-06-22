@@ -182,33 +182,28 @@ namespace LabelEditor
                                                     if (jt.Fix == false)
                                                     {
                                                         jt.Text = GetJsonStringValue(ref j, jt.Name);
-                                                        if ( jt.IsArray )
+                                                        if (jt.Name == "spcmCnnr" || jt.Name.Contains("Arr"))
                                                         {
-                                                          
                                                             try
                                                             {
                                                                 var jarr = j[jt.Name].ToArray();
                                                                 jt.Text = " ";
                                                                 foreach (var kt in jarr)
                                                                 {
-                                                                    if ( jt.Separator.Contains("\n"))
-                                                                    {
-                                                                        jt.Text += kt + Environment.NewLine;
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        jt.Text += kt + jt.Separator;
-                                                                    }
-                                                                
+                                                                    jt.Text += kt + "/";
                                                                 }
-                                                                if ( jt.Text.Length > 0 )
+
+                                                                if (jt.Text.Length > 1 && jt.Text[jt.Text.Length - 1] == '/')
+                                                                {
                                                                     jt.Text = jt.Text.Substring(0, jt.Text.Length - 1);
-                                                                
+                                                                }
                                                             }
                                                             catch (Exception ex)
                                                             {
                                                                 TRACE.Log(ex.ToString());
                                                             }
+
+
                                                         }
                                                     }
                                                 }
@@ -802,6 +797,11 @@ namespace LabelEditor
                     else
                     {
                         privateFont.AddFontFile(Environment.CurrentDirectory + @"\font\code128.ttf");
+                        BARCODE_LABEL.BARCODE bc = new BARCODE_LABEL.BARCODE();
+                        var err = "";
+                        it.Text = bc.CODE128(it.Text, "B", ref err);
+                        if ( !string.IsNullOrEmpty(err))
+                            TRACE.Log("barcode 128 ttf error = " + err);
                     }
                     TRACE.Log("Barcode Text=" + it.Text + "," + it.Location.X + "," + it.Location.Y);
                     using (Font font = new Font(privateFont.Families[0], it.Height))

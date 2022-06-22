@@ -30,6 +30,8 @@ namespace LabelEditor
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.comboBoxFill = new System.Windows.Forms.ComboBox();
             this.checkBoxFont = new System.Windows.Forms.CheckBox();
             this.textBoxPadding = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -49,8 +51,6 @@ namespace LabelEditor
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
-            this.comboBoxFill = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,6 +82,24 @@ namespace LabelEditor
             this.groupBox2.Size = new System.Drawing.Size(219, 355);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(92, 92);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(61, 21);
+            this.label8.TabIndex = 33;
+            this.label8.Text = "Length";
+            // 
+            // comboBoxFill
+            // 
+            this.comboBoxFill.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFill.FormattingEnabled = true;
+            this.comboBoxFill.Location = new System.Drawing.Point(159, 89);
+            this.comboBoxFill.Name = "comboBoxFill";
+            this.comboBoxFill.Size = new System.Drawing.Size(54, 29);
+            this.comboBoxFill.TabIndex = 32;
             // 
             // checkBoxFont
             // 
@@ -188,7 +206,7 @@ namespace LabelEditor
             // buttonSave
             // 
             this.buttonSave.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.buttonSave.Location = new System.Drawing.Point(72, 302);
+            this.buttonSave.Location = new System.Drawing.Point(78, 296);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 38);
             this.buttonSave.TabIndex = 9;
@@ -246,24 +264,6 @@ namespace LabelEditor
             this.label4.Size = new System.Drawing.Size(53, 21);
             this.label4.TabIndex = 1;
             this.label4.Text = "Name";
-            // 
-            // comboBoxFill
-            // 
-            this.comboBoxFill.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxFill.FormattingEnabled = true;
-            this.comboBoxFill.Location = new System.Drawing.Point(159, 89);
-            this.comboBoxFill.Name = "comboBoxFill";
-            this.comboBoxFill.Size = new System.Drawing.Size(54, 29);
-            this.comboBoxFill.TabIndex = 32;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(92, 92);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(61, 21);
-            this.label8.TabIndex = 33;
-            this.label8.Text = "Length";
             // 
             // PropertyBarcodeForm
             // 
