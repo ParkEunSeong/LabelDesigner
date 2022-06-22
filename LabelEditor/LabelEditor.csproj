@@ -91,6 +91,8 @@
     <Compile Include="Canvas.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="code128\BARCODE.cs" />
+    <Compile Include="code128\GCode128.cs" />
     <Compile Include="Code39Barcode.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="ContentData.cs" />
@@ -239,6 +241,8 @@
     <Content Include="config.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="DLL\Bytescout.BarCode.dll" />
+    <Content Include="DLL\GenCode128.dll" />
     <Content Include="font\code128.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

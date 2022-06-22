@@ -108,8 +108,9 @@ namespace LabelEditor
             ret.mm_width = GetJsonIntValue(ref j, "mm_width");
             ret.mm_height = GetJsonIntValue(ref j, "mm_height");
             ret.orientation = GetJsonIntValue(ref j, "orientation");
-            ret.MM_SIZE =
-            var mmSize = GetJsonIntValue()
+            //   ret.MM_SIZE =
+            //  var mmSize = GetJsonIntValue()
+            return ret;
         }
         public void OnFromServerData(string json, string dir )
         {
