@@ -63,7 +63,7 @@ using System.Diagnostics;
         public int hour = 8;
         public static void FileLog(object msg)
         {
-            string date = DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss");
+            string date = DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss.fff");
 
             try
             {

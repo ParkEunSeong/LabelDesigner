@@ -1,4 +1,5 @@
-﻿using DigitalProduction.Forms;
+﻿using AJKiosk;
+using DigitalProduction.Forms;
 using iTextSharp.text.pdf;
 using LabelEditor.data;
 using Newtonsoft.Json;
@@ -259,7 +260,29 @@ namespace LabelEditor
             TRACE.Log("Print()");
             Visible = false;
             m_printButton = false;
-            buttonPrint_Click(null, null);
+            if (Config.PRINT == "BXL")
+            {
+                BXLConfiguration config = new BXLConfiguration();
+                config.density = m_paper.density;
+                config.height = m_paper.bxl_height;
+                config.width = m_paper.bxl_width;
+                config.speed = m_paper.speed;
+                config.sensor_type = m_paper.sensor_type;
+                config.orientation = m_paper.orientation;
+                config.margin_x = m_paper.margin_x;
+                config.margin_y = m_paper.margin_y;
+                var bxl = new BXLPrint();
+                bxl.OnEndPrint = delegate ()
+                {
+                    Close();
+                };
+                bxl.Initalize(config, m_paper);
+                
+            }
+            else
+            {
+                buttonPrint_Click(null, null);
+            }
             Close();
         }
         public FormPrint()
@@ -587,6 +610,7 @@ namespace LabelEditor
             doc.EndPrint += Doc_EndPrint;
             if ( sender != null )
                 m_printButton = true;
+            TRACE.Log("출력");
             doc.Print();
         }
 
@@ -716,6 +740,42 @@ namespace LabelEditor
             Bitmap map = writer.Write(text);
             return map;
         }
+        public string ReturnCode128(string text)
+        {
+            const int codetype = 105;
+            string textcode = text.Trim();
+            int quantidade = textcode.Length;
+            int[] arrayintcode = new int[quantidade];
+
+            for (int i = 0; i < quantidade; i++)
+            {
+                char valToConvertToASCII = Convert.ToChar(textcode[i]);
+                int valToMultiply = valToConvertToASCII - 32;
+                arrayintcode[i] = valToMultiply;
+            }
+
+            string[] codemulti = new string[quantidade + 3];
+            codemulti[0] = codetype.ToString();
+            for (int i = 1; i < quantidade + 1; i++)
+            {
+                codemulti[i] = (i * arrayintcode[i - 1]).ToString();
+            }
+
+            int value = 0;
+            for (int i = 0; i < codemulti.Count(); i++)
+            {
+                value += Convert.ToInt32(codemulti[i]);
+            }
+
+            int module = value % codetype;
+
+            char charverify = (char)(module + 32);
+
+            char start = (char)186;
+            char stop = (char)186;
+
+            return $"{start}{textcode}{charverify}{stop}";
+        }
         private void Doc_PrintPage(object sender, PrintPageEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -799,7 +859,8 @@ namespace LabelEditor
                         privateFont.AddFontFile(Environment.CurrentDirectory + @"\font\code128.ttf");
                         BARCODE_LABEL.BARCODE bc = new BARCODE_LABEL.BARCODE();
                         var err = "";
-                        it.Text = bc.CODE128(it.Text, "B", ref err);
+                         it.Text = bc.CODE128(it.Text, "B", ref err);
+                        //it.Text = ReturnCode128(it.Text);
                         if ( !string.IsNullOrEmpty(err))
                             TRACE.Log("barcode 128 ttf error = " + err);
                     }

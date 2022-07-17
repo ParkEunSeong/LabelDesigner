@@ -44,7 +44,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
+    <OutputPath>C:\LabelPrintServer\print\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -89,13 +89,20 @@
     <Compile Include="Barcode.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="BXLConfiguration.cs" />
     <Compile Include="BXLLApi.cs" />
     <Compile Include="BXLLApi_x64.cs" />
     <Compile Include="BXLLApi_x86.cs" />
+    <Compile Include="BXLPrint.cs" />
     <Compile Include="Canvas.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="claBarcode.cs" />
+    <Compile Include="claCodeData.cs" />
     <Compile Include="code128\BARCODE.cs" />
+    <Compile Include="code128\BarcodeLabe.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="code128\GCode128.cs" />
     <Compile Include="Code39Barcode.cs" />
     <Compile Include="Config.cs" />

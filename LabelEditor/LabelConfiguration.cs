@@ -10,17 +10,7 @@ namespace LabelEditor
 {
     public class LabelConfiguration
     {
-        public enum OPERATION_MODE
-        {
-            TEAR_OFF,
-            CUT,
-            REWINDER
-        }
-        public enum MEDIA_TPYE
-        {
-            DirectThermal,
-            ThermalTransfer
-        }
+      
         public LabelConfiguration()
         {
 
@@ -50,7 +40,7 @@ namespace LabelEditor
             }
         }
         public PageSettings PAGE_SETTINGS { get; set; }
-
+        
         
 
     }

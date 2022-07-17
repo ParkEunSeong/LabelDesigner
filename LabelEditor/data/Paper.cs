@@ -13,6 +13,12 @@ namespace LabelEditor.data
         public int mm_height { get; set; }
         public int margin_x { get; set; }
         public int margin_y { get; set; }
+
+        public int bxl_width { get; set; }
+        public int bxl_height { get; set; }
+        public int speed { get; set; }
+        public int density { get; set; }
+        public int sensor_type { get; set; }
         /// <summary>
         /// 0 = vertical, 1 = horizontal 
         /// </summary>!

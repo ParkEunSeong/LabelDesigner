@@ -16,7 +16,7 @@ namespace AJKiosk
         public static string FORM_TYPE;
         public static string SERVER_URL;
         public static string ARRAY_SEPARATOR;
-
+        public static string PRINT;
 
 
 
@@ -34,7 +34,9 @@ namespace AJKiosk
             SERVER_URL = builder.ToString();
             GetPrivateProfileString("BASE", "ARRAY_SEPARATOR", "", builder, 128, filePath);
             ARRAY_SEPARATOR = builder.ToString();
-            
+            GetPrivateProfileString("BASE", "PRINT", "", builder, 128, filePath);
+            PRINT = builder.ToString();
+
         }
 
         static string configPath = Environment.CurrentDirectory + @"\config.ini";

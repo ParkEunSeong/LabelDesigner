@@ -19,6 +19,7 @@ namespace LabelEditor
         public int Padding { get; set; }
        public int Id { get; set; }
         public bool font { get; set; }
+        public int narrowWidth { get; set; }
         public int Length { get; set; }
         public Barcode()
         {

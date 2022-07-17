@@ -47,6 +47,9 @@ namespace LabelEditor
             if (!Directory.Exists("data/etc"))
                 Directory.CreateDirectory("data/etc");
             LoadConfig();
+            BARCODE_LABEL.BARCODE bc = new BARCODE_LABEL.BARCODE();
+            var err = "";
+           var a = bc.CODE128("02958502", "A", ref err);
             if (true)
             {
                 if (args != null && args.Length > 0)

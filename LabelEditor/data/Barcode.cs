@@ -22,5 +22,6 @@ namespace LabelEditor.data
         /// </summary>
         public int barcode39 { get; set; }
         public bool font { get; set; }
+        public int narrow_width { get; set; }
     }
 }

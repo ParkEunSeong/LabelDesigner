@@ -107,29 +107,56 @@ namespace BARCODE_LABEL
 
 
                 #region "체크썸"
-                intSUM = intSOD;
+                //intSUM = intSOD;
+                //for (int i = 0; i < intpBARCODE; i++)
+                //{
+                //    int intVAL = 0;
+                //    intVAL = pstrBARCODE[i];
+                //    intVAL = intVAL - 32;    //Code -> Value 변경
+                //    //Console.WriteLine(intVAL.ToString());
+
+                //    intSUM = intSUM + intVAL * (i + 1);
+                //}
+                //intMMM = intSUM % intMOD;
+                //strSUM = Char.ToString((char)(intMMM + 32));
+                intSUM = 105;
+                int chkSum = 0;
                 for (int i = 0; i < intpBARCODE; i++)
                 {
-                    int intVAL = 0;
-                    intVAL = pstrBARCODE[i];
-                    intVAL = intVAL - 32;    //Code -> Value 변경
-                    //Console.WriteLine(intVAL.ToString());
+                    int val = pstrBARCODE[i];
+                    if (val < 127)
+                        val -= 32;
+                    else
+                        val -= 105;
 
-                    intSUM = intSUM + intVAL * (i + 1);
+                    Console.WriteLine(pstrBARCODE[i] + ", " + val);
+
+                    // if (i == 0)
+                    //      chkSum = val;
+                    chkSum = chkSum + (i + 1) * val;
                 }
-                intMMM = intSUM % intMOD;
-                strSUM = Char.ToString((char)(intMMM + 32));
+                intSUM += chkSum;
+                intSUM %= 103;
+                if (intSUM < 95)
+                {
+                    intSUM += 32;
+                }
+                else
+                {
+                    intSUM += 105;
+                }
+
 
                 //Console.WriteLine(string.Format("CHECK SUM  :  {0} % {1} = {2}  --> [ {3} ]", intSUM.ToString(), intMOD.ToString(), intMMM.ToString(),strSUM));
                 #endregion //체크썸
 
 
-
+                strrb = Char.ToString((char)209) + pstrBARCODE + Char.ToString((char)intSUM) + Char.ToString((char)211);
 
 
                 #region "START / STOP"
 
-                strrb = string.Format("{0}{1}{2}{3}", Char.ToString((char)intSTA), pstrBARCODE, strSUM, Char.ToString((char)intEND));
+                //     strrb = string.Format("{0}{1}{2}{3}", Char.ToString((char)intSTA), pstrBARCODE, strSUM, Char.ToString((char)intEND));
                 //Console.WriteLine(strrb);
 
                 //strrb = Char.ToString((char)intSTA);

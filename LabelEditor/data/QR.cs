@@ -14,6 +14,10 @@ namespace LabelEditor.data
         public int width { get; set; }
         public int height { get; set; }
         public int Id { get; set; }
-
+        
+        public int bxl_qr_model { get; set; }
+        public int bxl_ecc_level { get; set; }
+        public int bxl_qr_size { get; set; }
+        public int bxl_qr_rotation { get; set; }
     }
 }
