@@ -161,8 +161,9 @@ namespace LabelEditor
                 pb.QR_SIZE = paper.qrs[i].bxl_qr_size;
                 pb.SizeMode = PictureBoxSizeMode.StretchImage;
                 pb.Tag = 1;
+                
 
-                m_qrList.Add(pb);
+               m_qrList.Add(pb);
 
             }
             TRACE.Log("barcodes");
@@ -315,9 +316,9 @@ namespace LabelEditor
 
             //	Set Label and Printer
             //BXLLApi.SetConfigOfPrinter(BXLLApi.SPEED_50, 17, BXLLApi.TOP, false, 0, true);
-            var cut = configuration.orientation == (int)BXLConfiguration.OPERATION_MODE.CUT;
+            var cut = configuration.cut;
             BXLLApi.SetConfigOfPrinter(nSpeed, nDensity, nOrientation, cut, 1, true);
-
+            TRACE.Log($"BXL nSpeed={nSpeed},nDensity={nDensity},nOrientation={nOrientation},cut={cut}");
             // Select international character set and code table.To
             BXLLApi.SetCharacterset((int)SLCS_INTERNATIONAL_CHARSET.ICS_USA, (int)SLCS_CODEPAGE.FCP_CP1252);
 
@@ -330,11 +331,12 @@ namespace LabelEditor
                 1 mm   : 11.81 Dots (XD5-43d, XD5-43t, XD5-43LCT)
                 1 mm   : 23.62 Dots (XT5-46)
             */
-
+            TRACE.Log($"BXL SetPaper MarinX={nMarginX},MarginY={nMarginY},PaperWidth={nPaper_Width},PaperHeight={nPaper_Height},SensorType={nSensorType}");
             BXLLApi.SetPaper(nMarginX, nMarginY, nPaper_Width, nPaper_Height, nSensorType, 0, 2 * dotsPer1mm);
 
             // Direct thermal
             //     if (m_config.MEDIA == LabelConfiguration.MEDIA_TPYE.DirectThermal)
+            TRACE.Log("    BXLLApi.PrintDirect(STd, true);");
             BXLLApi.PrintDirect("STd", true);
             //    else // Thermal transfer
             //        BXLLApi.PrintDirect("STt", true);

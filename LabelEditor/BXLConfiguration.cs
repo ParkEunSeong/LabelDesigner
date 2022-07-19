@@ -28,6 +28,7 @@ namespace LabelEditor
         public int density { get; set; }
         public int orientation { get; set; }
         public int sensor_type { get; set; }
+        public bool cut { get; set; }
 
     }
 }

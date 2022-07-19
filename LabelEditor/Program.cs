@@ -47,9 +47,9 @@ namespace LabelEditor
             if (!Directory.Exists("data/etc"))
                 Directory.CreateDirectory("data/etc");
             LoadConfig();
-            BARCODE_LABEL.BARCODE bc = new BARCODE_LABEL.BARCODE();
-            var err = "";
-           var a = bc.CODE128("02958502", "A", ref err);
+            // BARCODE_LABEL.BARCODE bc = new BARCODE_LABEL.BARCODE();
+            //   var err = "";
+            // var a = bc.CODE128("02958502", "A", ref err);
             if (true)
             {
                 if (args != null && args.Length > 0)
@@ -60,48 +60,49 @@ namespace LabelEditor
                     byte[] orgBytes = Convert.FromBase64String(split[0]);
 
                     string data = Encoding.Default.GetString(orgBytes);
-                    //   string data = "";
-                    //    using (var sr = new StreamReader(@"test.txt"))
-                    //    {
-                    //        data = sr.ReadToEnd();
-                    //    }
+
+                    //    string data = "";
+                    //using (var sr = new StreamReader(@"test.txt"))
+                    //{
+                    //    data = sr.ReadToEnd();
+                    //}
                     var form = new FormPrint();
                     TRACE.Log("data= " + data);
                     form.OnFromServerData(data, split[1]);
-                    //    form.OnFromServerData(data,"spcm");
+                    //   form.OnFromServerData(data,"spcm");
                     //  Application.Run(form);
+                    //}
+                    //else
+                    //{
+                    //    var form = new frmMain();
+
+                    //    Application.Run(form);
+                    //}
                 }
                 else
                 {
-                    var form = new frmMain();
-
+                    var form = new TestDataForm();
                     Application.Run(form);
                 }
+                //if ( Config.FORM_TYPE == "1" )
+                //{
+                //    var form = new TestDataForm();
+                //      Application.Run(form);
+
+                //}
+                //else if ( Config.FORM_TYPE == "2")
+                //{
+
+                //    var form = new FormPrint();
+                //    form.OnFromServerData(args[0]);
+                //    Application.Run(form);
+                //}
+                //else
+                //{
+                //    var form = new frmMain();
+                //    Application.Run(form);
+                //}
             }
-            else
-            {
-                var form = new TestDataForm();
-                Application.Run(form);
-            }
-            //if ( Config.FORM_TYPE == "1" )
-            //{
-            //    var form = new TestDataForm();
-            //      Application.Run(form);
-
-            //}
-            //else if ( Config.FORM_TYPE == "2")
-            //{
-
-            //    var form = new FormPrint();
-            //    form.OnFromServerData(args[0]);
-            //    Application.Run(form);
-            //}
-            //else
-            //{
-            //    var form = new frmMain();
-            //    Application.Run(form);
-            //}
-
         }
         public static void LoadConfig()
         {

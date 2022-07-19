@@ -19,25 +19,44 @@ namespace AJKiosk
         public static string PRINT;
 
 
-
         public static void Load()
         {
-            var filePath = Environment.CurrentDirectory + @"\config.ini";
-            var builder = new StringBuilder();
-
-            int value;
-
-            TRACE.Log("Config Path = " + filePath);
-            GetPrivateProfileString("BASE", "FORM_TYPE", "2", builder, 128, filePath);
-            FORM_TYPE = builder.ToString();
-            GetPrivateProfileString("BASE", "SERVER_URL", "", builder, 128, filePath);
-            SERVER_URL = builder.ToString();
-            GetPrivateProfileString("BASE", "ARRAY_SEPARATOR", "", builder, 128, filePath);
-            ARRAY_SEPARATOR = builder.ToString();
-            GetPrivateProfileString("BASE", "PRINT", "", builder, 128, filePath);
-            PRINT = builder.ToString();
-
+            var filePath = Environment.CurrentDirectory + @"/config.ini";
+            using (var sr = new StreamReader(filePath))
+            {
+                string line = "";
+                while ((line = sr.ReadLine()) != null)
+                {
+                    if (!line.Contains("#"))
+                    {
+                        if (line.Contains("FORM_TYPE"))
+                        {
+                            var split = line.Split('=');
+                            FORM_TYPE = split[1];
+                            
+                        }
+                        else if (line.Contains("SERVER_URL"))
+                        {
+                            var split = line.Split('=');
+                            SERVER_URL = split[1];
+                        }
+                        else if (line.Contains("ARRAY_SEPARATOR"))
+                        {
+                            var split = line.Split('=');
+                            ARRAY_SEPARATOR = split[1];
+                        }
+                        else if (line.Contains("PRINT"))
+                        {
+                            var split = line.Split('=');
+                            PRINT = split[1];
+                        }
+                    }
+                }
+                var text = sr.ReadToEnd();
+                TRACE.Log("config = " + text);
+            }
         }
+     
 
         static string configPath = Environment.CurrentDirectory + @"\config.ini";
         public static void Write(string section, string key, string val)

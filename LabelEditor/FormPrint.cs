@@ -262,6 +262,7 @@ namespace LabelEditor
             m_printButton = false;
             if (Config.PRINT == "BXL")
             {
+                TRACE.Log("BXL Print");
                 BXLConfiguration config = new BXLConfiguration();
                 config.density = m_paper.density;
                 config.height = m_paper.bxl_height;
@@ -271,6 +272,10 @@ namespace LabelEditor
                 config.orientation = m_paper.orientation;
                 config.margin_x = m_paper.margin_x;
                 config.margin_y = m_paper.margin_y;
+                TRACE.Log($"BXL density={config.density},height={config.height}," +
+                    $"width={config.width},speed={config.speed}," +
+                    $"sensor_type={config.sensor_type},orientation={config.orientation}" +
+                    $"marinX={config.margin_x},marginY={config.margin_y}");
                 var bxl = new BXLPrint();
                 bxl.OnEndPrint = delegate ()
                 {
