@@ -98,119 +98,22 @@ namespace LabelEditor
                 }
             }
         }
-
-        public void Initalize(BXLConfiguration config, Paper paper)
+        //private List<RotatedLabel> m_labelList = new List<RotatedLabel>();
+        //private List<RotatedLabel> m_dateTimeList = new List<RotatedLabel>();
+        //private List<Barcode> m_barcodeList = new List<Barcode>();
+        //private List<QRCode> m_qrList = new List<QRCode>();
+        public void Initalize(BXLConfiguration config, Paper paper, List<RotatedLabel> labelList, List<RotatedLabel> dtList, List<Barcode> barcodeList,
+            List<QRCode> qrList )
         {
             m_config = config;
             m_paper = paper;
+            m_labelList = labelList;
+            m_dateTimeList = dtList;
+            m_barcodeList = barcodeList;
 
+            m_qrList = qrList;
             TRACE.Log("texts");
-            for (int i = 0; i < paper.texts.Count; i++)
-            {
-                var label = new RotatedLabel();
-                label.AutoSize = true;
-                label.Name = paper.texts[i].key;
-                label.Location = new Point(paper.texts[i].x, paper.texts[i].y);
-                label.Font = new Font(paper.texts[i].font_name, paper.texts[i].font_size, paper.texts[i].bold ? FontStyle.Bold : FontStyle.Regular);
-                label.Angle = PropUtil.GetIdxToAngle(paper.texts[i].rotation);
-                label.Text = label.Name;
-                label.Tag = 0;
-                label.Fix = paper.texts[i].Fix;
-                label.Multiple = paper.texts[i].Multile;
-                label.IsArray = paper.texts[i].IsArray;
-                label.Separator = paper.texts[i].Separator;
-                foreach (var it in paper.texts[i].m_multiple)
-                {
-                    label.m_multple.Add(new data.Text(it.key, it.Fix));
-                }
-                label.Selected();
-
-                m_labelList.Add(label);
-
-            }
-            TRACE.Log("datetimes");
-            for (int i = 0; i < paper.dateTimes.Count; i++)
-            {
-                var label = new RotatedLabel();
-                label.AutoSize = true;
-                label.Name = paper.dateTimes[i].key;
-                label.Location = new Point(paper.dateTimes[i].x, paper.dateTimes[i].y);
-                label.Font = new Font(paper.dateTimes[i].font_name, paper.dateTimes[i].font_size, paper.dateTimes[i].bold ? FontStyle.Bold : FontStyle.Regular);
-                label.Angle = PropUtil.GetIdxToAngle(paper.dateTimes[i].rotation);
-                label.Text = label.Name;
-                label.Tag = 3;
-                label.Selected();
-                label.m_dateTimeFormat = paper.dateTimes[i].datetime_type;
-
-                m_dateTimeList.Add(label);
-
-            }
-            TRACE.Log("qrs");
-            for (int i = 0; i < paper.qrs.Count; i++)
-            {
-                var pb = new QRCode();
-                pb.Name = paper.qrs[i].key;
-                pb.Image = Image.FromFile("qr.png");
-                pb.Width = paper.qrs[i].width;
-                pb.Height = paper.qrs[i].height;
-                pb.Text = pb.Name;
-                pb.Location = new Point(paper.qrs[i].x, paper.qrs[i].y);
-                pb.ECC_LEVEL = paper.qrs[i].bxl_ecc_level;
-                pb.QR_ROTATION = paper.qrs[i].bxl_qr_rotation;
-                pb.QR_MODEL = paper.qrs[i].bxl_qr_model;
-                pb.QR_SIZE = paper.qrs[i].bxl_qr_size;
-                pb.SizeMode = PictureBoxSizeMode.StretchImage;
-                pb.Tag = 1;
-                
-
-               m_qrList.Add(pb);
-
-            }
-            TRACE.Log("barcodes");
-            for (int i = 0; i < paper.barcodes.Count; i++)
-            {
-                try
-                {
-                    var pb = new Barcode();
-                    Image img = null;
-                    pb.Name = paper.barcodes[i].key;
-                    pb.Angle = paper.barcodes[i].Angle;
-                    pb.narrowWidth = paper.barcodes[i].narrow_width;
-                    if (paper.barcodes[i].barcode39 == 0)
-                    {
-                        pb.code39 = 0;
-                        Barcode39 barcode39 = new Barcode39();
-                        barcode39.Code = "12345678";
-                        barcode39.BarHeight = paper.barcodes[i].height;
-                        img = barcode39.CreateDrawingImage(Color.Black, Color.White);
-                    }
-                    else
-                    {
-                        pb.code39 = 1;
-                        Barcode128 barcode128 = new Barcode128();
-                        barcode128.Code = "12345678";
-                        barcode128.BarHeight = paper.barcodes[i].height;
-                        img = barcode128.CreateDrawingImage(Color.Black, Color.White);
-                    }
-                    pb.font = paper.barcodes[i].font;
-                    pb.Image = img;
-                    pb.Location = new Point(paper.barcodes[i].x, paper.barcodes[i].y);
-                    pb.Width = paper.barcodes[i].width;
-                    pb.Height = paper.barcodes[i].height;
-                    pb.Padding = paper.barcodes[i].Padding;
-                    pb.Length = paper.barcodes[i].Length;
-                    pb.Tag = 2;
-
-                    m_barcodeList.Add(pb);
-
-                }
-                catch (Exception ex)
-                {
-                    TRACE.Log(ex.ToString());
-
-                }
-            }
-            ConnectPrinter();
+         
             Thread.Sleep(100);
             buttonPrint_Click(null, null);
         }
@@ -371,7 +274,7 @@ namespace LabelEditor
             {
                 var bar = barList[i];
 
-                BXLLApi.Print1DBarcode(bar.Location.X, bar.Location.Y, (int)SLCS_BARCODE.CODE128, bar.narrowWidth, bar.Width, bar.Height, (int)SLCS_ROTATION.ROTATE_0, (int)SLCS_HRI.HRI_NOT_PRINT, "1234567890");
+                BXLLApi.Print1DBarcode(bar.Location.X, bar.Location.Y, bar.code39, bar.narrowWidth, bar.Width, bar.Height, (int)SLCS_ROTATION.ROTATE_0, (int)SLCS_HRI.HRI_NOT_PRINT, bar.Text);
             }
 
             BXLLApi.Prints(1, 1);

@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Diagnostics;
-
-
+namespace LabelEditor
+{
     public class TRACE
     {
         public delegate void LogHandler(object msg);
@@ -18,7 +18,7 @@ using System.Diagnostics;
         {
 
             string date = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-             
+
             try
             {
                 string value = "[" + date + "][" + CURRENT_HTML_FILE + "]" + msg;
@@ -94,3 +94,4 @@ using System.Diagnostics;
             }
         }
     }
+}

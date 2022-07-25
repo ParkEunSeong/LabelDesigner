@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace greenATM.Util
+namespace LabelEditor
 {
     public class Deleter
     {

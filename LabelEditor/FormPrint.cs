@@ -1,4 +1,4 @@
-﻿using AJKiosk;
+﻿
 using DigitalProduction.Forms;
 using iTextSharp.text.pdf;
 using LabelEditor.data;
@@ -151,10 +151,10 @@ namespace LabelEditor
                             else
                                 path = $"data/{dir}/{ fileName}.json";
 
-                            TRACE.Log(path);
-                            if (File.Exists(path))
+                            TRACE.Log( Environment.CurrentDirectory + "\\" +  path);
+                            if (File.Exists( path))
                             {
-                                using (var sr = new StreamReader(path))
+                                using (var sr = new StreamReader(Environment.CurrentDirectory + "\\" + path))
                                 {
                                     var data = sr.ReadToEnd();
                                     try
@@ -279,16 +279,16 @@ namespace LabelEditor
                 var bxl = new BXLPrint();
                 bxl.OnEndPrint = delegate ()
                 {
-                    Close();
+                    //Close();
                 };
-                bxl.Initalize(config, m_paper);
+                bxl.Initalize(config, m_paper, m_labelList, m_dateTimeList, m_barcodeList, m_qrList);
                 
             }
             else
             {
                 buttonPrint_Click(null, null);
             }
-            Close();
+         //   Close();
         }
         public FormPrint()
         {
@@ -529,37 +529,8 @@ namespace LabelEditor
 
         private void Form_FormClosed(object sender, FormClosedEventArgs e)
         {
-            RefreshListBox();
+            
         }
-
-        public void SetSelectedControl( Control ctrl )
-        {
-            if (ctrl == null)
-                return;
-
-
-
-        }
-        private void 새파일ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void 불러오기ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void 저장하기ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void 다른이름으로저장ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             RefreshPrinterList();
@@ -917,12 +888,6 @@ namespace LabelEditor
 
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-  
-        }
-
         private void DrawText( Graphics g, int x, int y, string text)
         {
           
@@ -938,61 +903,6 @@ namespace LabelEditor
         ///  g.DrawString(text, drawFont, drawBrush, x, y, drawFormat);
         }
 
-        private void checkBoxBold_CheckedChanged(object sender, EventArgs e)
-        {
-            if ( fontDialog1.ShowDialog() == DialogResult.OK )
-            {
-                m_selectedCtrl.Font = fontDialog1.Font;
-                SetSelectedControl(m_selectedCtrl);
-            }
-        }
 
-        private void textBoxFontSize_Click(object sender, EventArgs e)
-        {
-            if (fontDialog1.ShowDialog() == DialogResult.OK)
-            {
-                m_selectedCtrl.Font = fontDialog1.Font;
-                SetSelectedControl(m_selectedCtrl);
-            }
-        }
-        
-        public void RefreshListBox()
-        {
-            listBoxCtrl.Items.Clear();
-            foreach( Control it in canvas1.Controls )
-            {
-                if (it.Tag != null)
-                {
-                    if (it.Tag.ToString() == "0")
-
-                    {
-                        listBoxCtrl.Items.Add(it.Name + "-Text");
-                    }
-                    else if ( it.Tag.ToString() == "3" )
-                    {
-                        listBoxCtrl.Items.Add(it.Name + "-DateTime");
-                    }
-                    else if (it.Tag.ToString() == "1")
-                    {
-                        listBoxCtrl.Items.Add(it.Name + "-QRCode");
-                    }
-                    else
-                    {
-                        listBoxCtrl.Items.Add(it.Name + "-Barcode");
-                    }
-                }
-            }
-        }
-
-        private void buttonLabelSetting_Click(object sender, EventArgs e)
-        {
-            m_labelSetForm.Visible = !m_labelSetForm.Visible;
-        }
-
-        private void buttonClear_Click(object sender, EventArgs e)
-        {
-            canvas1.Controls.Clear();
-            RefreshListBox();
-        }
     }
 }

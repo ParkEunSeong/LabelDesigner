@@ -79,7 +79,7 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1069, 680);
             this.panel2.TabIndex = 0;
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+
             // 
             // buttonMakeText
             // 
@@ -144,34 +144,7 @@
             this.파일ToolStripMenuItem.Name = "파일ToolStripMenuItem";
             this.파일ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.파일ToolStripMenuItem.Text = "파일";
-            // 
-            // 새파일ToolStripMenuItem
-            // 
-            this.새파일ToolStripMenuItem.Name = "새파일ToolStripMenuItem";
-            this.새파일ToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.새파일ToolStripMenuItem.Text = "새 라벨";
-            this.새파일ToolStripMenuItem.Click += new System.EventHandler(this.새파일ToolStripMenuItem_Click);
-            // 
-            // 불러오기ToolStripMenuItem
-            // 
-            this.불러오기ToolStripMenuItem.Name = "불러오기ToolStripMenuItem";
-            this.불러오기ToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.불러오기ToolStripMenuItem.Text = "불러오기";
-            this.불러오기ToolStripMenuItem.Click += new System.EventHandler(this.불러오기ToolStripMenuItem_Click);
-            // 
-            // 저장하기ToolStripMenuItem
-            // 
-            this.저장하기ToolStripMenuItem.Name = "저장하기ToolStripMenuItem";
-            this.저장하기ToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.저장하기ToolStripMenuItem.Text = "저장하기";
-            this.저장하기ToolStripMenuItem.Click += new System.EventHandler(this.저장하기ToolStripMenuItem_Click);
-            // 
-            // 다른이름으로저장ToolStripMenuItem
-            // 
-            this.다른이름으로저장ToolStripMenuItem.Name = "다른이름으로저장ToolStripMenuItem";
-            this.다른이름으로저장ToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.다른이름으로저장ToolStripMenuItem.Text = "다른이름으로저장";
-            this.다른이름으로저장ToolStripMenuItem.Click += new System.EventHandler(this.다른이름으로저장ToolStripMenuItem_Click);
+
             // 
             // 정보ToolStripMenuItem
             // 
@@ -292,7 +265,7 @@
             this.buttonLabelSetting.TabIndex = 11;
             this.buttonLabelSetting.Text = "라벨설정창";
             this.buttonLabelSetting.UseVisualStyleBackColor = true;
-            this.buttonLabelSetting.Click += new System.EventHandler(this.buttonLabelSetting_Click);
+
             // 
             // label2
             // 
@@ -349,7 +322,6 @@
             this.buttonClear.Tag = "0";
             this.buttonClear.Text = "Clear";
             this.buttonClear.UseVisualStyleBackColor = true;
-            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
             // Form1
             // 

@@ -1,5 +1,4 @@
-﻿using AJKiosk;
-using greenATM.Util;
+﻿
 using LabelEditor.data;
 using Newtonsoft.Json;
 using SampleProgram;
