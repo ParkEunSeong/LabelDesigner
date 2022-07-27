@@ -115,7 +115,7 @@ namespace LabelEditor
             TRACE.Log("texts");
          
             Thread.Sleep(100);
-            buttonPrint_Click(null, null);
+            buttonPrint_Click(config.printName, null);
         }
 
 
@@ -176,10 +176,22 @@ namespace LabelEditor
             int nBaudrate = 115200, nDatabits = 8, nParity = 0, nStopbits = 0;
             int nStatus = (int)SLCS_ERROR_CODE.ERR_CODE_NO_ERROR;
 
+            //if (rdoIF_Serial.Checked)
+            //{
+            //    // SERIAL (COM)
+            //    nInterface = ISerial;
+            //    strPort = cmbSerial_Port.Text;
+            //    nBaudrate = Convert.ToInt32(cmbSerial_Baudrate.Text);
+            //    nDatabits = Convert.ToInt32(cmbSerial_Databits.Text);
+            //    nParity = cmbSerial_Parity.SelectedIndex;
+            //    nStopbits = cmbSerial_Stopbits.SelectedIndex;
+            //}
+         
+            
+                // USB
+                nInterface = IUsb;
+        
 
-
-            // USB
-            nInterface = IUsb;
             nStatus = BXLLApi.ConnectPrinterEx(nInterface, strPort, nBaudrate, nDatabits, nParity, nStopbits);
 
             if (nStatus != (int)SLCS_ERROR_CODE.ERR_CODE_NO_ERROR)
@@ -190,6 +202,7 @@ namespace LabelEditor
             }
             return true;
         }
+
         private void SendPrinterSettingCommand(BXLConfiguration configuration)
         {
             // 203 DPI : 1mm is about 7.99 dots
@@ -246,7 +259,12 @@ namespace LabelEditor
         }
         private void buttonPrint_Click(object sender, EventArgs e)
         {
-
+            if ( sender == null)
+            {
+                TRACE.Log("Printer 정보없음");
+                return;
+            }
+            var printName = sender.ToString();
             if (!ConnectPrinter())
                 return;
             SendPrinterSettingCommand(m_config);
@@ -254,6 +272,7 @@ namespace LabelEditor
             for (int i = 0; i < list.Count; i++)
             {
                 var label = list[i];
+                TRACE.Log("label Text = " + label.Text);
                 BXLLApi.PrintTrueFont(label.Location.X, label.Location.Y, label.Font.Name, (int)label.Font.Size < 14 ? 14 : (int)label.Font.Size, 0, false, label.Font.Bold, false, label.Text, false);
             }
             var dtList = m_dateTimeList;
@@ -273,7 +292,7 @@ namespace LabelEditor
             for (int i = 0; i < barList.Count; i++)
             {
                 var bar = barList[i];
-
+                TRACE.Log($"barcode x={bar.Location.X},y={bar.Location.Y},code39={bar.code39},w={bar.Width},h={bar.Height},text={bar.Text}");
                 BXLLApi.Print1DBarcode(bar.Location.X, bar.Location.Y, bar.code39, bar.narrowWidth, bar.Width, bar.Height, (int)SLCS_ROTATION.ROTATE_0, (int)SLCS_HRI.HRI_NOT_PRINT, bar.Text);
             }
 

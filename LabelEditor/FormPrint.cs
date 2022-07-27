@@ -16,6 +16,7 @@ using System.Drawing.Imaging;
 using System.Drawing.Printing;
 using System.Drawing.Text;
 using System.IO;
+using System.IO.Ports;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -73,7 +74,12 @@ namespace LabelEditor
             }
             return (int)pixel;
         }
+        public void Test( int i = 0)
+        {
 
+        //    OnFromServerData(data, "spcm");
+         
+        }
         private int PixelToCentimeter(int pixel)
         {
             return (int)(pixel * 2.54 / 287);
@@ -113,17 +119,19 @@ namespace LabelEditor
             //  var mmSize = GetJsonIntValue()
             return ret;
         }
+    
         public void OnFromServerData(string json, string dir )
         {
             if (InvokeRequired)
             {
                 var func = new FromServerData(OnFromServerData);
-                Invoke(func, new object[] { json, dir });
+                Invoke(func, new object[] { json, dir});
             }
             else
             {
                 try
                 {
+                   
                     var j = JObject.Parse(json);
                     TRACE.Log(j.ToString());    
                     m_selectedPrint = GetJsonStringValue(ref j, "prntNm");
@@ -174,6 +182,7 @@ namespace LabelEditor
                                                             kt.content = kt.key;
                                                         else
                                                             kt.content = GetJsonStringValue(ref j, kt.key);
+
                                                         TRACE.Log("kt.content = " + kt.content);
                                                         jt.Text += kt.content;
                                                     }
@@ -183,6 +192,7 @@ namespace LabelEditor
                                                     if (jt.Fix == false)
                                                     {
                                                         jt.Text = GetJsonStringValue(ref j, jt.Name);
+                                              
                                                         if (jt.Name == "spcmCnnr" || jt.Name.Contains("Arr"))
                                                         {
                                                             try
@@ -272,6 +282,8 @@ namespace LabelEditor
                 config.orientation = m_paper.orientation;
                 config.margin_x = m_paper.margin_x;
                 config.margin_y = m_paper.margin_y;
+                
+                config.printName = m_selectedPrint;
                 TRACE.Log($"BXL density={config.density},height={config.height}," +
                     $"width={config.width},speed={config.speed}," +
                     $"sensor_type={config.sensor_type},orientation={config.orientation}" +
@@ -476,6 +488,7 @@ namespace LabelEditor
                     pb.Height = paper.barcodes[i].height;
                     pb.Padding = paper.barcodes[i].Padding;
                     pb.Length = paper.barcodes[i].Length;
+                    pb.narrowWidth = paper.barcodes[i].narrow_width;
                     pb.Tag = 2;
                     canvas1.Controls.Add(pb);
                     m_barcodeList.Add(pb);

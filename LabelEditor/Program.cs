@@ -102,6 +102,11 @@ namespace LabelEditor
                 //    Application.Run(form);
                 //}
             }
+            else
+            {
+                var form = new frmSample();
+                Application.Run(form);
+            }
         }
         public static void LoadConfig()
         {

@@ -29,6 +29,7 @@ namespace LabelEditor
         public int orientation { get; set; }
         public int sensor_type { get; set; }
         public bool cut { get; set; }
+        public string printName { get; set; }
 
     }
 }
