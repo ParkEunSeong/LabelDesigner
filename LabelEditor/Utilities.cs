@@ -1,6 +1,8 @@
+using LabelEditor;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Management;
 
 namespace RotatePictureBox
 {
@@ -57,6 +59,34 @@ namespace RotatePictureBox
             g.DrawImage(image, new PointF(0, 0));
 
             return rotatedBmp;
+        }
+        public static string GetPrintPortName(string printName)
+        {
+            try
+            {
+                String query = String.Format("Select * from Win32_Printer");
+                ManagementObjectSearcher printers = new ManagementObjectSearcher(query);
+                foreach (ManagementObject printer in printers.Get())
+                {
+                    var DeviceName = (string)printer.GetPropertyValue("Name");
+                    TRACE.Log(DeviceName);
+                    var PortName = (string)printer.GetPropertyValue("PortName");
+                    TRACE.Log(PortName);
+                    if (printName == DeviceName)
+                    {
+                        printers.Dispose();
+                        return PortName;
+                    }
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                TRACE.Log(ex.ToString());
+            }
+            return "";
         }
     }
 }

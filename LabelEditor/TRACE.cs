@@ -46,12 +46,12 @@ namespace LabelEditor
 
                     string fileDate = "Log_" + DateTime.Now.Hour.ToString();
 
-                    sw = new StreamWriter(folder + @"\" + fileDate + ".txt", true, Encoding.Unicode);
+                 //   sw = new StreamWriter(folder + @"\" + fileDate + ".txt", true, Encoding.Unicode);
                 }
                 if (sw != null)
                 {
-                    sw.WriteLine(value);
-                    sw.Flush();
+                  //  sw.WriteLine(value);
+                  //  sw.Flush();
                 }
             }
             catch (Exception e)

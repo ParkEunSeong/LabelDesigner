@@ -76,8 +76,13 @@ namespace LabelEditor
         }
         public void Test( int i = 0)
         {
-
-        //    OnFromServerData(data, "spcm");
+            var data = "";
+            
+            using (var sr = new StreamReader(Environment.CurrentDirectory + @"\test.txt"))
+            {
+                data = sr.ReadToEnd();
+            }
+                OnFromServerData(data, "spcm");
          
         }
         private int PixelToCentimeter(int pixel)
@@ -133,8 +138,10 @@ namespace LabelEditor
                 {
                    
                     var j = JObject.Parse(json);
-                    TRACE.Log(j.ToString());    
+                    TRACE.Log(j.ToString());   
                     m_selectedPrint = GetJsonStringValue(ref j, "prntNm");
+                    if ( Config.PRINT == "BXL" )
+                        m_selectedPrint = Utilities.GetPrintPortName(m_selectedPrint);
                     var fileName = GetJsonStringValue(ref j, "mdfrType");
                     if ( string.IsNullOrEmpty(m_selectedPrint))
                     {
@@ -660,7 +667,7 @@ namespace LabelEditor
             // Restore the graphics state.
             gr.Restore(state);
         }
-        public string ParseStrDateTime(string text, int s, int e)
+        public static string ParseStrDateTime(string text, int s, int e)
         {
             try
             {
@@ -673,7 +680,7 @@ namespace LabelEditor
             }
             return "";
         }
-        public string ConvertDateTime(string text, int format)
+        public static string ConvertDateTime(string text, int format)
         {
             string year = ParseStrDateTime(text, 0, 4);
             string month = ParseStrDateTime(text, 4, 2);

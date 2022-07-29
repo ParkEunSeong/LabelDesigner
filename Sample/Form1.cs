@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Management;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -18,11 +19,15 @@ namespace Sample
         {
             InitializeComponent();
             Config.Load();
-            for (int i = 0; i < 20; i++)
-            {
-                FormPrint p = new FormPrint();
-                p.Test(i);
-            }
+
+            String printerName = "My printer name";
+            //String query = String.Format("Select Name, PortName from Win32_Printer WHERE Name LIKE '%{0}'", printerName);
+       
+
+            FormPrint p = new FormPrint();
+            //   p.Test();
         }
+            
+       
     }
 }

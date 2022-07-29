@@ -169,9 +169,9 @@ namespace LabelEditor
             return errMsg;
         }
 
-        private bool ConnectPrinter()
+        private bool ConnectPrinter( string strPort  = "")
         {
-            string strPort = "";
+           // string strPort = "";
             int nInterface = ISerial;
             int nBaudrate = 115200, nDatabits = 8, nParity = 0, nStopbits = 0;
             int nStatus = (int)SLCS_ERROR_CODE.ERR_CODE_NO_ERROR;
@@ -265,20 +265,23 @@ namespace LabelEditor
                 return;
             }
             var printName = sender.ToString();
-            if (!ConnectPrinter())
+            if (!ConnectPrinter(printName))
                 return;
             SendPrinterSettingCommand(m_config);
             var list = m_labelList;
             for (int i = 0; i < list.Count; i++)
             {
                 var label = list[i];
+                
                 TRACE.Log("label Text = " + label.Text);
                 BXLLApi.PrintTrueFont(label.Location.X, label.Location.Y, label.Font.Name, (int)label.Font.Size < 14 ? 14 : (int)label.Font.Size, 0, false, label.Font.Bold, false, label.Text, false);
             }
             var dtList = m_dateTimeList;
             for (int i = 0; i < dtList.Count; i++)
             {
-                var label = list[i];
+                var label = dtList[i];
+                label.Text = FormPrint.ConvertDateTime(label.Text, label.m_dateTimeFormat);
+                TRACE.Log("datetinme Text = " + label.Text);
                 BXLLApi.PrintTrueFont(label.Location.X, label.Location.Y, label.Font.Name, (int)label.Font.Size < 14 ? 14 : (int)label.Font.Size, 0, false, label.Font.Bold, false, label.Text, false);
             }
             var qrList = m_qrList;
@@ -292,6 +295,8 @@ namespace LabelEditor
             for (int i = 0; i < barList.Count; i++)
             {
                 var bar = barList[i];
+   
+                    bar.Text = bar.Text.PadLeft(8, '0');
                 TRACE.Log($"barcode x={bar.Location.X},y={bar.Location.Y},code39={bar.code39},w={bar.Width},h={bar.Height},text={bar.Text}");
                 BXLLApi.Print1DBarcode(bar.Location.X, bar.Location.Y, bar.code39, bar.narrowWidth, bar.Width, bar.Height, (int)SLCS_ROTATION.ROTATE_0, (int)SLCS_HRI.HRI_NOT_PRINT, bar.Text);
             }
